@@ -404,14 +404,14 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   ListTile(
                       leading: Icon(Icons.dock),
-                      title: Text('Launch Container'),
+                      title: Text('Launch Pods'),
                       onTap: () {
                         setState(() {
                           contextCapture.context = context;
                         });
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context) {
-                          return ContainerLaunch();
+                          return PodLaunch();
                         }));
                       }),
                   ListTile(

@@ -7,9 +7,9 @@ import 'package:KubernetesMobile/DockerLaunch.dart';
 import 'package:KubernetesMobile/FrontEnd.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
-class ContainerLaunch extends StatefulWidget {
+class PodLaunch extends StatefulWidget {
   @override
-  _ContainerLaunchState createState() => _ContainerLaunchState();
+  _PodLaunchState createState() => _PodLaunchState();
 }
 
 bool launchLoading = false;
@@ -17,7 +17,7 @@ TextEditingController _value;
 String environment = "";
 var i;
 
-class _ContainerLaunchState extends State<ContainerLaunch> {
+class _PodLaunchState extends State<PodLaunch> {
   @override
   void initState() {
     // TODO: implement initState
@@ -44,7 +44,7 @@ class _ContainerLaunchState extends State<ContainerLaunch> {
       Commands.TextfieldDynamic.add(new DynamicText());
       print(Commands.TextfieldDynamic.length);
       setState(() {
-        ContainerLaunch();
+        PodLaunch();
       });
     }
 
@@ -55,7 +55,7 @@ class _ContainerLaunchState extends State<ContainerLaunch> {
       }
       print(Commands.TextfieldDynamic.length);
       setState(() {
-        ContainerLaunch();
+        PodLaunch();
       });
     }
 
@@ -362,19 +362,24 @@ class _ContainerLaunchState extends State<ContainerLaunch> {
       });
     }
 
-    var body = Container(
-        decoration: BoxDecoration(
+    /*var body = Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        /*decoration: BoxDecoration(
             image: DecorationImage(
-                image: AssetImage("images/a2.png"), fit: BoxFit.cover)),
+                image: AssetImage("images/kubernetes.png"), fit: BoxFit.cover)),*/
         child: SingleChildScrollView(
             child: Column(children: <Widget>[
           Container(
+            color: Colors.blue,
             margin: EdgeInsets.all(25),
             alignment: Alignment.center,
-            height: 140,
-            width: 150,
+            height: 100,
+            width: MediaQuery.of(context).size.width,
             child: Image.asset(
-              'images/dock2.png',
+              'images/kubernetes.png',
+              height: 190,
+              width: 230,
             ),
           ),
           SizedBox(
@@ -727,6 +732,372 @@ class _ContainerLaunchState extends State<ContainerLaunch> {
               ),
             ),
           )
+        ])));*/
+
+    var body = Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        /*decoration: BoxDecoration(
+            image: DecorationImage(
+                image: AssetImage("images/kubernetes.png"), fit: BoxFit.cover)),*/
+        child: SingleChildScrollView(
+            child: Stack(overflow: Overflow.visible, children: <Widget>[
+          Container(
+            height: MediaQuery.of(context).size.height,
+            width: MediaQuery.of(context).size.width,
+            color: Colors.blueAccent.shade700,
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 10, bottom: 25, left: 0, right: 35),
+            alignment: Alignment.center,
+            height: 100,
+            width: MediaQuery.of(context).size.width,
+            child: Image.asset(
+              'images/kubernetes.png',
+              height: 190,
+              width: 290,
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.only(top: 140),
+            height: MediaQuery.of(context).size.height - 140,
+            width: MediaQuery.of(context).size.width - 15,
+            decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(topRight: Radius.circular(75))),
+            child: Column(
+              children: <Widget>[
+                Container(
+                  height: 40,
+                  width: 320,
+                  decoration: BoxDecoration(
+                      color: Colors.blueAccent.shade700,
+                      borderRadius: BorderRadius.circular(20)),
+                  margin:
+                      EdgeInsets.only(top: 25, left: 0, right: 25, bottom: 20),
+                  child: Center(
+                    child: Text(
+                      "Pods",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+                Container(
+                  height: 40,
+                  width: 350,
+                  margin: EdgeInsets.only(top: 20, left: 10),
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        width: 70,
+                        child: Text(
+                          "Name   : ",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Container(
+                        height: 35,
+                        width: 250,
+                        decoration: BoxDecoration(
+                            color: Colors.lightBlue,
+                            borderRadius: BorderRadius.circular(10)),
+                        margin: EdgeInsets.only(left: 20, right: 10),
+                        child: TextField(
+                          autocorrect: false,
+                          style: TextStyle(color: Colors.black),
+                          decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Colors.white,
+                              hintText: "Container",
+                              hintStyle:
+                                  TextStyle(color: Colors.grey, fontSize: 13),
+                              border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)))),
+                          onChanged: (value) => {Commands.name = value},
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 40,
+                  width: 350,
+                  margin: EdgeInsets.only(top: 20, left: 10),
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        width: 70,
+                        child: Text("Image  : ",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      ),
+                      Container(
+                        height: 35,
+                        width: 245,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10)),
+                        margin: EdgeInsets.only(left: 20, right: 10),
+                        child: DropdownSearch(
+                          popupBackgroundColor: Colors.white,
+                          mode: Mode.MENU,
+                          showSelectedItem: true,
+                          items: Commands.demo1,
+                          onChanged: (value) {
+                            setState(() {
+                              var newValue = value.split("");
+                              newValue.removeLast();
+
+                              print(
+                                  "###VALUE LENGTH = ${newValue.join().length}#####");
+                              //dir = value;
+                              Commands.image = newValue.join();
+                              print("OPHERE01 = ${Commands.image}");
+
+                              //print("ABCD = ${items}");
+                            });
+                          },
+                          selectedItem: Commands.image,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 40,
+                  width: 350,
+                  margin: EdgeInsets.only(top: 20, left: 10),
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        width: 70,
+                        child: Text("Ports    : ",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      ),
+                      Container(
+                        height: 35,
+                        width: 250,
+                        decoration: BoxDecoration(
+                            color: Colors.lightBlue,
+                            borderRadius: BorderRadius.circular(10)),
+                        margin: EdgeInsets.only(left: 20, right: 10),
+                        child: TextField(
+                          style: TextStyle(color: Colors.black),
+                          decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Colors.white,
+                              hintText: "Ports",
+                              hintStyle:
+                                  TextStyle(color: Colors.grey, fontSize: 13),
+                              border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(10)))),
+                          onChanged: (value) => {Commands.port = value},
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 40,
+                  width: 350,
+                  margin: EdgeInsets.only(top: 20, left: 10),
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        width: 70,
+                        child: Text("Volumes: ",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      ),
+                      Container(
+                        height: 35,
+                        width: 250,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10)),
+                        margin: EdgeInsets.only(left: 20, right: 10),
+                        child: DropdownSearch(
+                          popupBackgroundColor: Colors.white,
+                          mode: Mode.MENU,
+                          showSelectedItem: false,
+                          items: Commands.volumename,
+                          onChanged: (value) {
+                            Commands.selectedVol = value;
+                            setState(() {
+                              VolumeListRet();
+                            });
+                          },
+                          selectedItem: Commands.selectedVol,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 40,
+                  width: 350,
+                  margin: EdgeInsets.only(top: 20, left: 10),
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        width: 70,
+                        child: Text("Network: ",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      ),
+                      Container(
+                        height: 35,
+                        width: 250,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10)),
+                        margin: EdgeInsets.only(left: 20, right: 10),
+                        child: DropdownSearch(
+                          popupBackgroundColor: Colors.white,
+                          mode: Mode.MENU,
+                          showSelectedItem: false,
+                          items: Commands.netls,
+                          onChanged: (value) {
+                            var newValue = value.split("");
+                            newValue.removeLast();
+                            Commands.selectedNet = newValue.join();
+                            print(
+                                "NETWORK HERE = ${Commands.selectedNet.length}");
+                            setState(() {
+                              NetListRet();
+                            });
+                          },
+                          selectedItem: Commands.selectedNet,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.topLeft,
+                  margin: EdgeInsets.only(top: 20, left: 30),
+                  child: Row(
+                    children: <Widget>[
+                      Container(
+                        width: 70,
+                        child: Text("Env        : ",
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                      ),
+                      Column(
+                        children: Commands.TextfieldDynamic,
+                      ),
+                      Column(
+                        children: <Widget>[
+                          IconButton(
+                            iconSize: 30,
+                            icon: Icon(
+                              Icons.add_circle,
+                              color: Colors.lightBlue,
+                            ),
+                            onPressed: DynamicAdd,
+                          ),
+                          Commands.TextfieldDynamic.length >= 1
+                              ? IconButton(
+                                  iconSize: 30,
+                                  icon: Icon(
+                                    Icons.remove_circle,
+                                    color: Colors.lightBlue,
+                                  ),
+                                  onPressed: DynamicRemove,
+                                )
+                              : SizedBox(),
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+                Column(children: <Widget>[
+                  Container(
+                    child: Row(children: <Widget>[
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Checkbox(
+                        value: isChecked,
+                        onChanged: (bool value) => {
+                          setState(() {
+                            isChecked = value;
+                            isValue = false;
+                          }),
+                          print(isChecked),
+                          if (isChecked == true)
+                            {
+                              setState(() {
+                                Commands.restartAlways = true;
+                              })
+                            }
+                          else
+                            {
+                              setState(() {
+                                Commands.restartAlways = false;
+                              })
+                            }
+                        },
+                      ),
+                      Container(
+                        child: Text("Always Restart"),
+                      ),
+                    ]),
+                  ),
+                  Row(children: <Widget>[
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Checkbox(
+                      value: isValue,
+                      onChanged: (bool value) => {
+                        setState(() {
+                          isValue = value;
+                          isChecked = false;
+                        }),
+                        print(isValue),
+                        if (isChecked == true)
+                          {
+                            setState(() {
+                              Commands.deleteAlways = true;
+                            })
+                          }
+                        else
+                          {
+                            setState(() {
+                              Commands.deleteAlways = false;
+                            })
+                          }
+                      },
+                    ),
+                    Text('Always Delete')
+                  ]),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50)),
+                    margin: EdgeInsets.all(25),
+                    child: Container(
+                      margin: EdgeInsets.all(0),
+                      height: 45,
+                      width: 180,
+                      child: FloatingActionButton(
+                        isExtended: true,
+                        backgroundColor: Colors.blueAccent.shade700,
+                        child: launchLoading
+                            ? CircularProgressIndicator(
+                                backgroundColor: Colors.white,
+                              )
+                            : Text("Launch"),
+                        onPressed: StartContainer,
+                      ),
+                    ),
+                  )
+                ])
+              ],
+            ),
+          ),
         ])));
 
     return MaterialApp(
@@ -769,9 +1140,10 @@ class _ContainerLaunchState extends State<ContainerLaunch> {
           ],
         ),
         appBar: AppBar(
-          backgroundColor: Colors.blue.shade600,
+          elevation: 0,
+          backgroundColor: Colors.blueAccent.shade700,
           title: Text(
-            "Launch Container",
+            "Launch Pods",
             style: TextStyle(color: Colors.white),
           ),
           leading: IconButton(
