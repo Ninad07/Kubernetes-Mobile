@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ssh/ssh.dart';
 
 import 'package:url_launcher/url_launcher.dart';
-import 'package:KubernetesMobile/ui/LaunchPage.dart';
+import 'package:KubernetesMobile/ui/LaunchPods.dart';
 
 class Commands {
   static var pushWidget = Card();

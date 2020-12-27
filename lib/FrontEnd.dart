@@ -4,7 +4,7 @@ import 'package:KubernetesMobile/ui/Commit.dart';
 import 'package:KubernetesMobile/ui/DeletePage.dart';
 import 'package:KubernetesMobile/ui/DockerBuild.dart';
 import 'package:KubernetesMobile/ui/ExecPage.dart';
-import 'package:KubernetesMobile/ui/PullPage.dart';
+import 'package:KubernetesMobile/ui/KubeResources.dart';
 import 'package:bmnav/bmnav.dart';
 
 import 'package:dropdown_search/dropdown_search.dart';
@@ -19,7 +19,7 @@ import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
 import 'DockerLaunch.dart';
 import 'package:KubernetesMobile/ui/DockerCopy.dart';
-import 'package:KubernetesMobile/ui/LaunchPage.dart';
+import 'package:KubernetesMobile/ui/LaunchPods.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:KubernetesMobile/ui/DockerImages.dart';
 import 'package:KubernetesMobile/ui/DockerFileWrite.dart';
@@ -121,17 +121,48 @@ class _DashboardState extends State<Dashboard> {
                   color: Colors.blueAccent.shade700,
                   child: Container(
                     margin: EdgeInsets.only(
-                        top: 40,
-                        left: MediaQuery.of(context).size.width / 2 - 140),
+                        top: 50,
+                        left: MediaQuery.of(context).size.width / 2 - 135),
                     child: Row(
+                      children: <Widget>[
+                        SizedBox(
+                          width: 1,
+                        ),
+                        Center(
+                          child: Container(
+                            //margin: EdgeInsets.only(left: 20),
+                            height: 80,
+                            width: 70,
+                            decoration: BoxDecoration(
+                                image: DecorationImage(
+                                    scale: 40,
+                                    image: AssetImage("images/kube1.png"))),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Container(
+                          child: Text(
+                            'Kubernetes',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 28,
+                                fontWeight: FontWeight.w600),
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    /*Row(
                       children: <Widget>[
                         Container(
                           //margin: EdgeInsets.only(left: 20),
                           height: 80,
-                          width: 80,
+                          width: 70,
                           decoration: BoxDecoration(
                               image: DecorationImage(
-                                  scale: 40,
+                                  scale: 45,
                                   image: AssetImage("images/kube1.png"))),
                         ),
                         Text(
@@ -139,10 +170,10 @@ class _DashboardState extends State<Dashboard> {
                           style: TextStyle(
                               color: Colors.white,
                               fontSize: 28,
-                              fontWeight: FontWeight.w700),
+                              fontWeight: FontWeight.w600),
                         ),
                       ],
-                    ),
+                    ),*/
                   ),
                 ),
                 elevation: 0,
@@ -394,7 +425,6 @@ class _DashboardState extends State<Dashboard> {
                 padding: EdgeInsets.zero,
                 children: <Widget>[
                   DrawerHeader(
-                    curve: Curves.easeInCirc,
                     child: Image(
                       height: 20,
                       width: 20,
@@ -416,14 +446,40 @@ class _DashboardState extends State<Dashboard> {
                       }),
                   ListTile(
                     leading: Icon(Icons.file_download),
-                    title: Text('Pull Container Image'),
+                    title: Text('Create Resources'),
                     onTap: () {
                       setState(() {
                         contextCapture.context = context;
                       });
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return ImagePull();
+                        return ResourcesMain();
+                      }));
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.library_books),
+                    title: Text('Manage Rollouts'),
+                    onTap: () {
+                      setState(() {
+                        contextCapture.context = context;
+                      });
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return DockerFile(); //DockerFile();
+                      }));
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.library_books),
+                    title: Text('Scale Resources'),
+                    onTap: () {
+                      setState(() {
+                        contextCapture.context = context;
+                      });
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return DockerFile(); //DockerFile();
                       }));
                     },
                   ),
@@ -442,7 +498,7 @@ class _DashboardState extends State<Dashboard> {
                   ),
                   ListTile(
                     leading: Icon(Icons.content_copy),
-                    title: Text('Docker Copy'),
+                    title: Text('Copy Files'),
                     onTap: () {
                       setState(() {
                         contextCapture.context = context;
@@ -454,34 +510,8 @@ class _DashboardState extends State<Dashboard> {
                     },
                   ),
                   ListTile(
-                    leading: Icon(Icons.library_books),
-                    title: Text('Build Dockerfile'),
-                    onTap: () {
-                      setState(() {
-                        contextCapture.context = context;
-                      });
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return DockerFile(); //DockerFile();
-                      }));
-                    },
-                  ),
-                  ListTile(
-                    leading: Icon(Icons.book),
-                    title: Text('Write Dockerfile'),
-                    onTap: () {
-                      setState(() {
-                        contextCapture.context = context;
-                      });
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return WriteFile(); //DockerFile();
-                      }));
-                    },
-                  ),
-                  ListTile(
                     leading: Icon(Icons.copyright),
-                    title: Text('Docker Commit'),
+                    title: Text('Config'),
                     onTap: () {
                       setState(() {
                         contextCapture.context = context;
@@ -797,10 +827,13 @@ class _MyHomePageState extends State<MyHomePage> {
               width: 200,
               child: FloatingActionButton(
                 shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(20))),
+                    borderRadius: BorderRadius.all(Radius.circular(18))),
                 isExtended: true,
-                backgroundColor: Colors.blueAccent.shade700,
-                child: Text("Server Login"),
+                backgroundColor: Colors.blueAccent.shade400,
+                child: Text(
+                  "Server Login",
+                  style: TextStyle(color: Colors.white),
+                ),
                 onPressed: () async {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
                     FlutterStatusbarcolor.setStatusBarColor(Colors.white);

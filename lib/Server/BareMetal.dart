@@ -3,7 +3,7 @@ import 'package:KubernetesMobile/ui/Commit.dart';
 import 'package:KubernetesMobile/ui/DeletePage.dart';
 import 'package:KubernetesMobile/ui/DockerBuild.dart';
 import 'package:KubernetesMobile/ui/ExecPage.dart';
-import 'package:KubernetesMobile/ui/PullPage.dart';
+import 'package:KubernetesMobile/ui/KubeResources.dart';
 
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:file/file.dart';
@@ -16,7 +16,7 @@ import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:passwordfield/passwordfield.dart';
 import 'package:KubernetesMobile/DockerLaunch.dart';
 import 'package:KubernetesMobile/ui/DockerCopy.dart';
-import 'package:KubernetesMobile/ui/LaunchPage.dart';
+import 'package:KubernetesMobile/ui/LaunchPods.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:KubernetesMobile/ui/DockerImages.dart';
 import 'package:KubernetesMobile/ui/DockerFileWrite.dart';
