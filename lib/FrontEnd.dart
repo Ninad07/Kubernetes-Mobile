@@ -2,9 +2,10 @@ import 'package:KubernetesMobile/Server/AWS.dart';
 import 'package:KubernetesMobile/Server/BareMetal.dart';
 import 'package:KubernetesMobile/ui/Commit.dart';
 import 'package:KubernetesMobile/ui/DeletePage.dart';
-import 'package:KubernetesMobile/ui/DockerBuild.dart';
 import 'package:KubernetesMobile/ui/ExecPage.dart';
 import 'package:KubernetesMobile/ui/KubeResources.dart';
+import 'package:KubernetesMobile/ui/Rollouts.dart';
+import 'package:KubernetesMobile/ui/ScaleResources.dart';
 import 'package:bmnav/bmnav.dart';
 
 import 'package:dropdown_search/dropdown_search.dart';
@@ -18,11 +19,10 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
 import 'DockerLaunch.dart';
-import 'package:KubernetesMobile/ui/DockerCopy.dart';
+
 import 'package:KubernetesMobile/ui/LaunchPods.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:KubernetesMobile/ui/DockerImages.dart';
-import 'package:KubernetesMobile/ui/DockerFileWrite.dart';
+
 import 'Server/Network.dart';
 import 'Server/Volumes.dart';
 
@@ -61,6 +61,8 @@ class _DashboardState extends State<Dashboard> {
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
             title: Text('Are you sure ?'),
             content: Text('You will be exiting the app'),
             actions: <Widget>[
@@ -88,11 +90,11 @@ class _DashboardState extends State<Dashboard> {
         break;
       case PageEnum.images:
         Navigator.of(context).push(CupertinoPageRoute(
-            builder: (BuildContext context) => DockerImages()));
+            builder: (BuildContext context) => ContainerDelete()));
         break;
       default:
         Navigator.of(context).push(CupertinoPageRoute(
-            builder: (BuildContext context) => DockerImages()));
+            builder: (BuildContext context) => ContainerDelete()));
         break;
     }
   }
@@ -221,6 +223,8 @@ class _DashboardState extends State<Dashboard> {
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)),
                                 content: Stack(
                                   overflow: Overflow.visible,
                                   children: <Widget>[
@@ -466,7 +470,7 @@ class _DashboardState extends State<Dashboard> {
                       });
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return DockerFile(); //DockerFile();
+                        return Rollout(); //DockerFile();
                       }));
                     },
                   ),
@@ -479,7 +483,7 @@ class _DashboardState extends State<Dashboard> {
                       });
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return DockerFile(); //DockerFile();
+                        return Scale(); //DockerFile();
                       }));
                     },
                   ),
@@ -505,7 +509,7 @@ class _DashboardState extends State<Dashboard> {
                       });
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return Dockercp();
+                        return null;
                       }));
                     },
                   ),
@@ -801,21 +805,27 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Container(
       height: MediaQuery.of(context).size.height,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage("images/f2.png"), fit: BoxFit.cover),
-      ),
+      decoration: BoxDecoration(),
       child: SingleChildScrollView(
           child: Column(
         children: <Widget>[
           Container(
-            margin: EdgeInsets.only(bottom: 0, top: 25),
-            child: Icon(
+              height: 170,
+              width: 240,
+              margin: EdgeInsets.only(bottom: 0, top: 35),
+              child: Image.asset(
+                "images/lap01.gif",
+                //fit: BoxFit.cover,
+                height: 170,
+                width: 170,
+              )
+
+              /*Icon(
               Icons.laptop_windows,
               size: 170,
               color: Colors.grey.shade700,
-            ),
-          ),
+            ),*/
+              ),
           Card(
             elevation: 5,
             shape:
