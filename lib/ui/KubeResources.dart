@@ -378,6 +378,8 @@ class _ResourcesMainState extends State<ResourcesMain> {
 
 import 'package:KubernetesMobile/Server/Network.dart';
 import 'package:KubernetesMobile/Server/Volumes.dart';
+import 'package:KubernetesMobile/Services/Deployment.dart';
+import 'package:KubernetesMobile/Services/ReplicaSets.dart';
 import 'package:bmnav/bmnav.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
@@ -447,36 +449,49 @@ class _ResourcesMainState extends State<ResourcesMain> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: Center(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 25,
-                            ),
-                            Container(
-                              //Deployment//
-                              child: Text(
-                                "Deployment",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500),
+                      child: FloatingActionButton(
+                        heroTag: "Deployment",
+                        isExtended: true,
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return Deployment();
+                          }));
+                        },
+                        child: Center(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 25,
                               ),
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Container(
-                              width: 270,
-                              child: Center(
+                              Container(
+                                //Deployment//
                                 child: Text(
-                                  "Creates deployment including features like autoscaling",
-                                  softWrap: true,
-                                  style: TextStyle(color: Colors.blueAccent),
+                                  "Deployment",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500),
                                 ),
                               ),
-                            )
-                          ],
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Container(
+                                width: 270,
+                                child: Center(
+                                  child: Text(
+                                    "Creates deployment including features like autoscaling",
+                                    softWrap: true,
+                                    style: TextStyle(color: Colors.blueAccent),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -495,36 +510,49 @@ class _ResourcesMainState extends State<ResourcesMain> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: Center(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 25,
-                            ),
-                            Container(
-                              //Deployment//
-                              child: Text(
-                                "ReplicaSets",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500),
+                      child: FloatingActionButton(
+                        heroTag: "RS",
+                        isExtended: true,
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return ReplicaSets();
+                          }));
+                        },
+                        child: Center(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 25,
                               ),
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Container(
-                              width: 270,
-                              child: Center(
+                              Container(
+                                //Deployment//
                                 child: Text(
-                                  "Creates ReplicaSets",
-                                  softWrap: true,
-                                  style: TextStyle(color: Colors.blueAccent),
+                                  "ReplicaSets",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500),
                                 ),
                               ),
-                            )
-                          ],
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Container(
+                                width: 270,
+                                child: Center(
+                                  child: Text(
+                                    "Creates ReplicaSets",
+                                    softWrap: true,
+                                    style: TextStyle(color: Colors.blueAccent),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -543,36 +571,49 @@ class _ResourcesMainState extends State<ResourcesMain> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: Center(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 25,
-                            ),
-                            Container(
-                              //Deployment//
-                              child: Text(
-                                "Replication Controller",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500),
+                      child: FloatingActionButton(
+                        heroTag: "RC",
+                        isExtended: true,
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return Deployment();
+                          }));
+                        },
+                        child: Center(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 25,
                               ),
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Container(
-                              width: 270,
-                              child: Center(
+                              Container(
+                                //Deployment//
                                 child: Text(
-                                  "Creates Replication Colntroller",
-                                  softWrap: true,
-                                  style: TextStyle(color: Colors.blueAccent),
+                                  "Replication Controller",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500),
                                 ),
                               ),
-                            )
-                          ],
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Container(
+                                width: 270,
+                                child: Center(
+                                  child: Text(
+                                    "Creates Replication Colntroller",
+                                    softWrap: true,
+                                    style: TextStyle(color: Colors.blueAccent),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -591,36 +632,49 @@ class _ResourcesMainState extends State<ResourcesMain> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: Center(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 25,
-                            ),
-                            Container(
-                              //Deployment//
-                              child: Text(
-                                "Service",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500),
+                      child: FloatingActionButton(
+                        heroTag: "Service",
+                        isExtended: true,
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return Deployment();
+                          }));
+                        },
+                        child: Center(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 25,
                               ),
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Container(
-                              width: 270,
-                              child: Center(
+                              Container(
+                                //Deployment//
                                 child: Text(
-                                  "Creates Services",
-                                  softWrap: true,
-                                  style: TextStyle(color: Colors.blueAccent),
+                                  "Service",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500),
                                 ),
                               ),
-                            )
-                          ],
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Container(
+                                width: 270,
+                                child: Center(
+                                  child: Text(
+                                    "Creates Services",
+                                    softWrap: true,
+                                    style: TextStyle(color: Colors.blueAccent),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),
@@ -639,36 +693,49 @@ class _ResourcesMainState extends State<ResourcesMain> {
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: Center(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: 25,
-                            ),
-                            Container(
-                              //Deployment//
-                              child: Text(
-                                "Namespace",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500),
+                      child: FloatingActionButton(
+                        heroTag: "Namespace",
+                        isExtended: true,
+                        backgroundColor: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)),
+                        onPressed: () {
+                          Navigator.push(context,
+                              MaterialPageRoute(builder: (context) {
+                            return Deployment();
+                          }));
+                        },
+                        child: Center(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: 25,
                               ),
-                            ),
-                            SizedBox(
-                              height: 15,
-                            ),
-                            Container(
-                              width: 270,
-                              child: Center(
+                              Container(
+                                //Deployment//
                                 child: Text(
-                                  "Creates Namespaces",
-                                  softWrap: true,
-                                  style: TextStyle(color: Colors.blueAccent),
+                                  "Namespace",
+                                  style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w500),
                                 ),
                               ),
-                            )
-                          ],
+                              SizedBox(
+                                height: 15,
+                              ),
+                              Container(
+                                width: 270,
+                                child: Center(
+                                  child: Text(
+                                    "Creates Namespaces",
+                                    softWrap: true,
+                                    style: TextStyle(color: Colors.blueAccent),
+                                  ),
+                                ),
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),

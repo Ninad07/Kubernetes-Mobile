@@ -1,6 +1,7 @@
 import 'package:KubernetesMobile/Server/AWS.dart';
 import 'package:KubernetesMobile/Server/BareMetal.dart';
 import 'package:KubernetesMobile/ui/Commit.dart';
+import 'package:KubernetesMobile/ui/CopyPage.dart';
 import 'package:KubernetesMobile/ui/DeletePage.dart';
 import 'package:KubernetesMobile/ui/ExecPage.dart';
 import 'package:KubernetesMobile/ui/KubeResources.dart';
@@ -509,7 +510,7 @@ class _DashboardState extends State<Dashboard> {
                       });
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
-                        return null;
+                        return CopyFiles();
                       }));
                     },
                   ),

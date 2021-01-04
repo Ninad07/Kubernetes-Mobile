@@ -24,6 +24,10 @@ class _PodLaunchState extends State<PodLaunch> {
     super.initState();
     VolumeListRet();
     Retrive();
+    Commands.name = null;
+    Commands.image = null;
+    Commands.replicas = null;
+    Commands.port = null;
   }
 
   bool isChecked = false;
@@ -59,304 +63,132 @@ class _PodLaunchState extends State<PodLaunch> {
       });
     }
 
-    StartContainer() async {
+    LaunchPods() async {
       setState(() {
         launchLoading = true;
       });
+
       if (Commands.validation == "passed") {
         Commands.result = await serverCredentials.client.connect();
 
         if (Commands.name != null && Commands.image != null) {
+          print(Commands.name + "  " + Commands.image);
+          print(Commands.deleteAlways);
+          //##### DELETE #####//
           if (Commands.deleteAlways == false) {
+            print(Commands.deleteAlways);
+            //##### RESTART #####//
             if (Commands.restartAlways == false) {
-              if (Commands.port != null) {
-                if (Commands.env.length != 0) {
-                  if (Commands.selectedVol != null) {
-                    if (Commands.selectedNet != null) {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -p ${Commands.port} -v ${Commands.selectedVol} --network ${Commands.selectedNet} $environment ${Commands.image}");
-                    } else {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -p ${Commands.port} -v ${Commands.selectedVol} $environment ${Commands.image}");
-                    }
-                  } else {
-                    if (Commands.selectedNet != null) {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -p ${Commands.port} --network ${Commands.selectedNet} $environment ${Commands.image}");
-                    } else {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -p ${Commands.port}  $environment ${Commands.image}");
-                    }
-                  }
-                } else {
-                  if (Commands.selectedVol == null) {
-                    if (Commands.selectedNet != null) {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -p ${Commands.port} --network ${Commands.selectedNet} ${Commands.image}");
-                    } else {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -p ${Commands.port} ${Commands.image}");
-                    }
-                  } else {
-                    if (Commands.selectedNet != null) {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -p ${Commands.port} -v ${Commands.selectedVol} --network ${Commands.selectedNet} ${Commands.image}");
-                    } else {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -p ${Commands.port} -v ${Commands.selectedVol} ${Commands.image}");
-                    }
-                  }
-                }
-              }
+              print(Commands.restartAlways);
+              //##### ENV #####//
+              if (Commands.env.length == 0) {
+                print(Commands.env.length);
+                //##### PORT #####//
+                if (Commands.port == null) {
+                  print(Commands.port);
+                  Commands.result = await serverCredentials.client.execute(
+                      "kubectl run ${Commands.name} --image=${Commands.image}");
 
-              //HERE
-              else {
-                print("PASSED 1");
-                if (Commands.env.length != 0) {
-                  if (Commands.selectedVol == null) {
-                    if (Commands.selectedNet != null) {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} --network ${Commands.selectedNet} $environment ${Commands.image}");
-                    } else {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} $environment ${Commands.image}");
-                    }
-                  } else {
-                    if (Commands.selectedNet != null) {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -v ${Commands.selectedVol} --network ${Commands.selectedNet} $environment ${Commands.image}");
-                    } else {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -v ${Commands.selectedVol} $environment ${Commands.image}");
-                    }
-                  }
+                  print("HERE = ${Commands.result}");
                 } else {
-                  print("PASSED 2");
-                  if (Commands.selectedVol == null) {
-                    print("PASSED 3");
-                    //THIS***********************
-                    if (Commands.selectedNet != null) {
-                      print("PASSED 4");
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} --network ${Commands.selectedNet} ${Commands.image}");
-                      print("NETWORK RESULT = ${Commands.result}");
-                    }
-                    //END***************************************
-                    else {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} ${Commands.image}");
-                    }
-                  } else {
-                    if (Commands.selectedNet != null) {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -v ${Commands.selectedVol} --network ${Commands.selectedNet} ${Commands.image}");
-                    } else {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -v ${Commands.selectedVol} ${Commands.image}");
-                    }
-                  }
+                  Commands.result = await serverCredentials.client.execute(
+                      "kubectl run ${Commands.name} --port=${Commands.port}  --image=${Commands.image}");
+                }
+                //##### PORT #####//
+
+              } else {
+                if (Commands.port == null) {
+                  /////////////////PENDING///////////////////////////////
+                  Commands.result = await serverCredentials.client.execute(
+                      "kubectl run ${Commands.name} --env --image=${Commands.image}");
+                } else {
+                  Commands.result = await serverCredentials.client.execute(
+                      "kubectl run ${Commands.name} --env  --port=${Commands.port}  --image=${Commands.image}");
                 }
               }
+              //################# ENV ###############################//
+
             } else {
-              if (Commands.port != null) {
-                if (Commands.env.length != 0) {
-                  if (Commands.selectedVol != null) {
-                    if (Commands.selectedNet != null) {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -p ${Commands.port} -v ${Commands.selectedVol} --network ${Commands.selectedNet} $environment --restart always ${Commands.image}");
-                    } else {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -p ${Commands.port} -v ${Commands.selectedVol} $environment --restart always ${Commands.image}");
-                    }
-                  } else {
-                    if (Commands.selectedNet != null) {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -p ${Commands.port} --network ${Commands.selectedNet} $environment --restart always ${Commands.image}");
-                    } else {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -p ${Commands.port}  $environment --restart always ${Commands.image}");
-                    }
-                  }
+              if (Commands.env.length == 0) {
+                //##### PORT #####//
+                if (Commands.port == null) {
+                  Commands.result = await serverCredentials.client.execute(
+                      "kubectl run ${Commands.name} --restart='Always' --image=${Commands.image}");
                 } else {
-                  if (Commands.selectedVol == null) {
-                    if (Commands.selectedNet != null) {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -p ${Commands.port} --network ${Commands.selectedNet} --restart always ${Commands.image}");
-                    } else {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -p ${Commands.port} --restart always ${Commands.image}");
-                    }
-                  } else {
-                    if (Commands.selectedNet != null) {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -p ${Commands.port} -v ${Commands.selectedVol} --network ${Commands.selectedNet} --restart always ${Commands.image}");
-                    } else {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -p ${Commands.port} -v ${Commands.selectedVol} --restart always ${Commands.image}");
-                    }
-                  }
+                  Commands.result = await serverCredentials.client.execute(
+                      "kubectl run ${Commands.name} --port=${Commands.port} --restart='Always'  --image=${Commands.image}");
                 }
-              }
+                //##### PORT #####//
 
-              //HERE
-              else {
-                print("PASSED 1");
-                if (Commands.env.length != 0) {
-                  if (Commands.selectedVol == null) {
-                    if (Commands.selectedNet != null) {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} --network ${Commands.selectedNet} $environment --restart always ${Commands.image}");
-                    } else {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} $environment --restart always ${Commands.image}");
-                    }
-                  } else {
-                    if (Commands.selectedNet != null) {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -v ${Commands.selectedVol} --network ${Commands.selectedNet} $environment --restart always ${Commands.image}");
-                    } else {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -v ${Commands.selectedVol} $environment --restart always ${Commands.image}");
-                    }
-                  }
+              } else {
+                if (Commands.port == null) {
+                  /////////////////PENDING///////////////////////////////
+                  Commands.result = await serverCredentials.client.execute(
+                      "kubectl run ${Commands.name} --restart='Always' --env --image=${Commands.image}");
                 } else {
-                  print("PASSED 2");
-                  if (Commands.selectedVol == null) {
-                    print("PASSED 3");
-                    //THIS***********************
-                    if (Commands.selectedNet != null) {
-                      print("PASSED 4");
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} --network ${Commands.selectedNet} --restart always ${Commands.image}");
-                      print("NETWORK RESULT = ${Commands.result}");
-                    }
-                    //END***************************************
-                    else {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} --restart always ${Commands.image}");
-                    }
-                  } else {
-                    if (Commands.selectedNet != null) {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -v ${Commands.selectedVol} --network ${Commands.selectedNet} --restart always ${Commands.image}");
-                    } else {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -v ${Commands.selectedVol} --restart always ${Commands.image}");
-                    }
-                  }
+                  Commands.result = await serverCredentials.client.execute(
+                      "kubectl run ${Commands.name} --restart='Always'  --env  --port=${Commands.port}  --image=${Commands.image}");
                 }
               }
             }
-          }
-          //FALSE TILL HERE
 
-          else {
-            if (Commands.restartAlways == false) {
-              if (Commands.port != null) {
-                if (Commands.env.length != 0) {
-                  if (Commands.selectedVol != null) {
-                    if (Commands.selectedNet != null) {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -p ${Commands.port} -v ${Commands.selectedVol} --network ${Commands.selectedNet} $environment --rm ${Commands.image}");
-                    } else {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -p ${Commands.port} -v ${Commands.selectedVol} $environment --rm ${Commands.image}");
-                    }
-                  } else {
-                    if (Commands.selectedNet != null) {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -p ${Commands.port} --network ${Commands.selectedNet} $environment --rm ${Commands.image}");
-                    } else {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -p ${Commands.port}  $environment --rm ${Commands.image}");
-                    }
-                  }
-                } else {
-                  if (Commands.selectedVol == null) {
-                    if (Commands.selectedNet != null) {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -p ${Commands.port} --network ${Commands.selectedNet} --rm ${Commands.image}");
-                    } else {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -p ${Commands.port} --rm ${Commands.image}");
-                    }
-                  } else {
-                    if (Commands.selectedNet != null) {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -p ${Commands.port} -v ${Commands.selectedVol} --network ${Commands.selectedNet} --rm ${Commands.image}");
-                    } else {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -p ${Commands.port} -v ${Commands.selectedVol} --rm ${Commands.image}");
-                    }
-                  }
-                }
-              }
+            //###################### RESTART #################################//
 
-              //HERE
-              else {
-                print("PASSED 1");
-                if (Commands.env.length != 0) {
-                  if (Commands.selectedVol == null) {
-                    if (Commands.selectedNet != null) {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} --network ${Commands.selectedNet} $environment --rm ${Commands.image}");
-                    } else {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} $environment --rm ${Commands.image}");
-                    }
-                  } else {
-                    if (Commands.selectedNet != null) {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -v ${Commands.selectedVol} --network ${Commands.selectedNet} $environment --rm ${Commands.image}");
-                    } else {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -v ${Commands.selectedVol} $environment --rm ${Commands.image}");
-                    }
-                  }
-                } else {
-                  print("PASSED 2");
-                  if (Commands.selectedVol == null) {
-                    print("PASSED 3");
-                    //THIS***********************
-                    if (Commands.selectedNet != null) {
-                      print("PASSED 4");
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} --network ${Commands.selectedNet} --rm ${Commands.image}");
-                      print("NETWORK RESULT = ${Commands.result}");
-                    }
-                    //END***************************************
-                    else {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} ${Commands.image}");
-                    }
-                  } else {
-                    if (Commands.selectedNet != null) {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -v ${Commands.selectedVol} --network ${Commands.selectedNet} --rm ${Commands.image}");
-                    } else {
-                      Commands.result = await serverCredentials.client.execute(
-                          "sudo docker run -dit --name ${Commands.name} -v ${Commands.selectedVol} --rm ${Commands.image}");
-                    }
-                  }
-                }
-              }
-            }
-          }
-
-          print("NETWORK RESULT = ${Commands.result}");
-          if (Commands.result == "") {
-            AppToast("${Commands.name} : Failed to launch the container");
           } else {
-            print("RESULT = ${Commands.result}");
-            AppToast("Container Launched");
+            if (Commands.restartAlways == false) {
+              //##### ENV #####//
+              if (Commands.env.length == 0) {
+                //##### PORT #####//
+                if (Commands.port == null) {
+                  Commands.result = await serverCredentials.client.execute(
+                      "kubectl run ${Commands.name} --rm=true --image=${Commands.image}");
+                } else {
+                  Commands.result = await serverCredentials.client.execute(
+                      "kubectl run ${Commands.name} --rm=true --port=${Commands.port}  --image=${Commands.image}");
+                }
+                //##### PORT #####//
+
+              } else {
+                if (Commands.port == null) {
+                  /////////////////PENDING///////////////////////////////
+                  Commands.result = await serverCredentials.client.execute(
+                      "kubectl run ${Commands.name} --rm=true --env --image=${Commands.image}");
+                } else {
+                  Commands.result = await serverCredentials.client.execute(
+                      "kubectl run ${Commands.name} --rm=true --env --port=${Commands.port}  --image=${Commands.image}");
+                }
+              }
+              //################# ENV ###############################//
+
+            } else {
+              if (Commands.env.length == 0) {
+                //##### PORT #####//
+                if (Commands.port == null) {
+                  Commands.result = await serverCredentials.client.execute(
+                      "kubectl run ${Commands.name} --restart='Always' --image=${Commands.image}");
+                } else {
+                  Commands.result = await serverCredentials.client.execute(
+                      "kubectl run ${Commands.name} --port=${Commands.port} --restart='Always'  --image=${Commands.image}");
+                }
+                //##### PORT #####//
+
+              } else {
+                if (Commands.port == null) {
+                  /////////////////PENDING///////////////////////////////
+                  Commands.result = await serverCredentials.client.execute(
+                      "kubectl run ${Commands.name} --restart='Always' --env --image=${Commands.image}");
+                } else {
+                  Commands.result = await serverCredentials.client.execute(
+                      "kubectl run ${Commands.name} --restart='Always'  --env  --port=${Commands.port}  --image=${Commands.image}");
+                }
+              }
+            }
           }
         } else {
-          AppToast("No input provided");
+          AppToast("Please enter Name and Image");
         }
-      } else {
-        print("RESULT = ${Commands.result}");
-        AppToast("Server not connected");
       }
+
       setState(() {
         launchLoading = false;
       });
@@ -413,7 +245,7 @@ class _PodLaunchState extends State<PodLaunch> {
                       ),
                     ),
                     Container(
-                      height: 40,
+                      height: 50,
                       width: 350,
                       margin: EdgeInsets.only(top: 20, left: 10),
                       child: Row(
@@ -426,7 +258,7 @@ class _PodLaunchState extends State<PodLaunch> {
                             ),
                           ),
                           Container(
-                            height: 35,
+                            height: 45,
                             width: 250,
                             decoration: BoxDecoration(
                                 color: Colors.lightBlue,
@@ -438,7 +270,7 @@ class _PodLaunchState extends State<PodLaunch> {
                               decoration: InputDecoration(
                                   filled: true,
                                   fillColor: Colors.white,
-                                  hintText: "Container",
+                                  hintText: "name",
                                   hintStyle: TextStyle(
                                       color: Colors.grey, fontSize: 13),
                                   border: OutlineInputBorder(
@@ -451,7 +283,7 @@ class _PodLaunchState extends State<PodLaunch> {
                       ),
                     ),
                     Container(
-                      height: 40,
+                      height: 50,
                       width: 350,
                       margin: EdgeInsets.only(top: 20, left: 10),
                       child: Row(
@@ -462,39 +294,32 @@ class _PodLaunchState extends State<PodLaunch> {
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                           ),
                           Container(
-                            height: 35,
-                            width: 245,
+                            height: 45,
+                            width: 250,
                             decoration: BoxDecoration(
-                                color: Colors.white,
+                                color: Colors.lightBlue,
                                 borderRadius: BorderRadius.circular(10)),
                             margin: EdgeInsets.only(left: 20, right: 10),
-                            child: DropdownSearch(
-                              popupBackgroundColor: Colors.white,
-                              mode: Mode.MENU,
-                              showSelectedItem: true,
-                              items: Commands.demo1,
-                              onChanged: (value) {
-                                setState(() {
-                                  var newValue = value.split("");
-                                  newValue.removeLast();
-
-                                  print(
-                                      "###VALUE LENGTH = ${newValue.join().length}#####");
-                                  //dir = value;
-                                  Commands.image = newValue.join();
-                                  print("OPHERE01 = ${Commands.image}");
-
-                                  //print("ABCD = ${items}");
-                                });
-                              },
-                              selectedItem: Commands.image,
+                            child: TextField(
+                              autocorrect: false,
+                              style: TextStyle(color: Colors.black),
+                              decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  hintText: "image",
+                                  hintStyle: TextStyle(
+                                      color: Colors.grey, fontSize: 13),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10)))),
+                              onChanged: (value) => {Commands.image = value},
                             ),
-                          ),
+                          )
                         ],
                       ),
                     ),
                     Container(
-                      height: 40,
+                      height: 50,
                       width: 350,
                       margin: EdgeInsets.only(top: 20, left: 10),
                       child: Row(
@@ -505,7 +330,7 @@ class _PodLaunchState extends State<PodLaunch> {
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                           ),
                           Container(
-                            height: 35,
+                            height: 45,
                             width: 250,
                             decoration: BoxDecoration(
                                 color: Colors.lightBlue,
@@ -529,122 +354,58 @@ class _PodLaunchState extends State<PodLaunch> {
                       ),
                     ),
                     Container(
-                      height: 40,
-                      width: 350,
-                      margin: EdgeInsets.only(top: 20, left: 10),
-                      child: Row(
-                        children: <Widget>[
-                          Container(
-                            width: 70,
-                            child: Text("Volumes: ",
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-                          ),
-                          Container(
-                            height: 35,
-                            width: 250,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                            margin: EdgeInsets.only(left: 20, right: 10),
-                            child: DropdownSearch(
-                              popupBackgroundColor: Colors.white,
-                              mode: Mode.MENU,
-                              showSelectedItem: false,
-                              items: Commands.volumename,
-                              onChanged: (value) {
-                                Commands.selectedVol = value;
-                                setState(() {
-                                  VolumeListRet();
-                                });
-                              },
-                              selectedItem: Commands.selectedVol,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
-                      height: 40,
-                      width: 350,
-                      margin: EdgeInsets.only(top: 20, left: 10),
-                      child: Row(
-                        children: <Widget>[
-                          Container(
-                            width: 70,
-                            child: Text("Network: ",
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-                          ),
-                          Container(
-                            height: 35,
-                            width: 250,
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10)),
-                            margin: EdgeInsets.only(left: 20, right: 10),
-                            child: DropdownSearch(
-                              popupBackgroundColor: Colors.white,
-                              mode: Mode.MENU,
-                              showSelectedItem: false,
-                              items: Commands.netls,
-                              onChanged: (value) {
-                                var newValue = value.split("");
-                                newValue.removeLast();
-                                Commands.selectedNet = newValue.join();
-                                print(
-                                    "NETWORK HERE = ${Commands.selectedNet.length}");
-                                setState(() {
-                                  NetListRet();
-                                });
-                              },
-                              selectedItem: Commands.selectedNet,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Container(
                       alignment: Alignment.topLeft,
-                      margin: EdgeInsets.only(top: 20, left: 30),
+                      margin: EdgeInsets.only(top: 20, left: 10),
                       child: Row(
                         children: <Widget>[
                           Container(
                             width: 70,
-                            child: Text("Env        : ",
+                            child: Text("Label   : ",
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                           ),
-                          Column(
-                            children: Commands.TextfieldDynamic,
+                          SizedBox(
+                            width: 10,
                           ),
                           Column(
-                            children: <Widget>[
-                              IconButton(
-                                iconSize: 30,
-                                icon: Icon(
-                                  Icons.add_circle,
-                                  color: Colors.lightBlue,
-                                ),
-                                onPressed: DynamicAdd,
+                            children: [
+                              Column(
+                                children: Commands.TextfieldDynamic,
                               ),
-                              Commands.TextfieldDynamic.length >= 1
-                                  ? IconButton(
-                                      iconSize: 30,
-                                      icon: Icon(
-                                        Icons.remove_circle,
-                                        color: Colors.lightBlue,
-                                      ),
-                                      onPressed: DynamicRemove,
-                                    )
-                                  : SizedBox(),
+                              Row(
+                                children: <Widget>[
+                                  IconButton(
+                                    iconSize: 30,
+                                    icon: Icon(
+                                      Icons.add_circle,
+                                      color: Colors.lightBlue,
+                                    ),
+                                    onPressed: DynamicAdd,
+                                  ),
+                                  Commands.TextfieldDynamic.length >= 1
+                                      ? IconButton(
+                                          iconSize: 30,
+                                          icon: Icon(
+                                            Icons.remove_circle,
+                                            color: Colors.lightBlue,
+                                          ),
+                                          onPressed: DynamicRemove,
+                                        )
+                                      : SizedBox(),
+                                ],
+                              )
                             ],
-                          )
+                          ),
                         ],
                       ),
+                    ),
+                    SizedBox(
+                      height: 10,
                     ),
                     Column(children: <Widget>[
                       Container(
                         child: Row(children: <Widget>[
                           SizedBox(
-                            width: 15,
+                            width: 5,
                           ),
                           Checkbox(
                             value: isChecked,
@@ -675,7 +436,7 @@ class _PodLaunchState extends State<PodLaunch> {
                       ),
                       Row(children: <Widget>[
                         SizedBox(
-                          width: 15,
+                          width: 5,
                         ),
                         Checkbox(
                           value: isValue,
@@ -720,7 +481,7 @@ class _PodLaunchState extends State<PodLaunch> {
                                     backgroundColor: Colors.white,
                                   )
                                 : Text("Launch"),
-                            onPressed: StartContainer,
+                            onPressed: LaunchPods,
                           ),
                         ),
                       )
@@ -795,19 +556,19 @@ class DynamicText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 35,
-      width: 200,
+      height: 45,
+      width: 250,
       decoration: BoxDecoration(
           color: Colors.lightBlue, borderRadius: BorderRadius.circular(10)),
-      margin: EdgeInsets.only(left: 20, right: 0, top: 10),
+      margin: EdgeInsets.only(left: 10, right: 0, top: 10),
       child: TextField(
         controller: _value,
         style: TextStyle(color: Colors.black),
         decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white,
-            hintText: "Environment Variables",
-            hintStyle: TextStyle(color: Colors.grey),
+            hintText: "labels",
+            hintStyle: TextStyle(color: Colors.grey, fontSize: 13),
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.all(Radius.circular(10)))),
         autocorrect: false,

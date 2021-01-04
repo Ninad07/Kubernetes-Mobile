@@ -58,12 +58,12 @@ class Commands {
   static bool isaws = false;
   static var newWid = Container();
   static var filename;
-
+  static var replicas;
   static var stat;
   static var ver1;
   static var selectedNet;
-  static var restartAlways;
-  static var deleteAlways;
+  static var restartAlways = false;
+  static var deleteAlways = false;
   static List<String> path = [];
 }
 
@@ -413,16 +413,15 @@ KubectlInstall() async {
 ExecuteContainer(String container, String command) async {
   if (Commands.validation == "passed") {
     Commands.result = await serverCredentials.client.connect();
-    //if (result== 'Session connected'){
-    if (Commands.name != null && Commands.command != null) {
-      var nolast = Commands.name.split("").toList();
+
+    if (container != null && Commands.command != null) {
+      var nolast = container.split("").toList();
       nolast.removeLast();
       var newName = nolast.join();
       print("NOLAST = ${newName.length}");
 
       Commands.result = await serverCredentials.client
-          .execute("sudo docker exec ${newName} ${Commands.command}");
-      // }
+          .execute("kubectl exec ${newName} -- ${Commands.command}");
 
       print("RESULT = ${Commands.result}");
       Commands.execop = Commands.result;
