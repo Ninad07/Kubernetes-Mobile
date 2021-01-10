@@ -39,13 +39,14 @@ class _CopyFilesState extends State<CopyFiles> {
         print("NOLAST = ${newName.length}");
 
         Commands.result = await serverCredentials.client.execute(
-            "sudo docker cp ${container2.join()} ${newName}:${Commands.loc2}");
+            "kubectl cp ${container2.join()} ${newName}:${Commands.loc2}");
+
         print("CP COMMAND = ${Commands.result}");
 
         if (Commands.result == "") {
           AppToast("Copy Successful");
         } else {
-          AppToast("Cannot copy inside the container");
+          AppToast("Cannot copy inside the Pod");
         }
       } else {
         AppToast("No input Provided");
@@ -188,7 +189,7 @@ class _CopyFilesState extends State<CopyFiles> {
                     Container(
                       height: 40,
                       width: 350,
-                      margin: EdgeInsets.only(top: 20, left: 20),
+                      margin: EdgeInsets.only(top: 25, left: 20),
                       child: Row(
                         children: <Widget>[
                           Container(
@@ -249,7 +250,7 @@ class _CopyFilesState extends State<CopyFiles> {
                       ),
                     ),
                     Card(
-                      margin: EdgeInsets.only(left: 30, right: 30, top: 20),
+                      margin: EdgeInsets.only(left: 30, right: 30, top: 25),
                       elevation: 5,
                       child: Container(
                         width: MediaQuery.of(context).size.width,
@@ -276,7 +277,7 @@ class _CopyFilesState extends State<CopyFiles> {
                       height: 40,
                       width: 350,
                       margin: EdgeInsets.only(
-                        top: 20,
+                        top: 25,
                         left: 20,
                       ),
                       child: Row(
@@ -317,7 +318,7 @@ class _CopyFilesState extends State<CopyFiles> {
                       height: 40,
                       width: 350,
                       margin: EdgeInsets.only(
-                        top: 20,
+                        top: 25,
                         left: 20,
                       ),
                       child: Row(

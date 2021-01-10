@@ -378,8 +378,9 @@ class _ResourcesMainState extends State<ResourcesMain> {
 
 import 'package:KubernetesMobile/Server/Network.dart';
 import 'package:KubernetesMobile/Server/Volumes.dart';
-import 'package:KubernetesMobile/Services/Deployment.dart';
-import 'package:KubernetesMobile/Services/ReplicaSets.dart';
+import 'package:KubernetesMobile/Resources/Deployment.dart';
+import 'package:KubernetesMobile/Resources/ReplicaSets.dart';
+import 'package:KubernetesMobile/Resources/SvcSelector.dart';
 import 'package:bmnav/bmnav.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
@@ -641,7 +642,7 @@ class _ResourcesMainState extends State<ResourcesMain> {
                         onPressed: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return Deployment();
+                            return ServiceSelector();
                           }));
                         },
                         child: Center(

@@ -65,6 +65,8 @@ class Commands {
   static var restartAlways = false;
   static var deleteAlways = false;
   static List<String> path = [];
+  static var targetPort;
+  static var ip;
 }
 
 class Docker {

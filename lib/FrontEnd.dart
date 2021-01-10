@@ -181,41 +181,7 @@ class _DashboardState extends State<Dashboard> {
                 ),
                 elevation: 0,
                 centerTitle: true,
-                /*title: Container(
-                  
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.only(left: 20),
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                scale: 35,
-                                image: AssetImage("images/kube1.png"))),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Text('Kubernetes'),
-                    ],
-                  ),
-                ),*/
                 backgroundColor: Colors.blueAccent.shade700,
-                /*bottom: TabBar(
-                      indicatorWeight: 0.001,
-                      indicatorColor: Colors.blue.shade600,
-                      labelColor: Colors.white,
-                      tabs: [
-                        Tab(
-                          icon: Icon(Icons.home),
-                          //text: "Login",
-                        ),
-                        Tab(
-                          icon: Icon(Icons.device_hub),
-                          //text: " Docker Hub",
-                        ),
-                      ]),*/
                 actions: <Widget>[
                   IconButton(
                       icon: Icon(Icons.desktop_windows),
