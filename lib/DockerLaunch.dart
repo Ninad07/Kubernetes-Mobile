@@ -67,6 +67,7 @@ class Commands {
   static List<String> path = [];
   static var targetPort;
   static var ip;
+  static var exname;
 }
 
 class Docker {

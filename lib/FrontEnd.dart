@@ -4,6 +4,7 @@ import 'package:KubernetesMobile/ui/Commit.dart';
 import 'package:KubernetesMobile/ui/CopyPage.dart';
 import 'package:KubernetesMobile/ui/DeletePage.dart';
 import 'package:KubernetesMobile/ui/ExecPage.dart';
+import 'package:KubernetesMobile/ui/Expose.dart';
 import 'package:KubernetesMobile/ui/KubeResources.dart';
 import 'package:KubernetesMobile/ui/Rollouts.dart';
 import 'package:KubernetesMobile/ui/ScaleResources.dart';
@@ -428,6 +429,18 @@ class _DashboardState extends State<Dashboard> {
                       }));
                     },
                   ),
+                  ListTile(
+                      leading: Icon(FlutterIcons.web_mco),
+                      title: Text('Expose'),
+                      onTap: () {
+                        setState(() {
+                          contextCapture.context = context;
+                        });
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return Expose();
+                        }));
+                      }),
                   ListTile(
                     leading: Icon(Icons.library_books),
                     title: Text('Manage Rollouts'),

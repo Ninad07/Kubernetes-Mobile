@@ -10,6 +10,29 @@ class NodePort extends StatefulWidget {
 }
 
 class _NodePortState extends State<NodePort> {
+  //CREATE NODEPORT SERVICE FUNCTION
+  createNodeport() async {
+    if (Commands.validation == "passed") {
+      Commands.result = await serverCredentials.client.connect();
+
+      if (Commands.name != null &&
+          Commands.port != null &&
+          Commands.targetPort != null) {
+        if (Commands.contName == null) {
+          Commands.result = await serverCredentials.client.execute(
+              "kubectl create service nodeport ${Commands.name} --tcp=${Commands.port}:${Commands.targetPort}");
+        } else {
+          Commands.result = await serverCredentials.client.execute(
+              "kubectl create service nodeport ${Commands.name} --tcp=${Commands.port}:${Commands.targetPort} --dry-run=${Commands.contName}");
+        }
+      } else {
+        AppToast("Cannot create the service");
+      }
+    } else {
+      AppToast("Server not connected");
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -17,6 +40,7 @@ class _NodePortState extends State<NodePort> {
     Commands.name = null;
     Commands.port = null;
     Commands.targetPort = null;
+    Commands.contName == null;
   }
 
   @override
@@ -206,6 +230,44 @@ class _NodePortState extends State<NodePort> {
                           ],
                         ),
                       ),
+                      Container(
+                        height: 50,
+                        width: 350,
+                        margin: EdgeInsets.only(
+                          top: 25,
+                          left: 20,
+                        ),
+                        child: Row(
+                          children: <Widget>[
+                            Container(
+                              width: 85,
+                              child: Text("Dry run  : ",
+                                  style:
+                                      TextStyle(fontWeight: FontWeight.bold)),
+                            ),
+                            Container(
+                              height: 45,
+                              width: 230,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)),
+                              margin: EdgeInsets.only(left: 15, right: 10),
+                              child: DropdownSearch(
+                                popupBackgroundColor: Colors.white,
+                                mode: Mode.MENU,
+                                showSelectedItem: true,
+                                items: ["Server", "Client", "None"],
+                                onChanged: (value) {
+                                  setState(() {
+                                    Commands.contName = value;
+                                  });
+                                },
+                                selectedItem: Commands.contName,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                       Card(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(50)),
@@ -223,7 +285,7 @@ class _NodePortState extends State<NodePort> {
                                 color: Colors.white,
                               ),
                             ),
-                            onPressed: () async {},
+                            onPressed: createNodeport,
                           ),
                         ),
                       )

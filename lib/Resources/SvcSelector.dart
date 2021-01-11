@@ -1,3 +1,4 @@
+import 'package:KubernetesMobile/Resources/Services/ExternalName.dart';
 import 'package:KubernetesMobile/Resources/Services/LoadBalancer.dart';
 import 'package:KubernetesMobile/Resources/Services/NodePort.dart';
 import 'package:KubernetesMobile/Server/Network.dart';
@@ -172,7 +173,7 @@ class _ServiceSelectorState extends State<ServiceSelector> {
                           width: 270,
                           child: Center(
                             child: Text(
-                              "Creates externalIP service",
+                              "Creates ClusterlIP service",
                               softWrap: true,
                               style: TextStyle(color: Colors.blueAccent),
                             ),
@@ -277,7 +278,12 @@ class _ServiceSelectorState extends State<ServiceSelector> {
                   backgroundColor: Colors.grey.shade100,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return ExternalName();
+                    }));
+                  },
                   child: Center(
                     child: Column(
                       children: [

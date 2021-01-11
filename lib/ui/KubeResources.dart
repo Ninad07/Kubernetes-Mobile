@@ -376,6 +376,7 @@ class _ResourcesMainState extends State<ResourcesMain> {
 //##################################################################################################################################//
 */
 
+import 'package:KubernetesMobile/Resources/NameSpaces.dart';
 import 'package:KubernetesMobile/Server/Network.dart';
 import 'package:KubernetesMobile/Server/Volumes.dart';
 import 'package:KubernetesMobile/Resources/Deployment.dart';
@@ -703,7 +704,7 @@ class _ResourcesMainState extends State<ResourcesMain> {
                         onPressed: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return Deployment();
+                            return Namespace();
                           }));
                         },
                         child: Center(

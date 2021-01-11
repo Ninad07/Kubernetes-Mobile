@@ -4,42 +4,40 @@ import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
 import '../../DockerLaunch.dart';
 
-class ClusterIP extends StatefulWidget {
+class ExternalName extends StatefulWidget {
   @override
-  _ClusterIPState createState() => _ClusterIPState();
+  _ExternalNameState createState() => _ExternalNameState();
 }
 
-class _ClusterIPState extends State<ClusterIP> {
-  //CREATE CLUSTERIP SERVICE FUNCTION
-  createClusterIP() async {
+class _ExternalNameState extends State<ExternalName> {
+  //CREATE EXTERNALNAME SERVICE
+  createExternalName() async {
     if (Commands.validation == "passed") {
       Commands.result = await serverCredentials.client.connect();
 
-      if (Commands.name != null &&
-          Commands.port != null &&
-          Commands.targetPort != null) {
-        if (Commands.ip != null) {
-          if (Commands.contName != null) {
-            Commands.result = await serverCredentials.client.execute(
-                "kubectl create service clusterip ${Commands.name} --tcp=${Commands.port}:${Commands.targetPort} --clusterip=${Commands.ip} --dry-run=${Commands.contName}");
-          } else {
-            Commands.result = await serverCredentials.client.execute(
-                "kubectl create service clusterip ${Commands.name} --tcp=${Commands.port}:${Commands.targetPort} --clusterip=${Commands.ip} ");
-          }
-        } else {
-          if (Commands.contName != null) {
-            Commands.result = await serverCredentials.client.execute(
-                "kubectl create service clusterip ${Commands.name} --tcp=${Commands.port}:${Commands.targetPort} --dry-run=${Commands.contName} ");
-          } else {
-            Commands.result = await serverCredentials.client.execute(
-                "kubectl create service clusterip ${Commands.name} --tcp=${Commands.port}:${Commands.targetPort} ");
-          }
-        }
+      //Validating the user entered info
+      //Validating PORT AND TARGETPORT
+      if (Commands.port == null || Commands.targetPort == null) {
+        Commands.port = " ";
+      } else {
+        Commands.port = "--tcp=${Commands.port}:${Commands.targetPort} ";
+      }
+
+      //VALIDATING DRY RUN
+      if (Commands.contName == null) {
+        Commands.contName = " ";
+      } else {
+        Commands.contName = "--dry-run=${Commands.contName}";
+      }
+
+      if (Commands.name != null && Commands.exname != null) {
+        Commands.result = await serverCredentials.client.execute(
+            "kubectl create service externalname ${Commands.name} --external-name=${Commands.exname} ${Commands.port} ${Commands.contName}");
       } else {
         AppToast("Cannot create the Service");
       }
     } else {
-      AppToast("Server not connected");
+      AppToast("Server not Connected");
     }
   }
 
@@ -50,7 +48,7 @@ class _ClusterIPState extends State<ClusterIP> {
     Commands.name = null;
     Commands.port = null;
     Commands.targetPort = null;
-    Commands.ip = null;
+    Commands.exname = null;
   }
 
   @override
@@ -82,7 +80,7 @@ class _ClusterIPState extends State<ClusterIP> {
             ),
           ),
           Container(
-            height: MediaQuery.of(context).size.height - 200,
+            height: MediaQuery.of(context).size.height - 210,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
               color: Colors.white,
@@ -97,7 +95,7 @@ class _ClusterIPState extends State<ClusterIP> {
                     margin: EdgeInsets.only(left: 20),
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      "Cluster IP",
+                      "External Name",
                       style: TextStyle(
                           color: Colors.black,
                           fontSize: 35,
@@ -113,7 +111,7 @@ class _ClusterIPState extends State<ClusterIP> {
                     margin: EdgeInsets.only(top: 50, bottom: 20),
                     child: Center(
                       child: Text(
-                        "Create ClusterIP",
+                        "Create External Name",
                         style: TextStyle(
                             color: Colors.white, fontWeight: FontWeight.w500),
                       ),
@@ -267,7 +265,7 @@ class _ClusterIPState extends State<ClusterIP> {
                             Container(
                               width: 85,
                               child: Text(
-                                "Cluster IP  : ",
+                                "External Name       : ",
                                 style: TextStyle(fontWeight: FontWeight.bold),
                               ),
                             ),
@@ -284,14 +282,14 @@ class _ClusterIPState extends State<ClusterIP> {
                                     enabled: isDisabled ? false : true,
                                     filled: true,
                                     fillColor: Colors.white,
-                                    hintText: "IP",
+                                    hintText: "external.name",
                                     hintStyle: TextStyle(
                                         color: Colors.grey, fontSize: 13),
                                     border: OutlineInputBorder(
                                         borderRadius: BorderRadius.all(
                                             Radius.circular(10)))),
                                 onChanged: (value) {
-                                  Commands.ip = value;
+                                  Commands.exname = value;
                                   setState(() {
                                     isEnabled = true;
                                   });
@@ -356,7 +354,7 @@ class _ClusterIPState extends State<ClusterIP> {
                                 color: Colors.white,
                               ),
                             ),
-                            onPressed: () async {},
+                            onPressed: createExternalName,
                           ),
                         ),
                       )
