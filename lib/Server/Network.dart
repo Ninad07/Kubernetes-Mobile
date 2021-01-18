@@ -37,11 +37,11 @@ class _NetworkState extends State<Network> {
 
   NetworkCreate() async {
     if (Commands.validation == "passed") {
-      if (Commands.netname != null) {
+      if (Commands.protocol != null) {
         Commands.result = await serverCredentials.client.connect();
         if (Commands.result == "session_connected") {
           Commands.result = await serverCredentials.client
-              .execute("sudo docker network create ${Commands.netname}");
+              .execute("sudo docker network create ${Commands.protocol}");
           print(Commands.result);
         }
         if (Commands.result == "") {
@@ -149,7 +149,7 @@ class _NetworkState extends State<Network> {
                                             borderRadius: BorderRadius.all(
                                                 Radius.circular(10)))),
                                     onChanged: (value) =>
-                                        {Commands.netname = value},
+                                        {Commands.protocol = value},
                                   ),
                                 ),
                               ],

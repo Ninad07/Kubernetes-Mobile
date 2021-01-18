@@ -364,7 +364,7 @@ class _CopyFilesState extends State<CopyFiles> {
                           isExtended: true,
                           backgroundColor: Colors.blueAccent.shade700,
                           child: Text("Copy"),
-                          onPressed: null,
+                          onPressed: KubeCopy,
                         ),
                       ),
                     )

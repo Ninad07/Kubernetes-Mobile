@@ -377,10 +377,11 @@ class _ResourcesMainState extends State<ResourcesMain> {
 */
 
 import 'package:KubernetesMobile/Resources/NameSpaces.dart';
+import 'package:KubernetesMobile/Resources/RC.dart';
+import 'package:KubernetesMobile/Resources/RS.dart';
 import 'package:KubernetesMobile/Server/Network.dart';
 import 'package:KubernetesMobile/Server/Volumes.dart';
 import 'package:KubernetesMobile/Resources/Deployment.dart';
-import 'package:KubernetesMobile/Resources/ReplicaSets.dart';
 import 'package:KubernetesMobile/Resources/SvcSelector.dart';
 import 'package:bmnav/bmnav.dart';
 import 'package:dropdown_search/dropdown_search.dart';
@@ -521,7 +522,7 @@ class _ResourcesMainState extends State<ResourcesMain> {
                         onPressed: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return ReplicaSets();
+                            return ReplicaSet();
                           }));
                         },
                         child: Center(
@@ -582,7 +583,7 @@ class _ResourcesMainState extends State<ResourcesMain> {
                         onPressed: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return Deployment();
+                            return ReplicationController();
                           }));
                         },
                         child: Center(

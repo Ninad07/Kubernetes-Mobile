@@ -18,6 +18,63 @@ String environment = "";
 var i;
 
 class _ExposeState extends State<Expose> {
+  //EXPOSE FUNCTION
+  exposeResources() async {
+    if (Commands.validation == "passed") {
+      Commands.result = await serverCredentials.client.connect();
+
+      if (Commands.name != null && Commands.contName != null) {
+        //Validating selector
+        if (Commands.selector == null) {
+          Commands.selector = "";
+        } else {
+          Commands.selector = "--selector=${Commands.selector}";
+        }
+
+        //Validating port and Target port
+        if (Commands.port == null) {
+          Commands.port = "";
+        } else {
+          Commands.port = "--port=${Commands.port} ";
+        }
+
+        if (Commands.targetPort == null) {
+          Commands.targetPort = "";
+        } else {
+          Commands.targetPort = "--target-port=${Commands.targetPort} ";
+        }
+
+        //Validating Object Name
+        if (Commands.image == null) {
+          Commands.image = "";
+        } else {
+          Commands.image = "--name=${Commands.image} ";
+        }
+
+        //Validating protocol
+        if (Commands.protocol == null) {
+          Commands.protocol = "";
+        } else {
+          Commands.protocol = "--protocol=${Commands.protocol} ";
+        }
+
+        //validating type
+        if (Commands.type == null) {
+          Commands.type = "";
+        } else {
+          Commands.type = "--type=${Commands.type} ";
+        }
+
+        Commands.result = await serverCredentials.client.execute(
+            "kubectl expose ${Commands.contName}/${Commands.name} ${Commands.port} ${Commands.targetPort} ${Commands.name} ${Commands.protocol} ${Commands.type}");
+      } else {
+        AppToast("Cannot Expose");
+      }
+    } else {
+      AppToast("Server not connected");
+    }
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -26,6 +83,12 @@ class _ExposeState extends State<Expose> {
     Retrive();
     Commands.name = null;
     Commands.contName = null;
+    Commands.selector = null;
+    Commands.port = null;
+    Commands.targetPort = null;
+    Commands.image = null;
+    Commands.protocol = null;
+    Commands.type = null;
   }
 
   bool isChecked = false;
@@ -200,7 +263,7 @@ class _ExposeState extends State<Expose> {
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10)))),
-                              onChanged: (value) => {Commands.image = value},
+                              onChanged: (value) => {Commands.selector = value},
                             ),
                           )
                         ],
@@ -352,13 +415,13 @@ class _ExposeState extends State<Expose> {
                               onChanged: (value) {
                                 setState(() {
                                   //dir = value;
-                                  Commands.contName = value;
+                                  Commands.protocol = value;
                                   print("OPHERE01 = ${Commands.contName}");
 
                                   //print("ABCD = ${items}");
                                 });
                               },
-                              selectedItem: Commands.contName,
+                              selectedItem: Commands.protocol,
                             ),
                           ),
                         ],
@@ -398,13 +461,13 @@ class _ExposeState extends State<Expose> {
                               onChanged: (value) {
                                 setState(() {
                                   //dir = value;
-                                  Commands.contName = value;
+                                  Commands.type = value;
                                   print("OPHERE01 = ${Commands.contName}");
 
                                   //print("ABCD = ${items}");
                                 });
                               },
-                              selectedItem: Commands.contName,
+                              selectedItem: Commands.type,
                             ),
                           ),
                         ],
@@ -433,69 +496,6 @@ class _ExposeState extends State<Expose> {
                         ),
                       ),
                     ),
-                    /*Column(children: <Widget>[
-                      Container(
-                        child: Row(children: <Widget>[
-                          SizedBox(
-                            width: 5,
-                          ),
-                          Checkbox(
-                            value: isChecked,
-                            onChanged: (bool value) => {
-                              setState(() {
-                                isChecked = value;
-                                isValue = false;
-                              }),
-                              print(isChecked),
-                              if (isChecked == true)
-                                {
-                                  setState(() {
-                                    Commands.restartAlways = true;
-                                  })
-                                }
-                              else
-                                {
-                                  setState(() {
-                                    Commands.restartAlways = false;
-                                  })
-                                }
-                            },
-                          ),
-                          Container(
-                            child: Text("Always Restart"),
-                          ),
-                        ]),
-                      ),
-                      Row(children: <Widget>[
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Checkbox(
-                          value: isValue,
-                          onChanged: (bool value) => {
-                            setState(() {
-                              isValue = value;
-                              isChecked = false;
-                            }),
-                            print(isValue),
-                            if (isChecked == true)
-                              {
-                                setState(() {
-                                  Commands.deleteAlways = true;
-                                })
-                              }
-                            else
-                              {
-                                setState(() {
-                                  Commands.deleteAlways = false;
-                                })
-                              }
-                          },
-                        ),
-                        Text('Always Delete')
-                      ]),
-                      
-                    ])*/
                   ],
                 ),
               ),

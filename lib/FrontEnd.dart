@@ -1,3 +1,4 @@
+import 'package:KubernetesMobile/Resources/PV-PVC.dart';
 import 'package:KubernetesMobile/Server/AWS.dart';
 import 'package:KubernetesMobile/Server/BareMetal.dart';
 import 'package:KubernetesMobile/ui/Commit.dart';
@@ -19,6 +20,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
+import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 import 'DockerLaunch.dart';
 
@@ -38,6 +40,8 @@ enum PageEnum {
   lsnet,
   connect,
   volume,
+  save,
+  run
 }
 
 class Dashboard extends StatefulWidget {
@@ -271,9 +275,24 @@ class _DashboardState extends State<Dashboard> {
                                                         backgroundColor: Colors
                                                             .blueAccent
                                                             .shade700,
-                                                        child: Text("Install"),
-                                                        onPressed: () {
+                                                        child: Commands.isDone
+                                                            ? Transform.scale(
+                                                                scale: 0.6,
+                                                                child: CircularProgressIndicator(
+                                                                    backgroundColor:
+                                                                        Colors
+                                                                            .white))
+                                                            : Text("Install"),
+                                                        onPressed: () async {
+                                                          setState(() {
+                                                            Commands.isDone =
+                                                                true;
+                                                          });
                                                           KubectlInstall();
+                                                          setState(() {
+                                                            Commands.isDone =
+                                                                false;
+                                                          });
                                                         },
                                                       ),
                                                     ),
@@ -281,7 +300,9 @@ class _DashboardState extends State<Dashboard> {
                                                 ],
                                               ),
                                             ],
-                                          )
+                                          ),
+
+                                          //: Container()
                                         ],
                                       ),
                                     ),
@@ -455,7 +476,7 @@ class _DashboardState extends State<Dashboard> {
                     },
                   ),
                   ListTile(
-                    leading: Icon(Icons.library_books),
+                    leading: Icon(Icons.device_hub),
                     title: Text('Scale Resources'),
                     onTap: () {
                       setState(() {
@@ -494,17 +515,21 @@ class _DashboardState extends State<Dashboard> {
                     },
                   ),
                   ListTile(
+                      leading: Icon(FlutterIcons.pencil_alt_faw5s),
+                      title: Text('Create PV/PVC'),
+                      onTap: () {
+                        setState(() {
+                          contextCapture.context = context;
+                        });
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) {
+                          return Storage();
+                        }));
+                      }),
+                  ListTile(
                     leading: Icon(Icons.copyright),
                     title: Text('Config'),
-                    onTap: () {
-                      setState(() {
-                        contextCapture.context = context;
-                      });
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return Commit();
-                      }));
-                    },
+                    onTap: () {},
                   ),
                 ],
               ),

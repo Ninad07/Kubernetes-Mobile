@@ -15,10 +15,10 @@ class Commands {
   static var passwd;
   static String name;
   static String contName;
-  static String netname;
+  static String protocol;
   static String image;
   static String port;
-  static String tag;
+  static String type;
   static String version;
   static String command;
   static var newImage;
@@ -68,6 +68,10 @@ class Commands {
   static var targetPort;
   static var ip;
   static var exname;
+  static var selector;
+  static var currentreplicas;
+  static var isDone = false;
+  static var text;
 }
 
 class Docker {
@@ -370,43 +374,8 @@ KubectlInstall() async {
     if (Commands.result == "session_connected") {
       print("Connected");
 
-      if (ServerInfo.name.substring(7, ServerInfo.name.length - 3) ==
-          "Ubuntu") {
-        Docker.docker =
-            await serverCredentials.client.execute("sudo apt-get update");
-        Docker.docker1 = await serverCredentials.client.execute(
-            "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -");
-        Docker.docker2 = await serverCredentials.client.execute(
-            "sudo add-apt-repository 'deb [arch=amd64] https://download.docker.com/linux/ubuntu (lsb_release -cs) stable -y ' ");
-        Docker.docker3 = await serverCredentials.client.execute(
-            "sudo apt-get install docker-ce docker-ce-cli containerd.io");
-        AppToast(" Installing Docker");
-        print("Inst=${Docker.docker}");
-        print("Inst=${Docker.docker1}");
-        print("Inst=${Docker.docker2}");
-        print("Inst=${Docker.docker3}");
-      }
-
-      if (ServerInfo.name.substring(7, ServerInfo.name.length - 3) ==
-          "Red Hat Enterprise Linux") {
-        Docker.docker = await serverCredentials.client.execute(
-            "sudo dnf config-manager --add-repo=https://download.docker.com/linux/centos/docker-ce.repo");
-        Docker.docker1 = await serverCredentials.client
-            .execute("sudo dnf install docker-ce --nobest -y");
-        AppToast(" Installing Docker");
-        print("Inst=${Docker.docker}");
-        print("Inst=${Docker.docker1}");
-      }
-
-      if (ServerInfo.name.substring(7, ServerInfo.name.length - 3) ==
-          "Amazon Linux") {
-        Docker.docker1 = await serverCredentials.client
-            .execute("sudo yum install docker -y");
-        AppToast(" Installing Docker");
-        print("Inst=${Docker.docker}");
-      }
-    } else {
-      AppToast("Docker Installation Failed");
+      Commands.result = await serverCredentials.client.execute(
+          "curl -LO \"https://storage.googleapis.com/kubernetes-release/release/\$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl\"; chmod +x ./kubectl; sudo mv ./kubectl /usr/local/bin/kubectl");
     }
   } else {
     AppToast("Server Not Connected");

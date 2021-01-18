@@ -14,6 +14,60 @@ class Scale extends StatefulWidget {
 }
 
 class _ScaleState extends State<Scale> {
+  scaleResources() async {
+    if (Commands.validation == "passed") {
+      if (Commands.name != null) {
+        //Validating current replicas
+        if (Commands.currentreplicas == null) {
+          Commands.currentreplicas = "";
+        } else {
+          Commands.currentreplicas =
+              "--current-replicas=${Commands.currentreplicas} ";
+        }
+
+        //Validating replicas
+        if (Commands.replicas == null) {
+          Commands.replicas = "";
+        } else {
+          Commands.replicas = "--replicas=${Commands.replicas} ";
+        }
+
+        //Validating selector
+        if (Commands.selector == null) {
+          Commands.selector = "";
+        } else {
+          Commands.selector = "--selector=${Commands.selector} ";
+        }
+
+        //Validating Dry run
+        if (Commands.image == null) {
+          Commands.image = "";
+        } else {
+          Commands.image = "--dry-run=${Commands.image} ";
+        }
+
+        Commands.result = await serverCredentials.client.execute(
+            "kubectl scale ${Commands.contName}/${Commands.name} ${Commands.currentreplicas} ${Commands.replicas} ${Commands.selector} ${Commands.image}");
+      } else {
+        AppToast("No resource name provided");
+      }
+    } else {
+      AppToast("Server not connected");
+    }
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Commands.contName = null;
+    Commands.name = null;
+    Commands.currentreplicas = null;
+    Commands.replicas = null;
+    Commands.selector = null;
+    Commands.image = null;
+  }
+
   @override
   Widget build(BuildContext context) {
     var body = Container(
@@ -65,108 +119,37 @@ class _ScaleState extends State<Scale> {
                 ),
                 Column(children: <Widget>[
                   Container(
-                    height: 40,
-                    width: 350,
-                    margin: EdgeInsets.only(top: 25, left: 20),
-                    child: Row(
-                      children: <Widget>[
-                        Container(
-                          width: 85,
-                          child: Text("Base Location   : ",
-                              style: TextStyle(fontWeight: FontWeight.bold)),
-                        ),
-                        Row(
-                          children: <Widget>[
-                            IconButton(
-                                icon: Icon(
-                                  FlutterIcons.arrow_circle_left_faw5s,
-                                  color: Colors.blueAccent.shade700,
-                                  size: 27,
-                                ),
-                                onPressed: () {
-                                  setState(() {});
-                                }),
-                            Container(
-                              height: 45,
-                              width: 200,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10)),
-                              margin: EdgeInsets.only(left: 0, right: 10),
-                              /*child: DropdownSearch(
-                                maxHeight: 280,
-                                showSearchBox: true,
-                                searchBoxDecoration: InputDecoration(
-                                  hintText: "Search",
-                                  hintStyle: TextStyle(
-                                      color: Colors.grey, fontSize: 13),
-                                  suffixIcon: Icon(Icons.search),
-                                ),
-                                popupBackgroundColor: Colors.white,
-                                mode: Mode.MENU,
-                                showSelectedItem: true,
-                                items: Commands.dir,
-                                onChanged: (value) {
-                                  setState(() {});
-                                },
-                                selectedItem: null,
-                              ),*/
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                  Card(
-                    margin: EdgeInsets.only(left: 30, right: 30, top: 25),
-                    elevation: 5,
-                    child: Container(
-                      width: MediaQuery.of(context).size.width,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: Colors.white),
-                        color: Colors.grey.shade100,
-                      ),
-                      //margin: EdgeInsets.only(left: 30, right: 30, top: 20),
-                      child: Container(
-                        margin: EdgeInsets.all(8),
-                        child: Center(
-                          child: Text(
-                            "  ",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontStyle: FontStyle.italic,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 40,
+                    height: 50,
                     width: 350,
                     margin: EdgeInsets.only(
                       top: 25,
-                      left: 20,
+                      left: 10,
                     ),
                     child: Row(
                       children: <Widget>[
                         Container(
                           width: 85,
-                          child: Text("Container  : ",
+                          child: Text("Resource : ",
                               style: TextStyle(fontWeight: FontWeight.bold)),
                         ),
                         Container(
                           height: 45,
-                          width: 230,
+                          width: 250,
                           decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10)),
-                          margin: EdgeInsets.only(left: 20, right: 10),
+                          margin: EdgeInsets.only(left: 0, right: 10),
                           child: DropdownSearch(
                             popupBackgroundColor: Colors.white,
                             mode: Mode.MENU,
                             showSelectedItem: true,
-                            items: Commands.getCont,
+                            items: [
+                              "Pod",
+                              "Deployment",
+                              "Replica Set",
+                              "Replication Controller",
+                              "Service"
+                            ],
                             onChanged: (value) {
                               setState(() {
                                 //dir = value;
@@ -183,38 +166,188 @@ class _ScaleState extends State<Scale> {
                     ),
                   ),
                   Container(
-                    height: 40,
+                    height: 50,
                     width: 350,
-                    margin: EdgeInsets.only(
-                      top: 25,
-                      left: 20,
-                    ),
+                    margin: EdgeInsets.only(top: 20, left: 10),
                     child: Row(
                       children: <Widget>[
                         Container(
-                          width: 85,
-                          child: Text("Location  : ",
-                              style: TextStyle(fontWeight: FontWeight.bold)),
+                          width: 70,
+                          child: Text(
+                            "Name   : ",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
                         ),
                         Container(
                           height: 45,
-                          width: 230,
+                          width: 250,
                           decoration: BoxDecoration(
                               color: Colors.lightBlue,
                               borderRadius: BorderRadius.circular(10)),
-                          margin: EdgeInsets.only(left: 20, right: 10),
+                          margin: EdgeInsets.only(left: 15, right: 10),
                           child: TextField(
+                            autocorrect: false,
                             style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
-                                hintText: "Location inside container",
+                                hintText: "resource name",
                                 hintStyle:
                                     TextStyle(color: Colors.grey, fontSize: 13),
                                 border: OutlineInputBorder(
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10)))),
-                            onChanged: (value) => {Commands.loc2 = value},
+                            onChanged: (value) => {Commands.name = value},
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 50,
+                    width: 350,
+                    margin: EdgeInsets.only(top: 20, left: 10),
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          width: 70,
+                          child: Text(
+                            "Current Replicas : ",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Container(
+                          height: 45,
+                          width: 250,
+                          decoration: BoxDecoration(
+                              color: Colors.lightBlue,
+                              borderRadius: BorderRadius.circular(10)),
+                          margin: EdgeInsets.only(left: 15, right: 10),
+                          child: TextField(
+                            autocorrect: false,
+                            style: TextStyle(color: Colors.black),
+                            decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                hintText: "current replicas if any",
+                                hintStyle:
+                                    TextStyle(color: Colors.grey, fontSize: 13),
+                                border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)))),
+                            onChanged: (value) =>
+                                {Commands.currentreplicas = value},
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 50,
+                    width: 350,
+                    margin: EdgeInsets.only(top: 20, left: 10),
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          width: 70,
+                          child: Text(
+                            "Replicas : ",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Container(
+                          height: 45,
+                          width: 250,
+                          decoration: BoxDecoration(
+                              color: Colors.lightBlue,
+                              borderRadius: BorderRadius.circular(10)),
+                          margin: EdgeInsets.only(left: 15, right: 10),
+                          child: TextField(
+                            autocorrect: false,
+                            style: TextStyle(color: Colors.black),
+                            decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                hintText: "replicas",
+                                hintStyle:
+                                    TextStyle(color: Colors.grey, fontSize: 13),
+                                border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)))),
+                            onChanged: (value) => {Commands.replicas = value},
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 50,
+                    width: 350,
+                    margin: EdgeInsets.only(top: 20, left: 10),
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          width: 70,
+                          child: Text("Selector  : ",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        ),
+                        Container(
+                          height: 45,
+                          width: 250,
+                          decoration: BoxDecoration(
+                              color: Colors.lightBlue,
+                              borderRadius: BorderRadius.circular(10)),
+                          margin: EdgeInsets.only(left: 15, right: 10),
+                          child: TextField(
+                            autocorrect: false,
+                            style: TextStyle(color: Colors.black),
+                            decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                hintText: "ex. env=prod (comma separated)",
+                                hintStyle:
+                                    TextStyle(color: Colors.grey, fontSize: 13),
+                                border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)))),
+                            onChanged: (value) => {Commands.selector = value},
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 50,
+                    width: 350,
+                    margin: EdgeInsets.only(
+                      top: 25,
+                      left: 10,
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          width: 85,
+                          child: Text("Dry run  : ",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        ),
+                        Container(
+                          height: 45,
+                          width: 250,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10)),
+                          margin: EdgeInsets.only(left: 0, right: 10),
+                          child: DropdownSearch(
+                            popupBackgroundColor: Colors.white,
+                            mode: Mode.MENU,
+                            showSelectedItem: true,
+                            items: ["Server", "Client", "None"],
+                            onChanged: (value) {
+                              setState(() {
+                                Commands.image = value;
+                              });
+                            },
+                            selectedItem: Commands.image,
                           ),
                         ),
                       ],
@@ -223,7 +356,7 @@ class _ScaleState extends State<Scale> {
                   Card(
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(50)),
-                    margin: EdgeInsets.all(25),
+                    margin: EdgeInsets.all(30),
                     child: Container(
                       margin: EdgeInsets.all(0),
                       height: 50,
@@ -231,7 +364,7 @@ class _ScaleState extends State<Scale> {
                       child: FloatingActionButton(
                         isExtended: true,
                         backgroundColor: Colors.blueAccent.shade700,
-                        child: Text("Copy"),
+                        child: Text("Scale"),
                         onPressed: null,
                       ),
                     ),
