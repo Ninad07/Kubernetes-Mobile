@@ -547,7 +547,7 @@ class _ContainerDeleteState extends State<ContainerDelete> {
 
     var body = DeleteBodyState();
 
-    _onSelect(PageEnum value) {
+    /*_onSelect(PageEnum value) {
       switch (value) {
         case PageEnum.active:
           RetrieveActiveContainers();
@@ -560,7 +560,7 @@ class _ContainerDeleteState extends State<ContainerDelete> {
           RetrieveActiveContainers();
           break;
       }
-    }
+    }*/
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -635,7 +635,7 @@ class _ContainerDeleteState extends State<ContainerDelete> {
                 });
               },
             ),
-            PopupMenuButton<PageEnum>(
+            /*PopupMenuButton<PageEnum>(
               //icon: Icon(Icons.desktop_windows),
               onSelected: _onSelect,
               itemBuilder: (context) => <PopupMenuEntry<PageEnum>>[
@@ -674,7 +674,7 @@ class _ContainerDeleteState extends State<ContainerDelete> {
                   ),
                 ),
               ],
-            ),
+            ),*/
           ],
         ),
         body: body,
