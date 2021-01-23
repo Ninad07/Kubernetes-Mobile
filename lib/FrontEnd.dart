@@ -19,6 +19,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:step_progress_indicator/step_progress_indicator.dart';
@@ -64,7 +65,11 @@ Future navigateToSubPage(context) async {
 
 class _DashboardState extends State<Dashboard> {
   Future<bool> _onbackpressed() {
-    return showDialog(
+    return showAnimatedDialog(
+        curve: Curves.fastOutSlowIn,
+        duration: Duration(seconds: 1),
+        barrierDismissible: true,
+        animationType: DialogTransitionType.scale,
         context: context,
         builder: (BuildContext context) {
           return AlertDialog(
@@ -192,7 +197,11 @@ class _DashboardState extends State<Dashboard> {
                   IconButton(
                       icon: Icon(Icons.desktop_windows),
                       onPressed: () {
-                        showDialog(
+                        showAnimatedDialog(
+                            curve: Curves.fastOutSlowIn,
+                            duration: Duration(seconds: 1),
+                            barrierDismissible: true,
+                            animationType: DialogTransitionType.scale,
                             context: context,
                             builder: (BuildContext context) {
                               return AlertDialog(
@@ -626,7 +635,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   elevation: 8,
                   child: Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey.shade800, width: 1),
+                      //border: Border.all(color: Colors.grey.shade800, width: 1),
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.elliptical(10, 10),
                         bottomLeft: Radius.elliptical(10, 10),
@@ -723,7 +732,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   margin: EdgeInsets.only(top: 25),
                   child: Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey.shade800, width: 1),
+                      //border: Border.all(color: Colors.grey.shade800, width: 1),
                       borderRadius: BorderRadius.only(
                         topLeft: Radius.elliptical(10, 10),
                         bottomLeft: Radius.elliptical(10, 10),
@@ -892,6 +901,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                   .setStatusBarWhiteForeground(true);
 
                               navigateToSubPage(context);
+                              setState(() {});
+                              print("NEWWID = ${Commands.newWid}");
                             },
                           ),
 
@@ -901,10 +912,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                     );
                   }));
-
-                  setState(() {
-                    newWid = Commands.newWid;
-                  });
                 },
               ),
             ),
@@ -912,7 +919,7 @@ class _MyHomePageState extends State<MyHomePage> {
           SizedBox(
             height: 10,
           ),
-          newWid
+          Commands.newWid
         ],
       )),
     );

@@ -46,7 +46,7 @@ ConnectedServer() {
     padding: EdgeInsets.only(left: 5, top: 15),
     margin: EdgeInsets.fromLTRB(14, 20, 14, 20),
     decoration: BoxDecoration(
-        border: Border.all(color: Colors.black, width: 1),
+        //border: Border.all(color: Colors.black, width: 1),
         color: Colors.white,
         shape: BoxShape.rectangle,
         borderRadius: BorderRadius.only(
@@ -333,16 +333,15 @@ class _BareMetalState extends State<BareMetal> {
                     await Connect();
                     await ServerBody();
                     await Status();
-                    setState(() {
-                      isloading4 = false;
-                    });
 
                     setState(() {
-                      newWid = ConnectedServer();
                       Commands.newWid = ConnectedServer();
                     });
                     setState(() {
                       BareMetal();
+                    });
+                    setState(() {
+                      isloading4 = false;
                     });
                   },
                 ),

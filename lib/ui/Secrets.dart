@@ -186,7 +186,7 @@ class _SecretsState extends State<Secrets> {
                     child: FloatingActionButton(
                       isExtended: true,
                       backgroundColor: Colors.blueAccent.shade700,
-                      child: Text("Launch"),
+                      child: Text("Create"),
                       onPressed: createSecret,
                     ),
                   ),

@@ -1,6 +1,7 @@
 import 'package:KubernetesMobile/Server/Network.dart';
 import 'package:KubernetesMobile/Server/Volumes.dart';
 import 'package:bmnav/bmnav.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 
 import '../DockerLaunch.dart';
@@ -13,7 +14,52 @@ class Rollout extends StatefulWidget {
 
 class _RolloutState extends State<Rollout> {
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    Commands.contName = null;
+    Commands.name = null;
+    Commands.loc1 = null;
+    Commands.selector = null;
+    Commands.image = null;
+    Commands.isDone = false;
+  }
+
+  @override
   Widget build(BuildContext context) {
+    setImage() async {
+      setState(() {
+        Commands.isDone = true;
+      });
+      if (Commands.validation == "passed") {
+        Commands.result = await serverCredentials.client.connect();
+        if (Commands.contName != null && Commands.image != null) {
+          if (Commands.name == null) Commands.name = "*";
+          if (Commands.selector != null)
+            Commands.selector = "--selector=" + Commands.selector;
+          else
+            Commands.selector = "";
+          if (Commands.loc1 != null)
+            Commands.loc1 = "--dry-run=" + Commands.loc1;
+          else
+            Commands.loc1 = "";
+
+          Commands.result = await serverCredentials.client.execute(
+              "kubectl set image ${Commands.contName} ${Commands.name}=${Commands.image} ${Commands.selector} ${Commands.loc1} ");
+
+          if (Commands.result != null)
+            AppToast("Rolling Update successful");
+          else
+            AppToast("Rolling Update Failed");
+        }
+      } else
+        AppToast("Server not connected");
+
+      setState(() {
+        Commands.isDone = false;
+      });
+    }
+
     var body = Container(
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
@@ -45,6 +91,240 @@ class _RolloutState extends State<Rollout> {
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.only(topLeft: Radius.circular(75))),
+            child: SingleChildScrollView(
+                child: Column(
+              children: <Widget>[
+                Container(
+                  height: 40,
+                  width: 320,
+                  decoration: BoxDecoration(
+                      color: Colors.blueAccent.shade700,
+                      borderRadius: BorderRadius.circular(20)),
+                  margin: EdgeInsets.only(top: 25, left: 20),
+                  child: Center(
+                    child: Text(
+                      "Rolling Update",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                ),
+                Column(children: <Widget>[
+                  Container(
+                    height: 50,
+                    width: 350,
+                    margin: EdgeInsets.only(
+                      top: 25,
+                      left: 10,
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          width: 85,
+                          child: Text("Resource : ",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        ),
+                        Container(
+                          height: 45,
+                          width: 250,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10)),
+                          margin: EdgeInsets.only(left: 0, right: 10),
+                          child: DropdownSearch(
+                            popupBackgroundColor: Colors.white,
+                            mode: Mode.MENU,
+                            showSelectedItem: true,
+                            items: [
+                              "Pod",
+                              "Deployment",
+                              "Replica Set",
+                              "Replication Controller",
+                            ],
+                            onChanged: (value) {
+                              setState(() {
+                                //dir = value;
+                                Commands.contName = value;
+                                print("OPHERE01 = ${Commands.contName}");
+
+                                //print("ABCD = ${items}");
+                              });
+                            },
+                            selectedItem: Commands.contName,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 50,
+                    width: 350,
+                    margin: EdgeInsets.only(top: 20, left: 10),
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          width: 70,
+                          child: Text(
+                            "Name   : ",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        Container(
+                          height: 45,
+                          width: 250,
+                          decoration: BoxDecoration(
+                              color: Colors.lightBlue,
+                              borderRadius: BorderRadius.circular(10)),
+                          margin: EdgeInsets.only(left: 15, right: 10),
+                          child: TextField(
+                            autocorrect: false,
+                            style: TextStyle(color: Colors.black),
+                            decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                hintText: "default=All",
+                                hintStyle:
+                                    TextStyle(color: Colors.grey, fontSize: 13),
+                                border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)))),
+                            onChanged: (value) => {Commands.name = value},
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 50,
+                    width: 350,
+                    margin: EdgeInsets.only(top: 20, left: 10),
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          width: 70,
+                          child: Text("Image  : ",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        ),
+                        Container(
+                          height: 45,
+                          width: 250,
+                          decoration: BoxDecoration(
+                              color: Colors.lightBlue,
+                              borderRadius: BorderRadius.circular(10)),
+                          margin: EdgeInsets.only(left: 20, right: 10),
+                          child: TextField(
+                            autocorrect: false,
+                            style: TextStyle(color: Colors.black),
+                            decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                hintText: "image",
+                                hintStyle:
+                                    TextStyle(color: Colors.grey, fontSize: 13),
+                                border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)))),
+                            onChanged: (value) => {Commands.image = value},
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 50,
+                    width: 350,
+                    margin: EdgeInsets.only(top: 20, left: 10),
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          width: 70,
+                          child: Text("Selector  : ",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        ),
+                        Container(
+                          height: 45,
+                          width: 250,
+                          decoration: BoxDecoration(
+                              color: Colors.lightBlue,
+                              borderRadius: BorderRadius.circular(10)),
+                          margin: EdgeInsets.only(left: 15, right: 10),
+                          child: TextField(
+                            autocorrect: false,
+                            style: TextStyle(color: Colors.black),
+                            decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                hintText: "ex. env=prod (comma separated)",
+                                hintStyle:
+                                    TextStyle(color: Colors.grey, fontSize: 13),
+                                border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)))),
+                            onChanged: (value) => {Commands.selector = value},
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(
+                    height: 50,
+                    width: 350,
+                    margin: EdgeInsets.only(
+                      top: 25,
+                      left: 10,
+                    ),
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          width: 85,
+                          child: Text("Dry run  : ",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
+                        ),
+                        Container(
+                          height: 45,
+                          width: 250,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10)),
+                          margin: EdgeInsets.only(left: 0, right: 10),
+                          child: DropdownSearch(
+                            popupBackgroundColor: Colors.white,
+                            mode: Mode.MENU,
+                            showSelectedItem: true,
+                            items: ["Server", "Client", "None"],
+                            onChanged: (value) {
+                              setState(() {
+                                Commands.loc1 = value;
+                              });
+                            },
+                            selectedItem: Commands.loc1,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50)),
+                    margin: EdgeInsets.all(30),
+                    child: Container(
+                      margin: EdgeInsets.all(0),
+                      height: 50,
+                      width: 180,
+                      child: FloatingActionButton(
+                        isExtended: true,
+                        backgroundColor: Colors.blueAccent.shade700,
+                        child: Commands.isDone
+                            ? CircularProgressIndicator(
+                                backgroundColor: Colors.white,
+                              )
+                            : Text("Set"),
+                        onPressed: setImage,
+                      ),
+                    ),
+                  )
+                ])
+              ],
+            )),
           )
         ]));
 

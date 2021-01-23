@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:KubernetesMobile/Resources/RC.dart';
 import 'package:KubernetesMobile/Server/Network.dart';
 import 'package:KubernetesMobile/Server/Volumes.dart';
@@ -8,6 +10,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'package:KubernetesMobile/DockerLaunch.dart';
@@ -476,7 +479,11 @@ class _PersistentVolumeClaimState extends State<PersistentVolumeClaim> {
                   color: Colors.white,
                 ),
                 onPressed: () async {
-                  showDialog(
+                  showAnimatedDialog(
+                      curve: Curves.fastOutSlowIn,
+                      duration: Duration(seconds: 1),
+                      barrierDismissible: true,
+                      animationType: DialogTransitionType.slideFromTop,
                       context: context,
                       builder: (BuildContext context) {
                         return SaveResource();
@@ -749,7 +756,11 @@ class _PersistentVolumeState extends State<PersistentVolume> {
                   color: Colors.white,
                 ),
                 onPressed: () async {
-                  showDialog(
+                  showAnimatedDialog(
+                      curve: Curves.fastOutSlowIn,
+                      duration: Duration(seconds: 1),
+                      barrierDismissible: true,
+                      animationType: DialogTransitionType.slideFromTop,
                       context: context,
                       builder: (BuildContext context) {
                         return SaveResource();
