@@ -360,40 +360,29 @@ class _PodLaunchState extends State<PodLaunch> {
                         children: <Widget>[
                           Container(
                             width: 70,
-                            child: Text("Label   : ",
+                            child: Text("Labels  : ",
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                           ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Column(
-                            children: [
-                              Column(
-                                children: Commands.TextfieldDynamic,
-                              ),
-                              Row(
-                                children: <Widget>[
-                                  IconButton(
-                                    iconSize: 30,
-                                    icon: Icon(
-                                      Icons.add_circle,
-                                      color: Colors.lightBlue,
-                                    ),
-                                    onPressed: DynamicAdd,
-                                  ),
-                                  Commands.TextfieldDynamic.length >= 1
-                                      ? IconButton(
-                                          iconSize: 30,
-                                          icon: Icon(
-                                            Icons.remove_circle,
-                                            color: Colors.lightBlue,
-                                          ),
-                                          onPressed: DynamicRemove,
-                                        )
-                                      : SizedBox(),
-                                ],
-                              )
-                            ],
+                          Container(
+                            height: 45,
+                            width: 250,
+                            decoration: BoxDecoration(
+                                color: Colors.lightBlue,
+                                borderRadius: BorderRadius.circular(10)),
+                            margin: EdgeInsets.only(left: 20, right: 10),
+                            child: TextField(
+                              style: TextStyle(color: Colors.black),
+                              decoration: InputDecoration(
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  hintText: "For ex. env=prod(comma separated)",
+                                  hintStyle: TextStyle(
+                                      color: Colors.grey, fontSize: 13),
+                                  border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.all(
+                                          Radius.circular(10)))),
+                              onChanged: (value) => {Commands.env = value},
+                            ),
                           ),
                         ],
                       ),

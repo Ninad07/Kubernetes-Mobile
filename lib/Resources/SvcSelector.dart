@@ -62,7 +62,7 @@ class _ServiceSelectorState extends State<ServiceSelector> {
                 child: FloatingActionButton(
                   heroTag: "1",
                   isExtended: true,
-                  backgroundColor: Colors.grey.shade100,
+                  backgroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
                   onPressed: () {
@@ -127,13 +127,13 @@ class _ServiceSelectorState extends State<ServiceSelector> {
                 height: 180,
                 width: 350,
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: FloatingActionButton(
                   heroTag: "2",
                   isExtended: true,
-                  backgroundColor: Colors.grey.shade100,
+                  backgroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
                   onPressed: () {
@@ -198,13 +198,13 @@ class _ServiceSelectorState extends State<ServiceSelector> {
                 height: 180,
                 width: 350,
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: FloatingActionButton(
                   heroTag: "3",
                   isExtended: true,
-                  backgroundColor: Colors.grey.shade100,
+                  backgroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
                   onPressed: () {
@@ -269,13 +269,13 @@ class _ServiceSelectorState extends State<ServiceSelector> {
                 height: 180,
                 width: 350,
                 decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
                 ),
                 child: FloatingActionButton(
                   heroTag: "4",
                   isExtended: true,
-                  backgroundColor: Colors.grey.shade100,
+                  backgroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)),
                   onPressed: () {

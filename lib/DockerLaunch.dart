@@ -22,7 +22,7 @@ class Commands {
   static String version;
   static String command;
   static var newImage;
-  static var env = List();
+  static var env;
   static var result;
   static var pushresult;
   static bool active;
@@ -65,6 +65,7 @@ class Commands {
   static var restartAlways = false;
   static var deleteAlways = false;
   static List<String> path = [];
+  static List res = [];
   static var targetPort;
   static var ip;
   static var exname;
