@@ -1,3 +1,4 @@
+import 'package:KubernetesMobile/ui/Pods.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:KubernetesMobile/DockerLaunch.dart';
@@ -31,7 +32,9 @@ class _ExecuteState extends State<Execute> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Ret("active");
+    //Ret("active");
+    Pod_Info(s: "pods");
+    print("POD LIST = ${Commands.res}");
   }
 
   @override
@@ -114,8 +117,8 @@ class _ExecuteState extends State<Execute> {
                                 child: DropdownSearch(
                                   popupBackgroundColor: Colors.white,
                                   mode: Mode.MENU,
-                                  showSelectedItem: true,
-                                  items: Commands.getCont,
+                                  //showSelectedItem: true,
+                                  items: Commands.res,
                                   onChanged: (value) {
                                     setState(() {
                                       //dir = value;

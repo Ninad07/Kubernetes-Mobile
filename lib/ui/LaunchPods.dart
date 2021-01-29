@@ -28,6 +28,8 @@ class _PodLaunchState extends State<PodLaunch> {
     Commands.image = null;
     Commands.replicas = null;
     Commands.port = null;
+    Commands.loc1 = null;
+    Commands.loc2 = null;
   }
 
   bool isChecked = false;
@@ -38,31 +40,6 @@ class _PodLaunchState extends State<PodLaunch> {
     //FlutterStatusbarcolor.setNavigationBarColor(Colors.blue);
     print("COMMANDS.ENV = ${Commands.env}");
 
-    for (i = 0; i < Commands.env.length; i++) {
-      print(Commands.env[i]);
-      environment = environment + " -e " + Commands.env[i];
-      print("ENVIRONMENT = $environment");
-    }
-
-    DynamicAdd() {
-      Commands.TextfieldDynamic.add(new DynamicText());
-      print(Commands.TextfieldDynamic.length);
-      setState(() {
-        PodLaunch();
-      });
-    }
-
-    DynamicRemove() {
-      Commands.TextfieldDynamic.removeLast();
-      if (Commands.env.length > 0) {
-        Commands.env.removeLast();
-      }
-      print(Commands.TextfieldDynamic.length);
-      setState(() {
-        PodLaunch();
-      });
-    }
-
     LaunchPods() async {
       setState(() {
         launchLoading = true;
@@ -72,122 +49,38 @@ class _PodLaunchState extends State<PodLaunch> {
         Commands.result = await serverCredentials.client.connect();
 
         if (Commands.name != null && Commands.image != null) {
-          print(Commands.name + "  " + Commands.image);
-          print(Commands.deleteAlways);
-          //##### DELETE #####//
-          if (Commands.deleteAlways == false) {
-            print(Commands.deleteAlways);
-            //##### RESTART #####//
-            if (Commands.restartAlways == false) {
-              print(Commands.restartAlways);
-              //##### ENV #####//
-              if (Commands.env.length == 0) {
-                print(Commands.env.length);
-                //##### PORT #####//
-                if (Commands.port == null) {
-                  print(Commands.port);
-                  Commands.result = await serverCredentials.client.execute(
-                      "kubectl run ${Commands.name} --image=${Commands.image}");
+          if (Commands.port != null)
+            Commands.port = "--port=" + Commands.port;
+          else
+            Commands.port = "";
 
-                  print("HERE = ${Commands.result}");
-                } else {
-                  Commands.result = await serverCredentials.client.execute(
-                      "kubectl run ${Commands.name} --port=${Commands.port}  --image=${Commands.image}");
-                }
-                //##### PORT #####//
+          if (Commands.env != null)
+            Commands.env = "--labels=" + Commands.env;
+          else
+            Commands.env = "";
 
-              } else {
-                if (Commands.port == null) {
-                  /////////////////PENDING///////////////////////////////
-                  Commands.result = await serverCredentials.client.execute(
-                      "kubectl run ${Commands.name} --env --image=${Commands.image}");
-                } else {
-                  Commands.result = await serverCredentials.client.execute(
-                      "kubectl run ${Commands.name} --env  --port=${Commands.port}  --image=${Commands.image}");
-                }
-              }
-              //################# ENV ###############################//
+          if (Commands.restartAlways == true)
+            Commands.loc1 = "--restart='Always";
+          else
+            Commands.loc1 = "";
 
-            } else {
-              if (Commands.env.length == 0) {
-                //##### PORT #####//
-                if (Commands.port == null) {
-                  Commands.result = await serverCredentials.client.execute(
-                      "kubectl run ${Commands.name} --restart='Always' --image=${Commands.image}");
-                } else {
-                  Commands.result = await serverCredentials.client.execute(
-                      "kubectl run ${Commands.name} --port=${Commands.port} --restart='Always'  --image=${Commands.image}");
-                }
-                //##### PORT #####//
+          if (Commands.deleteAlways == true)
+            Commands.loc2 = "--rm=true";
+          else
+            Commands.loc2 = "";
 
-              } else {
-                if (Commands.port == null) {
-                  /////////////////PENDING///////////////////////////////
-                  Commands.result = await serverCredentials.client.execute(
-                      "kubectl run ${Commands.name} --restart='Always' --env --image=${Commands.image}");
-                } else {
-                  Commands.result = await serverCredentials.client.execute(
-                      "kubectl run ${Commands.name} --restart='Always'  --env  --port=${Commands.port}  --image=${Commands.image}");
-                }
-              }
-            }
+          Commands.result = await serverCredentials.client.execute(
+              "kubectl run  ${Commands.name} --image=${Commands.image} ${Commands.port} ${Commands.env} ${Commands.loc1} ${Commands.loc2} ");
 
-            //###################### RESTART #################################//
-
-          } else {
-            if (Commands.restartAlways == false) {
-              //##### ENV #####//
-              if (Commands.env.length == 0) {
-                //##### PORT #####//
-                if (Commands.port == null) {
-                  Commands.result = await serverCredentials.client.execute(
-                      "kubectl run ${Commands.name} --rm=true --image=${Commands.image}");
-                } else {
-                  Commands.result = await serverCredentials.client.execute(
-                      "kubectl run ${Commands.name} --rm=true --port=${Commands.port}  --image=${Commands.image}");
-                }
-                //##### PORT #####//
-
-              } else {
-                if (Commands.port == null) {
-                  /////////////////PENDING///////////////////////////////
-                  Commands.result = await serverCredentials.client.execute(
-                      "kubectl run ${Commands.name} --rm=true --env --image=${Commands.image}");
-                } else {
-                  Commands.result = await serverCredentials.client.execute(
-                      "kubectl run ${Commands.name} --rm=true --env --port=${Commands.port}  --image=${Commands.image}");
-                }
-              }
-              //################# ENV ###############################//
-
-            } else {
-              if (Commands.env.length == 0) {
-                //##### PORT #####//
-                if (Commands.port == null) {
-                  Commands.result = await serverCredentials.client.execute(
-                      "kubectl run ${Commands.name} --restart='Always' --image=${Commands.image}");
-                } else {
-                  Commands.result = await serverCredentials.client.execute(
-                      "kubectl run ${Commands.name} --port=${Commands.port} --restart='Always'  --image=${Commands.image}");
-                }
-                //##### PORT #####//
-
-              } else {
-                if (Commands.port == null) {
-                  /////////////////PENDING///////////////////////////////
-                  Commands.result = await serverCredentials.client.execute(
-                      "kubectl run ${Commands.name} --restart='Always' --env --image=${Commands.image}");
-                } else {
-                  Commands.result = await serverCredentials.client.execute(
-                      "kubectl run ${Commands.name} --restart='Always'  --env  --port=${Commands.port}  --image=${Commands.image}");
-                }
-              }
-            }
-          }
+          if (Commands.result != "")
+            AppToast("Pod launched successfully");
+          else
+            AppToast("Cannot Launch pod");
         } else {
           AppToast("Please enter Name and Image");
         }
-      }
+      } else
+        AppToast("Server Not connected");
 
       setState(() {
         launchLoading = false;
@@ -536,35 +429,6 @@ class _PodLaunchState extends State<PodLaunch> {
               onPressed: () => {Navigator.pop(context)}),
         ),
         body: body,
-      ),
-    );
-  }
-}
-
-class DynamicText extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 45,
-      width: 250,
-      decoration: BoxDecoration(
-          color: Colors.lightBlue, borderRadius: BorderRadius.circular(10)),
-      margin: EdgeInsets.only(left: 10, right: 0, top: 10),
-      child: TextField(
-        controller: _value,
-        style: TextStyle(color: Colors.black),
-        decoration: InputDecoration(
-            filled: true,
-            fillColor: Colors.white,
-            hintText: "labels",
-            hintStyle: TextStyle(color: Colors.grey, fontSize: 13),
-            border: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10)))),
-        autocorrect: false,
-        enableInteractiveSelection: true,
-        enableSuggestions: true,
-        onSubmitted: (String value) => {Commands.env.add(value)},
-        //onChanged: (String value) => {Commands.env.add(value)},
       ),
     );
   }

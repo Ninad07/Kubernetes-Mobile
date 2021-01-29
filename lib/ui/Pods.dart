@@ -1759,44 +1759,47 @@ class _Pod_InfoState extends State<Pod_Info> {
     List raw_list = [];
     List<Map> raw_list2 = [];
 
-    temporary =
-        await serverCredentials.client.execute("kubectl get $imp -o json");
+    if (Commands.validation == "passed") {
+      temporary =
+          await serverCredentials.client.execute("kubectl get $imp -o json");
 
-    var json = jsonDecode(temporary);
-    print("REACHED HERE\nTEMp = $temporary");
-    int count = 0;
+      var json = jsonDecode(temporary);
+      print("REACHED HERE\nTEMp = $temporary");
+      int count = 0;
 
-    try {
-      for (var item in json['items']) {
-        raw_list.add(item['metadata']['name']);
-        raw_list2.add(item['metadata']['labels']);
+      try {
+        for (var item in json['items']) {
+          raw_list.add(item['metadata']['name']);
+          raw_list2.add(item['metadata']['labels']);
+        }
+
+        print("Done even till here");
+        x_list = raw_list;
+        Commands.res = x_list;
+        x_list2 = raw_list2;
+
+        setState(() {
+          text = true;
+        });
+      } catch (e) {
+        for (var item in json['items']) {
+          raw_list.add(item['metadata']['name']);
+        }
+
+        print("Done even till here");
+        x_list = raw_list;
+        Commands.res = x_list;
+        setState(() {
+          text = false;
+        });
       }
 
-      print("Done even till here");
-      x_list = raw_list;
-      Commands.res = x_list;
-      x_list2 = raw_list2;
-
       setState(() {
-        text = true;
+        print("ALL DONE HERE");
+        isdone = true;
       });
-    } catch (e) {
-      for (var item in json['items']) {
-        raw_list.add(item['metadata']['name']);
-      }
-
-      print("Done even till here");
-      x_list = raw_list;
-      Commands.res = x_list;
-      setState(() {
-        text = false;
-      });
-    }
-
-    setState(() {
-      print("ALL DONE HERE");
-      isdone = true;
-    });
+    } else
+      AppToast("Server not connected");
   }
 
   @override

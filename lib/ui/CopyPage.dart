@@ -5,6 +5,8 @@ import 'package:KubernetesMobile/FrontEnd.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
+import 'Pods.dart';
+
 class CopyFiles extends StatefulWidget {
   @override
   _CopyFilesState createState() => _CopyFilesState();
@@ -15,7 +17,7 @@ class _CopyFilesState extends State<CopyFiles> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Ret("active");
+    Pod_Info(s: "pods");
     Path();
   }
 
@@ -297,8 +299,8 @@ class _CopyFilesState extends State<CopyFiles> {
                             child: DropdownSearch(
                               popupBackgroundColor: Colors.white,
                               mode: Mode.MENU,
-                              showSelectedItem: true,
-                              items: Commands.getCont,
+                              //showSelectedItem: true,
+                              items: Commands.res,
                               onChanged: (value) {
                                 setState(() {
                                   //dir = value;

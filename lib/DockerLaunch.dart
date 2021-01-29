@@ -44,7 +44,7 @@ class Commands {
   static String loc1;
   static String loc2;
   static String repo;
-  static List<DynamicText> TextfieldDynamic = [];
+
   static List<String> container2 = [];
   static var volumename;
   static var volumedriver;
