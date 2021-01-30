@@ -17,12 +17,6 @@ class Network extends StatefulWidget {
 class _NetworkState extends State<Network> {
   _onSelect(PageEnum value) {
     switch (value) {
-      case PageEnum.lsnet:
-        Navigator.of(context).push(CupertinoPageRoute(builder: (context) {
-          NetListRet();
-          return NetworkList();
-        }));
-        break;
       case PageEnum.connect:
         Navigator.of(context).push(
           CupertinoPageRoute(builder: (BuildContext context) => NetworkList()),
@@ -168,7 +162,6 @@ class _NetworkState extends State<Network> {
                                 backgroundColor: Colors.lightBlue,
                                 child: Text("Create"),
                                 onPressed: () async {
-                                  await NetListRet();
                                   NetworkCreate();
                                 },
                               ),
@@ -318,7 +311,6 @@ class _NetworkListState extends State<NetworkList> {
   @override
   void initState() {
     super.initState();
-    NetListRet();
   }
 
   bool loading = false;
@@ -414,7 +406,6 @@ class _NetworkListState extends State<NetworkList> {
                                         onPressed: () async {
                                           NetworkDelete(
                                               "${Commands.netls[index]}");
-                                          await NetListRet();
                                         },
                                       )),
                                 )
@@ -435,7 +426,7 @@ class _NetworkListState extends State<NetworkList> {
                                 Container(
                                   margin: EdgeInsets.only(top: 10),
                                   child: Text(
-                                    "${Commands.netls2[index]}",
+                                    "",
                                   ),
                                 ),
                               ],
@@ -455,7 +446,7 @@ class _NetworkListState extends State<NetworkList> {
                                 Container(
                                   margin: EdgeInsets.only(top: 10),
                                   child: Text(
-                                    "${Commands.netls3[index]}",
+                                    "",
                                   ),
                                 )
                               ],
@@ -475,7 +466,7 @@ class _NetworkListState extends State<NetworkList> {
                                 Container(
                                   margin: EdgeInsets.only(top: 10),
                                   child: Text(
-                                    "${Commands.netls4[index]}",
+                                    "",
                                   ),
                                 )
                               ],
@@ -667,7 +658,7 @@ class _NetworkListState extends State<NetworkList> {
                   setState(() {
                     loading = true;
                   });
-                  await NetListRet();
+
                   setState(() {
                     statelist = Display();
                     listNetworks = ScaffoldBodyState();

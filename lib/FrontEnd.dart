@@ -3597,6 +3597,7 @@ class _DCHubState extends State<DCHub> {
 import 'package:KubernetesMobile/Resources/PV-PVC.dart';
 import 'package:KubernetesMobile/Server/AWS.dart';
 import 'package:KubernetesMobile/Server/BareMetal.dart';
+import 'package:KubernetesMobile/ui/Config.dart';
 import 'package:KubernetesMobile/ui/CopyPage.dart';
 import 'package:KubernetesMobile/ui/DeletePage.dart';
 import 'package:KubernetesMobile/ui/ExecPage.dart';
@@ -4353,7 +4354,12 @@ class _DashboardState extends State<Dashboard> {
                   ListTile(
                     leading: Icon(Icons.copyright),
                     title: Text('Config'),
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return Config();
+                      }));
+                    },
                   ),
                 ],
               ),

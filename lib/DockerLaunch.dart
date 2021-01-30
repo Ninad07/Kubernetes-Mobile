@@ -1,5 +1,6 @@
 import 'dart:core';
 
+import 'package:KubernetesMobile/ui/Config.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:ssh/ssh.dart';
@@ -32,9 +33,8 @@ class Commands {
   static var demo1;
   static var netls;
   static var docker;
-  static var netls2;
-  static var netls3;
-  static var netls4;
+  static var config = "None";
+  static var context = "None";
   static String validation;
   static var widgets = new List<Widget>();
   static var widgets1 = new List<Widget>();
@@ -182,31 +182,6 @@ Retrive() async {
   print(Commands.demo1.toList());
 }
 
-NetListRet() async {
-  if (Commands.validation == "passed") {
-    Commands.result = await serverCredentials.client.connect();
-    if (Commands.result == "session_connected") {
-      Commands.result = await serverCredentials.client
-          .execute("sudo docker network ls --format {{.Name}}");
-      Commands.netls = await Commands.result.split('\n').toList();
-
-      Commands.result = await serverCredentials.client
-          .execute("sudo docker network ls --format {{.ID}}");
-      Commands.netls2 = await Commands.result.split('\n').toList();
-
-      Commands.result = await serverCredentials.client
-          .execute("sudo docker network ls --format {{.Driver}}");
-      Commands.netls3 = await Commands.result.split('\n').toList();
-
-      Commands.result = await serverCredentials.client
-          .execute("sudo docker network ls --format {{.Scope}}");
-      Commands.netls4 = await Commands.result.split('\n').toList();
-    }
-  } else {
-    AppToast("Server not connected");
-  }
-}
-
 VolumeListRet() async {
   if (Commands.validation == "passed") {
     Commands.result = await serverCredentials.client.connect();
@@ -274,6 +249,21 @@ ServerBody() async {
   }
 }
 
+configInfo() async {
+  if (Commands.validation == "passed") {
+    Commands.result = await serverCredentials.client.connect();
+    Commands.config =
+        await serverCredentials.client.execute("kubectl config view");
+    if (Commands.config == "") AppToast("No configurations found");
+    print(Commands.config);
+    Commands.context = await serverCredentials.client
+        .execute("kubectl config current-context");
+    print(Commands.context);
+    if (Commands.context == "") AppToast("No contexts found");
+  } else
+    AppToast("Server not connected");
+}
+
 Connect() async {
   var result;
   if (serverCredentials.ip != null &&
@@ -305,14 +295,8 @@ Connect() async {
       Commands.validation = "passed";
       print(Commands.validation);
       print("START");
-      await Ret("active");
-      print("RET");
-      await NetListRet();
-      print("NETLSRET");
-      await VolumeListRet();
-      print("VOLRET");
-      await Retrive();
-      print("IMGRET");
+
+      await configInfo();
       //await ServerBody();
       //print("SERVBODY");
       print("END");

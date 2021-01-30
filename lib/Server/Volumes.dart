@@ -16,12 +16,6 @@ class Volume extends StatefulWidget {
 class _VolumeState extends State<Volume> {
   _onSelect(PageEnum value) {
     switch (value) {
-      case PageEnum.volume:
-        Navigator.of(context).push(CupertinoPageRoute(builder: (context) {
-          NetListRet();
-          return VolumeList();
-        }));
-        break;
       default:
         Navigator.of(context).push(CupertinoPageRoute(
             builder: (BuildContext context) => VolumeList()));
@@ -415,7 +409,6 @@ class _VolumeListState extends State<VolumeList> {
                                       onPressed: () async {
                                         VolumeDelete(
                                             "${Commands.volumename[index]}");
-                                        await NetListRet();
                                       },
                                     )),
                               )
