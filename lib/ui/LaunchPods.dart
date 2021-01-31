@@ -76,6 +76,9 @@ class _PodLaunchState extends State<PodLaunch> {
             AppToast("Pod launched successfully");
           else
             AppToast("Cannot Launch pod");
+
+          Commands.image = Commands.loc1 = Commands.loc2 =
+              Commands.port = Commands.env = Commands.name = null;
         } else {
           AppToast("Please enter Name and Image");
         }

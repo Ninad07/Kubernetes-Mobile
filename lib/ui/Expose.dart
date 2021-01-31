@@ -70,6 +70,15 @@ class _ExposeState extends State<Expose> {
       } else {
         AppToast("Cannot Expose");
       }
+
+      Commands.name = null;
+      Commands.contName = null;
+      Commands.selector = null;
+      Commands.port = null;
+      Commands.targetPort = null;
+      Commands.image = null;
+      Commands.protocol = null;
+      Commands.type = null;
     } else {
       AppToast("Server not connected");
     }

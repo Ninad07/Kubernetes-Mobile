@@ -38,6 +38,9 @@ class _ClusterIPState extends State<ClusterIP> {
       } else {
         AppToast("Cannot create the Service");
       }
+
+      Commands.port = Commands.name =
+          Commands.targetPort = Commands.ip = Commands.contName = null;
     } else {
       AppToast("Server not connected");
     }

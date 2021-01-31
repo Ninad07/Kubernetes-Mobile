@@ -51,6 +51,13 @@ class _ScaleState extends State<Scale> {
       } else {
         AppToast("No resource name provided");
       }
+
+      Commands.contName = null;
+      Commands.name = null;
+      Commands.currentreplicas = null;
+      Commands.replicas = null;
+      Commands.selector = null;
+      Commands.image = null;
     } else {
       AppToast("Server not connected");
     }

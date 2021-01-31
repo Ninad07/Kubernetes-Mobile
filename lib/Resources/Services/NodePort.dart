@@ -28,6 +28,11 @@ class _NodePortState extends State<NodePort> {
       } else {
         AppToast("Cannot create the service");
       }
+
+      Commands.name = null;
+      Commands.port = null;
+      Commands.targetPort = null;
+      Commands.contName == null;
     } else {
       AppToast("Server not connected");
     }

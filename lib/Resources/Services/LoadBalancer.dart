@@ -28,6 +28,10 @@ class _LoadBalancerState extends State<LoadBalancer> {
       } else {
         AppToast("Cannot create the service");
       }
+      Commands.name = null;
+      Commands.port = null;
+      Commands.targetPort = null;
+      Commands.contName = null;
     } else {
       AppToast("Server not connected");
     }

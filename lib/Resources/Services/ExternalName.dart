@@ -36,6 +36,11 @@ class _ExternalNameState extends State<ExternalName> {
       } else {
         AppToast("Cannot create the Service");
       }
+
+      Commands.name = null;
+      Commands.port = null;
+      Commands.targetPort = null;
+      Commands.exname = null;
     } else {
       AppToast("Server not Connected");
     }

@@ -52,6 +52,12 @@ class _RolloutState extends State<Rollout> {
           else
             AppToast("Rolling Update Failed");
         }
+
+        Commands.contName = null;
+        Commands.name = null;
+        Commands.loc1 = null;
+        Commands.selector = null;
+        Commands.image = null;
       } else
         AppToast("Server not connected");
 
