@@ -264,8 +264,8 @@ class _PersistentVolumeClaimState extends State<PersistentVolumeClaim> {
       if (Commands.loc1 != null && Commands.name != null) {
         print("${Commands.loc1}/${Commands.name}.yml");
 
-        Commands.result = await serverCredentials.client.execute(
-            "kubectl create pvc -f ${Commands.loc1}/${Commands.name}.yml");
+        Commands.result = await serverCredentials.client
+            .execute("kubectl apply -f ${Commands.loc1}/${Commands.name}.yml");
 
         print("RS = ${Commands.result}");
         if (Commands.result != "")
@@ -541,8 +541,8 @@ class _PersistentVolumeState extends State<PersistentVolume> {
       if (Commands.loc1 != null && Commands.name != null) {
         print("${Commands.loc1}/${Commands.name}.yml");
 
-        Commands.result = await serverCredentials.client.execute(
-            "kubectl create pv -f ${Commands.loc1}/${Commands.name}.yml");
+        Commands.result = await serverCredentials.client
+            .execute("kubectl apply -f ${Commands.loc1}/${Commands.name}.yml");
 
         print("RS = ${Commands.result}");
         if (Commands.result != "")
@@ -770,9 +770,10 @@ class _PersistentVolumeState extends State<PersistentVolume> {
               width: 5,
             ),
             Commands.isDone
-                ? CircularProgressIndicator(
-                    backgroundColor: Colors.white,
-                  )
+                ? Transform.scale(
+                    scale: 0.6,
+                    child: CircularProgressIndicator(
+                        backgroundColor: Colors.white))
                 : IconButton(
                     icon: Icon(
                       Icons.play_arrow_rounded,

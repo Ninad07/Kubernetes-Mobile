@@ -1,7 +1,9 @@
+import 'package:KubernetesMobile/Resources/RC.dart';
 import 'package:KubernetesMobile/Server/Network.dart';
 import 'package:KubernetesMobile/Server/Volumes.dart';
 import 'package:bmnav/bmnav.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 import '../DockerLaunch.dart';
 import '../FrontEnd.dart';
@@ -25,6 +27,7 @@ class _DeploymentState extends State<Deployment> {
   @override
   Widget build(BuildContext context) {
     var isDeployed = false;
+    var isdone = false;
 
     //################ Deployment Function ######################//
     Deploy() async {
@@ -37,6 +40,9 @@ class _DeploymentState extends State<Deployment> {
 
         if (Commands.name != null && Commands.image != null) {
           //PORT
+
+          //if (Commands.port != null) Commands.port = "--port=${Commands.port}";
+
           if (Commands.port == null) {
             //REPLICAS
             if (Commands.replicas == null) {
@@ -50,10 +56,12 @@ class _DeploymentState extends State<Deployment> {
           } else {
             if (Commands.replicas == null) {
               Commands.result = await serverCredentials.client.execute(
-                  "kubectl create deployment ${Commands.name} --image=${Commands.image} --ports=${Commands.port}");
+                  "kubectl create deployment ${Commands.name} --image=${Commands.image} --port=${Commands.port}");
             } else {
+              print(
+                  "kubectl create deployment ${Commands.name} --image=${Commands.image} --replicas=${Commands.replicas} --port=${Commands.port}");
               Commands.result = await serverCredentials.client.execute(
-                  "kubectl create deployment ${Commands.name} --image=${Commands.image} --replicas=${Commands.replicas} --ports=${Commands.port}");
+                  "kubectl create deployment ${Commands.name} --image=${Commands.image} --replicas=${Commands.replicas} --port=${Commands.port}");
             }
           }
           //PORT
@@ -61,7 +69,13 @@ class _DeploymentState extends State<Deployment> {
         } else {
           AppToast("Please specify name and image");
         }
-      }
+
+        if (Commands.result != "")
+          AppToast("Deployment Created Successfully");
+        else
+          AppToast("Failed to create Deployment");
+      } else
+        AppToast("Server not connected");
 
       setState(() {
         isDeployed = false;
@@ -277,7 +291,12 @@ class _DeploymentState extends State<Deployment> {
                           child: FloatingActionButton(
                             isExtended: true,
                             backgroundColor: Colors.blueAccent.shade700,
-                            child: Text("Deploy"),
+                            child: isDeployed
+                                ? Transform.scale(
+                                    scale: 0.6,
+                                    child: CircularProgressIndicator(
+                                        backgroundColor: Colors.white))
+                                : Text("Deploy"),
                             onPressed: Deploy,
                           ),
                         ),
@@ -336,6 +355,18 @@ class _DeploymentState extends State<Deployment> {
             "Create Deployment",
             style: TextStyle(color: Colors.white),
           ),
+          actions: [
+            IconButton(
+                icon: Icon(
+                  FlutterIcons.pencil_ent,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return ReplicationController(s: "Dep");
+                  }));
+                })
+          ],
           leading: IconButton(
               icon: Icon(
                 Icons.arrow_back,

@@ -10,8 +10,12 @@ class ExternalName extends StatefulWidget {
 }
 
 class _ExternalNameState extends State<ExternalName> {
+  var isdone = false;
   //CREATE EXTERNALNAME SERVICE
   createExternalName() async {
+    setState(() {
+      isdone = true;
+    });
     if (Commands.validation == "passed") {
       Commands.result = await serverCredentials.client.connect();
 
@@ -37,13 +41,20 @@ class _ExternalNameState extends State<ExternalName> {
         AppToast("Cannot create the Service");
       }
 
-      Commands.name = null;
-      Commands.port = null;
-      Commands.targetPort = null;
-      Commands.exname = null;
+      if (Commands.result != "") {
+        AppToast("Service created successfully");
+        Commands.name = null;
+        Commands.port = null;
+        Commands.targetPort = null;
+        Commands.exname = null;
+      } else
+        AppToast("Cannot create the service");
     } else {
       AppToast("Server not Connected");
     }
+    setState(() {
+      isdone = false;
+    });
   }
 
   @override
@@ -353,12 +364,17 @@ class _ExternalNameState extends State<ExternalName> {
                           child: FloatingActionButton(
                             isExtended: true,
                             backgroundColor: Colors.blueAccent.shade700,
-                            child: Text(
-                              "Create",
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
+                            child: isdone
+                                ? Transform.scale(
+                                    scale: 0.6,
+                                    child: CircularProgressIndicator(
+                                        backgroundColor: Colors.white))
+                                : Text(
+                                    "Create",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
                             onPressed: createExternalName,
                           ),
                         ),

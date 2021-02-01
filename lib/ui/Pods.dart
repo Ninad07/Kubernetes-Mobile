@@ -244,6 +244,7 @@ Widget Widget_for_resource_info(var data_json) {
                     margin: EdgeInsets.only(top: 0, bottom: 15),
                     child: Text(
                       "Image : ",
+                      softWrap: true,
                       style: TextStyle(
                           color: Colors.lightBlue, fontWeight: FontWeight.bold),
                     ),
@@ -1540,7 +1541,7 @@ Widget body_pod_info() {
               height: double.infinity,
               color: Colors.white,
               child: Container(
-                margin: EdgeInsets.only(top: 250),
+                margin: EdgeInsets.only(top: 250, bottom: 35),
                 child: ListView.builder(
                   itemBuilder: (BuildContext context, int index) {
                     return Slidable(
@@ -1551,8 +1552,8 @@ Widget body_pod_info() {
                         ),
                         elevation: 8.0,
                         color: Colors.grey.shade100,
-                        margin: EdgeInsets.symmetric(
-                            horizontal: 10.0, vertical: 6.0),
+                        margin: EdgeInsets.only(
+                            top: 10, bottom: 10, left: 10, right: 10),
                         child: Container(
                           decoration: BoxDecoration(
                               color: Colors.white,
@@ -1807,6 +1808,15 @@ class _Pod_InfoState extends State<Pod_Info> {
     imp = this.widget.s;
     super.initState();
     Pod_list();
+    SnackBar(
+      content: Text(
+        "Long press on a resource for details",
+        style: TextStyle(color: Colors.black),
+      ),
+      duration: Duration(seconds: 1),
+      backgroundColor: Colors.white,
+      elevation: 1,
+    );
   }
 
   @override

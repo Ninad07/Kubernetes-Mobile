@@ -33,8 +33,9 @@ class _RolloutState extends State<Rollout> {
       });
       if (Commands.validation == "passed") {
         Commands.result = await serverCredentials.client.connect();
-        if (Commands.contName != null && Commands.image != null) {
-          if (Commands.name == null) Commands.name = "*";
+        if (Commands.contName != null &&
+            Commands.image != null &&
+            Commands.name != null) {
           if (Commands.selector != null)
             Commands.selector = "--selector=" + Commands.selector;
           else
@@ -45,19 +46,21 @@ class _RolloutState extends State<Rollout> {
             Commands.loc1 = "";
 
           Commands.result = await serverCredentials.client.execute(
-              "kubectl set image ${Commands.contName} ${Commands.name}=${Commands.image} ${Commands.selector} ${Commands.loc1} ");
+              "kubectl set image ${Commands.contName} ${Commands.name} *=${Commands.image} ${Commands.selector} ${Commands.loc1} ");
 
-          if (Commands.result != null)
-            AppToast("Rolling Update successful");
-          else
-            AppToast("Rolling Update Failed");
+          print(
+              "kubectl set image ${Commands.contName} ${Commands.name} *=${Commands.image} ${Commands.selector} ${Commands.loc1} ");
         }
 
-        Commands.contName = null;
-        Commands.name = null;
-        Commands.loc1 = null;
-        Commands.selector = null;
-        Commands.image = null;
+        if (Commands.result != "") {
+          AppToast("Rolling Update successful");
+          Commands.contName = null;
+          Commands.name = null;
+          Commands.loc1 = null;
+          Commands.selector = null;
+          Commands.image = null;
+        } else
+          AppToast("Rolling update failed");
       } else
         AppToast("Server not connected");
 
@@ -148,8 +151,16 @@ class _RolloutState extends State<Rollout> {
                             ],
                             onChanged: (value) {
                               setState(() {
-                                //dir = value;
-                                Commands.contName = value;
+                                if (value == "Pod")
+                                  Commands.contName = "pod";
+                                else if (value == "Deployment")
+                                  Commands.contName = "deployment";
+                                else if (value == "Replica Set")
+                                  Commands.contName = "rs";
+                                else if (value == "Service")
+                                  Commands.contName = "svc";
+                                else
+                                  Commands.contName = "rc";
                                 print("OPHERE01 = ${Commands.contName}");
 
                                 //print("ABCD = ${items}");
@@ -187,7 +198,7 @@ class _RolloutState extends State<Rollout> {
                             decoration: InputDecoration(
                                 filled: true,
                                 fillColor: Colors.white,
-                                hintText: "default=All",
+                                hintText: "name",
                                 hintStyle:
                                     TextStyle(color: Colors.grey, fontSize: 13),
                                 border: OutlineInputBorder(

@@ -24,7 +24,7 @@ class _ReplicaSetState extends State<ReplicaSet> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Ret("active");
+
     Path();
     Commands.name = null;
     Commands.isDone = false;
@@ -272,9 +272,10 @@ class _ReplicaSetState extends State<ReplicaSet> {
               width: 5,
             ),
             Commands.isDone
-                ? CircularProgressIndicator(
-                    backgroundColor: Colors.white,
-                  )
+                ? Transform.scale(
+                    scale: 0.6,
+                    child: CircularProgressIndicator(
+                        backgroundColor: Colors.white))
                 : IconButton(
                     icon: Icon(
                       Icons.play_arrow_rounded,

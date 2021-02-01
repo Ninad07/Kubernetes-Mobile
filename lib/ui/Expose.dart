@@ -16,6 +16,11 @@ bool launchLoading = false;
 TextEditingController _value;
 String environment = "";
 var i;
+TextEditingController nametxt = new TextEditingController();
+TextEditingController selectortxt = new TextEditingController();
+TextEditingController porttxt = new TextEditingController();
+TextEditingController targetporttxt = new TextEditingController();
+TextEditingController objnametxt = new TextEditingController();
 
 class _ExposeState extends State<Expose> {
   //EXPOSE FUNCTION
@@ -66,19 +71,32 @@ class _ExposeState extends State<Expose> {
         }
 
         Commands.result = await serverCredentials.client.execute(
-            "kubectl expose ${Commands.contName}/${Commands.name} ${Commands.port} ${Commands.targetPort} ${Commands.name} ${Commands.protocol} ${Commands.type}");
+            "kubectl expose ${Commands.contName}/${Commands.name} ${Commands.port} ${Commands.targetPort} ${Commands.image} ${Commands.protocol} ${Commands.type}");
+
+        print(
+            "kubectl expose ${Commands.contName}/${Commands.name} ${Commands.port} ${Commands.targetPort} ${Commands.image} ${Commands.protocol} ${Commands.type}");
+        print("RESULT = ${Commands.result}");
+
+        if (Commands.result != "") {
+          AppToast("Exposed");
+          Commands.name = null;
+          Commands.contName = null;
+          Commands.selector = null;
+          Commands.port = null;
+          Commands.targetPort = null;
+          Commands.image = null;
+          Commands.protocol = null;
+          Commands.type = null;
+          nametxt.clear();
+          selectortxt.clear();
+          porttxt.clear();
+          targetporttxt.clear();
+          objnametxt.clear();
+        } else
+          AppToast("Failed to expose");
       } else {
         AppToast("Cannot Expose");
       }
-
-      Commands.name = null;
-      Commands.contName = null;
-      Commands.selector = null;
-      Commands.port = null;
-      Commands.targetPort = null;
-      Commands.image = null;
-      Commands.protocol = null;
-      Commands.type = null;
     } else {
       AppToast("Server not connected");
     }
@@ -192,10 +210,19 @@ class _ExposeState extends State<Expose> {
                               onChanged: (value) {
                                 setState(() {
                                   //dir = value;
-                                  Commands.contName = value;
-                                  print("OPHERE01 = ${Commands.contName}");
+                                  if (value == "Pod")
+                                    Commands.contName = "pod";
+                                  else if (value == "Deployment")
+                                    Commands.contName = "deployment";
+                                  else if (value == "Replica Set")
+                                    Commands.contName = "rs";
+                                  else if (value == "Service")
+                                    Commands.contName = "svc";
+                                  else
+                                    Commands.contName = "rc";
+                                  print("RES = ${Commands.contName}");
 
-                                  //print("ABCD = ${items}");
+                                  //print("ABCD = ${Commands.contName}");
                                 });
                               },
                               selectedItem: Commands.contName,
@@ -225,6 +252,7 @@ class _ExposeState extends State<Expose> {
                                 borderRadius: BorderRadius.circular(10)),
                             margin: EdgeInsets.only(left: 15, right: 10),
                             child: TextField(
+                              controller: nametxt,
                               autocorrect: false,
                               style: TextStyle(color: Colors.black),
                               decoration: InputDecoration(
@@ -236,7 +264,10 @@ class _ExposeState extends State<Expose> {
                                   border: OutlineInputBorder(
                                       borderRadius: BorderRadius.all(
                                           Radius.circular(10)))),
-                              onChanged: (value) => {Commands.name = value},
+                              onChanged: (value) => {
+                                Commands.name = value,
+                                print("ABCD = ${Commands.contName}")
+                              },
                             ),
                           ),
                         ],
@@ -261,6 +292,7 @@ class _ExposeState extends State<Expose> {
                                 borderRadius: BorderRadius.circular(10)),
                             margin: EdgeInsets.only(left: 15, right: 10),
                             child: TextField(
+                              controller: selectortxt,
                               autocorrect: false,
                               style: TextStyle(color: Colors.black),
                               decoration: InputDecoration(
@@ -302,6 +334,7 @@ class _ExposeState extends State<Expose> {
                                 borderRadius: BorderRadius.circular(10)),
                             margin: EdgeInsets.only(left: 0, right: 10),
                             child: TextField(
+                              controller: porttxt,
                               style: TextStyle(color: Colors.black),
                               decoration: InputDecoration(
                                   filled: true,
@@ -342,6 +375,7 @@ class _ExposeState extends State<Expose> {
                                 borderRadius: BorderRadius.circular(10)),
                             margin: EdgeInsets.only(left: 0, right: 0),
                             child: TextField(
+                              controller: targetporttxt,
                               style: TextStyle(color: Colors.black),
                               decoration: InputDecoration(
                                   filled: true,
@@ -378,6 +412,7 @@ class _ExposeState extends State<Expose> {
                                 borderRadius: BorderRadius.circular(10)),
                             margin: EdgeInsets.only(left: 15, right: 10),
                             child: TextField(
+                              controller: objnametxt,
                               autocorrect: false,
                               style: TextStyle(color: Colors.black),
                               decoration: InputDecoration(
@@ -425,7 +460,7 @@ class _ExposeState extends State<Expose> {
                                 setState(() {
                                   //dir = value;
                                   Commands.protocol = value;
-                                  print("OPHERE01 = ${Commands.contName}");
+                                  print("OPHERE01 = ${Commands.protocol}");
 
                                   //print("ABCD = ${items}");
                                 });
@@ -463,15 +498,15 @@ class _ExposeState extends State<Expose> {
                               showSelectedItem: true,
                               items: [
                                 "LoadBalancer",
-                                "Cluster IP",
-                                "Node Port",
-                                "External Name",
+                                "ClusterIP",
+                                "NodePort",
+                                "ExternalName",
                               ],
                               onChanged: (value) {
                                 setState(() {
                                   //dir = value;
                                   Commands.type = value;
-                                  print("OPHERE01 = ${Commands.contName}");
+                                  print("OPHERE01 = ${Commands.type}");
 
                                   //print("ABCD = ${items}");
                                 });
@@ -501,7 +536,7 @@ class _ExposeState extends State<Expose> {
                                   backgroundColor: Colors.white,
                                 )
                               : Text("Expose"),
-                          onPressed: null,
+                          onPressed: exposeResources,
                         ),
                       ),
                     ),

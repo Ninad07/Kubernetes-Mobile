@@ -13,8 +13,12 @@ class Namespace extends StatefulWidget {
 }
 
 class _NamespaceState extends State<Namespace> {
+  var isdone = false;
   //CREATE NAMESPACE FUNCTION
   createNS() async {
+    setState(() {
+      isdone = true;
+    });
     if (Commands.validation == "passed") {
       Commands.result = await serverCredentials.client.connect();
 
@@ -30,6 +34,9 @@ class _NamespaceState extends State<Namespace> {
         AppToast("Cannot create NS. Please enter a valid Name");
       }
     }
+    setState(() {
+      isdone = false;
+    });
   }
 
   @override
@@ -180,7 +187,17 @@ class _NamespaceState extends State<Namespace> {
                         child: FloatingActionButton(
                           isExtended: true,
                           backgroundColor: Colors.blueAccent.shade700,
-                          child: Text("Create"),
+                          child: isdone
+                              ? Transform.scale(
+                                  scale: 0.6,
+                                  child: CircularProgressIndicator(
+                                      backgroundColor: Colors.white))
+                              : Text(
+                                  "Create",
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
                           onPressed: createNS,
                         ),
                       ),

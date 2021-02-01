@@ -10,8 +10,12 @@ class ClusterIP extends StatefulWidget {
 }
 
 class _ClusterIPState extends State<ClusterIP> {
+  var isdone = false;
   //CREATE CLUSTERIP SERVICE FUNCTION
   createClusterIP() async {
+    setState(() {
+      isdone = true;
+    });
     if (Commands.validation == "passed") {
       Commands.result = await serverCredentials.client.connect();
 
@@ -39,11 +43,18 @@ class _ClusterIPState extends State<ClusterIP> {
         AppToast("Cannot create the Service");
       }
 
-      Commands.port = Commands.name =
-          Commands.targetPort = Commands.ip = Commands.contName = null;
+      if (Commands.result != "") {
+        AppToast("Service Created successfully");
+        Commands.port = Commands.name =
+            Commands.targetPort = Commands.ip = Commands.contName = null;
+      } else
+        AppToast("Cannot create the service");
     } else {
       AppToast("Server not connected");
     }
+    setState(() {
+      isdone = false;
+    });
   }
 
   @override
@@ -353,13 +364,18 @@ class _ClusterIPState extends State<ClusterIP> {
                           child: FloatingActionButton(
                             isExtended: true,
                             backgroundColor: Colors.blueAccent.shade700,
-                            child: Text(
-                              "Create",
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                            onPressed: () async {},
+                            child: isdone
+                                ? Transform.scale(
+                                    scale: 0.6,
+                                    child: CircularProgressIndicator(
+                                        backgroundColor: Colors.white))
+                                : Text(
+                                    "Create",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                            onPressed: createClusterIP,
                           ),
                         ),
                       )

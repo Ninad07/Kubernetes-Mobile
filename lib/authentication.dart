@@ -152,7 +152,7 @@ class _AuthState extends State<Auth> {
                               backgroundColor: Colors.white))
                       : Text("Login"),
                   onPressed: () async {
-                    var result2;
+                    /*var result2;
                     setState(() {
                       islogged = true;
                     });
@@ -176,7 +176,12 @@ class _AuthState extends State<Auth> {
                           MaterialPageRoute(builder: (context) {
                         return Dashboard();
                       }));
-                    }
+                    }*/
+
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) {
+                      return Dashboard();
+                    }));
                   },
                 ),
               ),

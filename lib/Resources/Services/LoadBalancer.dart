@@ -11,8 +11,12 @@ class LoadBalancer extends StatefulWidget {
 
 class _LoadBalancerState extends State<LoadBalancer> {
   //CREATE LOADBALANCER SERVICE FUNCTION
+  var isdone = false;
   createLB() async {
     if (Commands.validation == "passed") {
+      setState(() {
+        isdone = true;
+      });
       Commands.result = await serverCredentials.client.connect();
 
       if (Commands.name != null &&
@@ -21,6 +25,9 @@ class _LoadBalancerState extends State<LoadBalancer> {
         if (Commands.contName == null) {
           Commands.result = await serverCredentials.client.execute(
               "kubectl create service loadbalancer ${Commands.name} --tcp=${Commands.port}:${Commands.targetPort}");
+
+          print(
+              "kubectl create service loadbalancer ${Commands.name} --tcp=${Commands.port}:${Commands.targetPort}");
         } else {
           Commands.result = await serverCredentials.client.execute(
               "kubectl create service loadbalancer ${Commands.name} --tcp=${Commands.port}:${Commands.targetPort} --dry-run=${Commands.contName}");
@@ -28,13 +35,21 @@ class _LoadBalancerState extends State<LoadBalancer> {
       } else {
         AppToast("Cannot create the service");
       }
-      Commands.name = null;
-      Commands.port = null;
-      Commands.targetPort = null;
-      Commands.contName = null;
+
+      if (Commands.result != "") {
+        AppToast("Service created Successfully");
+        Commands.name = null;
+        Commands.port = null;
+        Commands.targetPort = null;
+        Commands.contName = null;
+      } else
+        AppToast("Cannot create the service");
     } else {
       AppToast("Server not connected");
     }
+    setState(() {
+      isdone = false;
+    });
   }
 
   @override
@@ -283,13 +298,18 @@ class _LoadBalancerState extends State<LoadBalancer> {
                           child: FloatingActionButton(
                             isExtended: true,
                             backgroundColor: Colors.blueAccent.shade700,
-                            child: Text(
-                              "Create",
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                            onPressed: () async {},
+                            child: isdone
+                                ? Transform.scale(
+                                    scale: 0.6,
+                                    child: CircularProgressIndicator(
+                                        backgroundColor: Colors.white))
+                                : Text(
+                                    "Create",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                            onPressed: createLB,
                           ),
                         ),
                       )

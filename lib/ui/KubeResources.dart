@@ -447,7 +447,7 @@ class _ResourcesMainState extends State<ResourcesMain> {
                         borderRadius: BorderRadius.circular(15)),
                     elevation: 5,
                     child: Container(
-                      height: 140,
+                      height: 160,
                       width: 320,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
@@ -476,8 +476,8 @@ class _ResourcesMainState extends State<ResourcesMain> {
                                   "Deployment",
                                   style: TextStyle(
                                       color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w800),
                                 ),
                               ),
                               SizedBox(
@@ -487,8 +487,9 @@ class _ResourcesMainState extends State<ResourcesMain> {
                                 width: 270,
                                 child: Center(
                                   child: Text(
-                                    "Creates deployment including features like autoscaling",
+                                    "Run multiple replicas of the application and automatically replace any failing containers",
                                     softWrap: true,
+                                    textAlign: TextAlign.center,
                                     style: TextStyle(color: Colors.blueAccent),
                                   ),
                                 ),
@@ -508,7 +509,7 @@ class _ResourcesMainState extends State<ResourcesMain> {
                         borderRadius: BorderRadius.circular(15)),
                     elevation: 5,
                     child: Container(
-                      height: 140,
+                      height: 160,
                       width: 320,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
@@ -537,19 +538,20 @@ class _ResourcesMainState extends State<ResourcesMain> {
                                   "ReplicaSets",
                                   style: TextStyle(
                                       color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w800),
                                 ),
                               ),
                               SizedBox(
-                                height: 15,
+                                height: 25,
                               ),
                               Container(
                                 width: 270,
                                 child: Center(
                                   child: Text(
-                                    "Creates ReplicaSets",
+                                    "Maintain a stable set of replica Pods running at any given time",
                                     softWrap: true,
+                                    textAlign: TextAlign.center,
                                     style: TextStyle(color: Colors.blueAccent),
                                   ),
                                 ),
@@ -569,7 +571,7 @@ class _ResourcesMainState extends State<ResourcesMain> {
                         borderRadius: BorderRadius.circular(15)),
                     elevation: 5,
                     child: Container(
-                      height: 140,
+                      height: 160,
                       width: 320,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
@@ -583,7 +585,7 @@ class _ResourcesMainState extends State<ResourcesMain> {
                         onPressed: () {
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context) {
-                            return ReplicationController();
+                            return ReplicationController(s: "RC");
                           }));
                         },
                         child: Center(
@@ -598,19 +600,20 @@ class _ResourcesMainState extends State<ResourcesMain> {
                                   "Replication Controller",
                                   style: TextStyle(
                                       color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w800),
                                 ),
                               ),
                               SizedBox(
-                                height: 15,
+                                height: 25,
                               ),
                               Container(
                                 width: 270,
                                 child: Center(
                                   child: Text(
-                                    "Creates Replication Colntroller",
+                                    "Manage the pod lifecycle along with replicating resources",
                                     softWrap: true,
+                                    textAlign: TextAlign.center,
                                     style: TextStyle(color: Colors.blueAccent),
                                   ),
                                 ),
@@ -630,7 +633,7 @@ class _ResourcesMainState extends State<ResourcesMain> {
                         borderRadius: BorderRadius.circular(15)),
                     elevation: 5,
                     child: Container(
-                      height: 140,
+                      height: 160,
                       width: 320,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
@@ -659,8 +662,8 @@ class _ResourcesMainState extends State<ResourcesMain> {
                                   "Service",
                                   style: TextStyle(
                                       color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w800),
                                 ),
                               ),
                               SizedBox(
@@ -670,8 +673,9 @@ class _ResourcesMainState extends State<ResourcesMain> {
                                 width: 270,
                                 child: Center(
                                   child: Text(
-                                    "Creates Services",
+                                    "Enable pod groups, which provide specific functions to be assigned a name and unique IP address",
                                     softWrap: true,
+                                    textAlign: TextAlign.center,
                                     style: TextStyle(color: Colors.blueAccent),
                                   ),
                                 ),
@@ -691,7 +695,7 @@ class _ResourcesMainState extends State<ResourcesMain> {
                         borderRadius: BorderRadius.circular(15)),
                     elevation: 5,
                     child: Container(
-                      height: 140,
+                      height: 160,
                       width: 320,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
@@ -720,8 +724,8 @@ class _ResourcesMainState extends State<ResourcesMain> {
                                   "Namespace",
                                   style: TextStyle(
                                       color: Colors.black,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.w500),
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.w800),
                                 ),
                               ),
                               SizedBox(
@@ -731,8 +735,9 @@ class _ResourcesMainState extends State<ResourcesMain> {
                                 width: 270,
                                 child: Center(
                                   child: Text(
-                                    "Creates Namespaces",
+                                    "Organize clusters into virtual sub-clusters when different teams or projects share the same cluster",
                                     softWrap: true,
+                                    textAlign: TextAlign.center,
                                     style: TextStyle(color: Colors.blueAccent),
                                   ),
                                 ),

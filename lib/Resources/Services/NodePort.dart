@@ -10,8 +10,12 @@ class NodePort extends StatefulWidget {
 }
 
 class _NodePortState extends State<NodePort> {
+  var isdone = false;
   //CREATE NODEPORT SERVICE FUNCTION
   createNodeport() async {
+    setState(() {
+      isdone = true;
+    });
     if (Commands.validation == "passed") {
       Commands.result = await serverCredentials.client.connect();
 
@@ -25,17 +29,28 @@ class _NodePortState extends State<NodePort> {
           Commands.result = await serverCredentials.client.execute(
               "kubectl create service nodeport ${Commands.name} --tcp=${Commands.port}:${Commands.targetPort} --dry-run=${Commands.contName}");
         }
+        if (Commands.result != "")
+          AppToast("Namespace created successfully");
+        else
+          AppToast("Cannot create Namespace");
       } else {
         AppToast("Cannot create the service");
       }
 
-      Commands.name = null;
-      Commands.port = null;
-      Commands.targetPort = null;
-      Commands.contName == null;
+      if (Commands.result != "") {
+        AppToast("Service created Successfully");
+        Commands.name = null;
+        Commands.port = null;
+        Commands.targetPort = null;
+        Commands.contName == null;
+      } else
+        AppToast("Cannot create the service");
     } else {
       AppToast("Server not connected");
     }
+    setState(() {
+      isdone = false;
+    });
   }
 
   @override
@@ -284,12 +299,17 @@ class _NodePortState extends State<NodePort> {
                           child: FloatingActionButton(
                             isExtended: true,
                             backgroundColor: Colors.blueAccent.shade700,
-                            child: Text(
-                              "Create",
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
+                            child: isdone
+                                ? Transform.scale(
+                                    scale: 0.6,
+                                    child: CircularProgressIndicator(
+                                        backgroundColor: Colors.white))
+                                : Text(
+                                    "Create",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                    ),
+                                  ),
                             onPressed: createNodeport,
                           ),
                         ),

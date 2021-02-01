@@ -48,6 +48,14 @@ class _ScaleState extends State<Scale> {
 
         Commands.result = await serverCredentials.client.execute(
             "kubectl scale ${Commands.contName}/${Commands.name} ${Commands.currentreplicas} ${Commands.replicas} ${Commands.selector} ${Commands.image}");
+
+        print(
+            "kubectl scale ${Commands.contName}/${Commands.name} ${Commands.currentreplicas} ${Commands.replicas} ${Commands.selector} ${Commands.image}");
+
+        if (Commands.result != "")
+          AppToast("Resources Scaled");
+        else
+          AppToast("Cannot Scale Resource");
       } else {
         AppToast("No resource name provided");
       }
@@ -159,8 +167,18 @@ class _ScaleState extends State<Scale> {
                             ],
                             onChanged: (value) {
                               setState(() {
+                                if (value == "Pod")
+                                  Commands.contName = "pod";
+                                else if (value == "Deployment")
+                                  Commands.contName = "deployment";
+                                else if (value == "Replica Set")
+                                  Commands.contName = "rs";
+                                else if (value == "Service")
+                                  Commands.contName = "svc";
+                                else
+                                  Commands.contName = "rc";
                                 //dir = value;
-                                Commands.contName = value;
+
                                 print("OPHERE01 = ${Commands.contName}");
 
                                 //print("ABCD = ${items}");
@@ -372,7 +390,7 @@ class _ScaleState extends State<Scale> {
                         isExtended: true,
                         backgroundColor: Colors.blueAccent.shade700,
                         child: Text("Scale"),
-                        onPressed: null,
+                        onPressed: scaleResources,
                       ),
                     ),
                   )
