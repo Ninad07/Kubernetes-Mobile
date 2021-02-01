@@ -14,6 +14,11 @@ class Scale extends StatefulWidget {
 }
 
 class _ScaleState extends State<Scale> {
+  TextEditingController nametxt = new TextEditingController();
+  TextEditingController selectortxt = new TextEditingController();
+  TextEditingController replicatxt = new TextEditingController();
+  TextEditingController imagetxt = new TextEditingController();
+  TextEditingController currentreplicatxt = new TextEditingController();
   scaleResources() async {
     if (Commands.validation == "passed") {
       if (Commands.name != null) {
@@ -52,20 +57,25 @@ class _ScaleState extends State<Scale> {
         print(
             "kubectl scale ${Commands.contName}/${Commands.name} ${Commands.currentreplicas} ${Commands.replicas} ${Commands.selector} ${Commands.image}");
 
-        if (Commands.result != "")
+        if (Commands.result != "") {
           AppToast("Resources Scaled");
-        else
+          Commands.contName = null;
+          Commands.name = null;
+          Commands.currentreplicas = null;
+          Commands.replicas = null;
+          Commands.selector = null;
+          Commands.image = null;
+
+          nametxt.clear();
+          replicatxt.clear();
+          imagetxt.clear();
+          selectortxt.clear();
+          currentreplicatxt.clear();
+        } else
           AppToast("Cannot Scale Resource");
       } else {
         AppToast("No resource name provided");
       }
-
-      Commands.contName = null;
-      Commands.name = null;
-      Commands.currentreplicas = null;
-      Commands.replicas = null;
-      Commands.selector = null;
-      Commands.image = null;
     } else {
       AppToast("Server not connected");
     }
@@ -211,6 +221,7 @@ class _ScaleState extends State<Scale> {
                               borderRadius: BorderRadius.circular(10)),
                           margin: EdgeInsets.only(left: 15, right: 10),
                           child: TextField(
+                            controller: nametxt,
                             autocorrect: false,
                             style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
@@ -249,6 +260,7 @@ class _ScaleState extends State<Scale> {
                               borderRadius: BorderRadius.circular(10)),
                           margin: EdgeInsets.only(left: 15, right: 10),
                           child: TextField(
+                            controller: currentreplicatxt,
                             autocorrect: false,
                             style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
@@ -288,6 +300,7 @@ class _ScaleState extends State<Scale> {
                               borderRadius: BorderRadius.circular(10)),
                           margin: EdgeInsets.only(left: 15, right: 10),
                           child: TextField(
+                            controller: replicatxt,
                             autocorrect: false,
                             style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
@@ -324,6 +337,7 @@ class _ScaleState extends State<Scale> {
                               borderRadius: BorderRadius.circular(10)),
                           margin: EdgeInsets.only(left: 15, right: 10),
                           child: TextField(
+                            controller: selectortxt,
                             autocorrect: false,
                             style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
@@ -412,9 +426,6 @@ class _ScaleState extends State<Scale> {
               setState(() {
                 Commands.currentindex = 0;
               });
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Network();
-              }));
             }
             if (index == 1) {
               setState(() {
@@ -428,9 +439,6 @@ class _ScaleState extends State<Scale> {
               setState(() {
                 Commands.currentindex = 2;
               });
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Volume();
-              }));
             }
           },
           items: [

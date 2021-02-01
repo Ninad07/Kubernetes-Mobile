@@ -769,9 +769,6 @@ class _ResourcesMainState extends State<ResourcesMain> {
               setState(() {
                 Commands.currentindex = 0;
               });
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Network();
-              }));
             }
             if (index == 1) {
               setState(() {
@@ -785,9 +782,6 @@ class _ResourcesMainState extends State<ResourcesMain> {
               setState(() {
                 Commands.currentindex = 2;
               });
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Volume();
-              }));
             }
           },
           items: [

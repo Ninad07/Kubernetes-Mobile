@@ -26,10 +26,10 @@ class _PodLaunchState extends State<PodLaunch> {
     Retrive();
     Commands.name = null;
     Commands.image = null;
-    Commands.replicas = null;
     Commands.port = null;
     Commands.loc1 = null;
     Commands.loc2 = null;
+    Commands.env = null;
   }
 
   bool isChecked = false;
@@ -39,6 +39,12 @@ class _PodLaunchState extends State<PodLaunch> {
     //FlutterStatusbarcolor.setStatusBarColor(Colors.blue.shade600);
     //FlutterStatusbarcolor.setNavigationBarColor(Colors.blue);
     print("COMMANDS.ENV = ${Commands.env}");
+
+    TextEditingController nametxt = new TextEditingController();
+    TextEditingController imagetxt = new TextEditingController();
+
+    TextEditingController porttxt = new TextEditingController();
+    TextEditingController envtxt = new TextEditingController();
 
     LaunchPods() async {
       setState(() {
@@ -72,13 +78,17 @@ class _PodLaunchState extends State<PodLaunch> {
           Commands.result = await serverCredentials.client.execute(
               "kubectl run  ${Commands.name} --image=${Commands.image} ${Commands.port} ${Commands.env} ${Commands.loc1} ${Commands.loc2} ");
 
-          if (Commands.result != "")
+          if (Commands.result != "") {
             AppToast("Pod launched successfully");
-          else
-            AppToast("Cannot Launch pod");
+            Commands.image = Commands.loc1 = Commands.loc2 =
+                Commands.port = Commands.env = Commands.name = null;
 
-          Commands.image = Commands.loc1 = Commands.loc2 =
-              Commands.port = Commands.env = Commands.name = null;
+            nametxt.clear();
+            imagetxt.clear();
+            porttxt.clear();
+            envtxt.clear();
+          } else
+            AppToast("Cannot Launch pod");
         } else {
           AppToast("Please enter Name and Image");
         }
@@ -161,6 +171,7 @@ class _PodLaunchState extends State<PodLaunch> {
                                 borderRadius: BorderRadius.circular(10)),
                             margin: EdgeInsets.only(left: 20, right: 10),
                             child: TextField(
+                              controller: nametxt,
                               autocorrect: false,
                               style: TextStyle(color: Colors.black),
                               decoration: InputDecoration(
@@ -197,6 +208,7 @@ class _PodLaunchState extends State<PodLaunch> {
                                 borderRadius: BorderRadius.circular(10)),
                             margin: EdgeInsets.only(left: 20, right: 10),
                             child: TextField(
+                              controller: imagetxt,
                               autocorrect: false,
                               style: TextStyle(color: Colors.black),
                               decoration: InputDecoration(
@@ -233,6 +245,7 @@ class _PodLaunchState extends State<PodLaunch> {
                                 borderRadius: BorderRadius.circular(10)),
                             margin: EdgeInsets.only(left: 20, right: 10),
                             child: TextField(
+                              controller: porttxt,
                               style: TextStyle(color: Colors.black),
                               decoration: InputDecoration(
                                   filled: true,
@@ -267,6 +280,7 @@ class _PodLaunchState extends State<PodLaunch> {
                                 borderRadius: BorderRadius.circular(10)),
                             margin: EdgeInsets.only(left: 20, right: 10),
                             child: TextField(
+                              controller: envtxt,
                               style: TextStyle(color: Colors.black),
                               decoration: InputDecoration(
                                   filled: true,
@@ -390,9 +404,6 @@ class _PodLaunchState extends State<PodLaunch> {
               setState(() {
                 Commands.currentindex = 0;
               });
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Network();
-              }));
             }
             if (index == 1) {
               setState(() {
@@ -406,9 +417,6 @@ class _PodLaunchState extends State<PodLaunch> {
               setState(() {
                 Commands.currentindex = 2;
               });
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Volume();
-              }));
             }
           },
           items: [

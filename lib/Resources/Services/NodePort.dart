@@ -11,6 +11,10 @@ class NodePort extends StatefulWidget {
 
 class _NodePortState extends State<NodePort> {
   var isdone = false;
+  TextEditingController nametxt = new TextEditingController();
+  TextEditingController porttxt = new TextEditingController();
+  TextEditingController targetporttxt = new TextEditingController();
+
   //CREATE NODEPORT SERVICE FUNCTION
   createNodeport() async {
     setState(() {
@@ -43,6 +47,10 @@ class _NodePortState extends State<NodePort> {
         Commands.port = null;
         Commands.targetPort = null;
         Commands.contName == null;
+
+        nametxt.clear();
+        porttxt.clear();
+        targetporttxt.clear();
       } else
         AppToast("Cannot create the service");
     } else {
@@ -153,6 +161,7 @@ class _NodePortState extends State<NodePort> {
                                   borderRadius: BorderRadius.circular(10)),
                               margin: EdgeInsets.only(left: 20, right: 10),
                               child: TextField(
+                                controller: nametxt,
                                 style: TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
                                     filled: true,
@@ -193,6 +202,7 @@ class _NodePortState extends State<NodePort> {
                                   borderRadius: BorderRadius.circular(10)),
                               margin: EdgeInsets.only(left: 20, right: 10),
                               child: TextField(
+                                controller: porttxt,
                                 style: TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
                                     filled: true,
@@ -233,6 +243,7 @@ class _NodePortState extends State<NodePort> {
                                   borderRadius: BorderRadius.circular(10)),
                               margin: EdgeInsets.only(left: 0, right: 0),
                               child: TextField(
+                                controller: targetporttxt,
                                 style: TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
                                     filled: true,

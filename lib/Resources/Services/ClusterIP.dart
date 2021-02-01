@@ -11,6 +11,10 @@ class ClusterIP extends StatefulWidget {
 
 class _ClusterIPState extends State<ClusterIP> {
   var isdone = false;
+  TextEditingController nametxt = new TextEditingController();
+  TextEditingController porttxt = new TextEditingController();
+  TextEditingController targetporttxt = new TextEditingController();
+  TextEditingController iptxt = new TextEditingController();
   //CREATE CLUSTERIP SERVICE FUNCTION
   createClusterIP() async {
     setState(() {
@@ -47,6 +51,11 @@ class _ClusterIPState extends State<ClusterIP> {
         AppToast("Service Created successfully");
         Commands.port = Commands.name =
             Commands.targetPort = Commands.ip = Commands.contName = null;
+
+        nametxt.clear();
+        porttxt.clear();
+        targetporttxt.clear();
+        iptxt.clear();
       } else
         AppToast("Cannot create the service");
     } else {
@@ -159,6 +168,7 @@ class _ClusterIPState extends State<ClusterIP> {
                                   borderRadius: BorderRadius.circular(10)),
                               margin: EdgeInsets.only(left: 20, right: 10),
                               child: TextField(
+                                controller: nametxt,
                                 style: TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
                                     filled: true,
@@ -201,6 +211,7 @@ class _ClusterIPState extends State<ClusterIP> {
                                   borderRadius: BorderRadius.circular(10)),
                               margin: EdgeInsets.only(left: 20, right: 10),
                               child: TextField(
+                                controller: porttxt,
                                 style: TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
                                     enabled: isEnabled ? false : true,
@@ -247,6 +258,7 @@ class _ClusterIPState extends State<ClusterIP> {
                                   borderRadius: BorderRadius.circular(10)),
                               margin: EdgeInsets.only(left: 0, right: 0),
                               child: TextField(
+                                controller: targetporttxt,
                                 style: TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
                                     enabled: isEnabled ? false : true,
@@ -293,6 +305,7 @@ class _ClusterIPState extends State<ClusterIP> {
                                   borderRadius: BorderRadius.circular(10)),
                               margin: EdgeInsets.only(left: 20, right: 10),
                               child: TextField(
+                                controller: iptxt,
                                 style: TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
                                     enabled: isDisabled ? false : true,

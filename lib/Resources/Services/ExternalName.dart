@@ -11,6 +11,10 @@ class ExternalName extends StatefulWidget {
 
 class _ExternalNameState extends State<ExternalName> {
   var isdone = false;
+  TextEditingController nametxt = new TextEditingController();
+  TextEditingController porttxt = new TextEditingController();
+  TextEditingController targetporttxt = new TextEditingController();
+  TextEditingController exnametxt = new TextEditingController();
   //CREATE EXTERNALNAME SERVICE
   createExternalName() async {
     setState(() {
@@ -47,6 +51,11 @@ class _ExternalNameState extends State<ExternalName> {
         Commands.port = null;
         Commands.targetPort = null;
         Commands.exname = null;
+
+        nametxt.clear();
+        porttxt.clear();
+        targetporttxt.clear();
+        exnametxt.clear();
       } else
         AppToast("Cannot create the service");
     } else {
@@ -159,6 +168,7 @@ class _ExternalNameState extends State<ExternalName> {
                                   borderRadius: BorderRadius.circular(10)),
                               margin: EdgeInsets.only(left: 20, right: 10),
                               child: TextField(
+                                controller: nametxt,
                                 style: TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
                                     filled: true,
@@ -201,6 +211,7 @@ class _ExternalNameState extends State<ExternalName> {
                                   borderRadius: BorderRadius.circular(10)),
                               margin: EdgeInsets.only(left: 20, right: 10),
                               child: TextField(
+                                controller: porttxt,
                                 style: TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
                                     enabled: isEnabled ? false : true,
@@ -247,6 +258,7 @@ class _ExternalNameState extends State<ExternalName> {
                                   borderRadius: BorderRadius.circular(10)),
                               margin: EdgeInsets.only(left: 0, right: 0),
                               child: TextField(
+                                controller: targetporttxt,
                                 style: TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
                                     enabled: isEnabled ? false : true,
@@ -293,6 +305,7 @@ class _ExternalNameState extends State<ExternalName> {
                                   borderRadius: BorderRadius.circular(10)),
                               margin: EdgeInsets.only(left: 20, right: 10),
                               child: TextField(
+                                controller: exnametxt,
                                 style: TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
                                     enabled: isDisabled ? false : true,

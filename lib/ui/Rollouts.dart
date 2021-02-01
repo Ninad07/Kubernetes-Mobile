@@ -25,6 +25,10 @@ class _RolloutState extends State<Rollout> {
     Commands.isDone = false;
   }
 
+  TextEditingController nametxt = new TextEditingController();
+  TextEditingController imagetxt = new TextEditingController();
+  TextEditingController selectortxt = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     setImage() async {
@@ -59,6 +63,10 @@ class _RolloutState extends State<Rollout> {
           Commands.loc1 = null;
           Commands.selector = null;
           Commands.image = null;
+
+          nametxt.clear();
+          imagetxt.clear();
+          selectortxt.clear();
         } else
           AppToast("Rolling update failed");
       } else
@@ -193,6 +201,7 @@ class _RolloutState extends State<Rollout> {
                               borderRadius: BorderRadius.circular(10)),
                           margin: EdgeInsets.only(left: 15, right: 10),
                           child: TextField(
+                            controller: nametxt,
                             autocorrect: false,
                             style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
@@ -229,6 +238,7 @@ class _RolloutState extends State<Rollout> {
                               borderRadius: BorderRadius.circular(10)),
                           margin: EdgeInsets.only(left: 20, right: 10),
                           child: TextField(
+                            controller: imagetxt,
                             autocorrect: false,
                             style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
@@ -265,6 +275,7 @@ class _RolloutState extends State<Rollout> {
                               borderRadius: BorderRadius.circular(10)),
                           margin: EdgeInsets.only(left: 15, right: 10),
                           child: TextField(
+                            controller: selectortxt,
                             autocorrect: false,
                             style: TextStyle(color: Colors.black),
                             decoration: InputDecoration(
@@ -357,9 +368,6 @@ class _RolloutState extends State<Rollout> {
               setState(() {
                 Commands.currentindex = 0;
               });
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Network();
-              }));
             }
             if (index == 1) {
               setState(() {
@@ -373,9 +381,6 @@ class _RolloutState extends State<Rollout> {
               setState(() {
                 Commands.currentindex = 2;
               });
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Volume();
-              }));
             }
           },
           items: [

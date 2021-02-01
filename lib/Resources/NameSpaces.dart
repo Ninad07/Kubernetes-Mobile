@@ -221,9 +221,6 @@ class _NamespaceState extends State<Namespace> {
               setState(() {
                 Commands.currentindex = 0;
               });
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Network();
-              }));
             }
             if (index == 1) {
               setState(() {
@@ -237,9 +234,6 @@ class _NamespaceState extends State<Namespace> {
               setState(() {
                 Commands.currentindex = 2;
               });
-              Navigator.push(context, MaterialPageRoute(builder: (context) {
-                return Volume();
-              }));
             }
           },
           items: [
