@@ -17,7 +17,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
-import 'package:step_progress_indicator/step_progress_indicator.dart';
 
 import 'DockerLaunch.dart';
 
@@ -1133,87 +1132,3 @@ class _MyHomePageState extends State<MyHomePage> {
 //################################################################################################################//
 
 //################################################################################################################//
-class DCHub extends StatefulWidget {
-  final String title;
-  DCHub({Key key, this.title}) : super(key: key);
-
-  @override
-  _DCHubState createState() => _DCHubState();
-}
-
-class _DCHubState extends State<DCHub> {
-  @override
-  Widget build(BuildContext context) {
-    FlutterStatusbarcolor.setStatusBarColor(Colors.blueAccent.shade700);
-    FlutterStatusbarcolor.setNavigationBarWhiteForeground(false);
-    FlutterStatusbarcolor.setNavigationBarColor(Colors.white);
-    FlutterStatusbarcolor.setStatusBarWhiteForeground(true);
-    return Container(
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              image: AssetImage("images/d5.png"), fit: BoxFit.fill)),
-      child: SingleChildScrollView(
-          child: Column(
-        children: <Widget>[
-          Container(
-              padding: EdgeInsets.only(top: 75),
-              margin: EdgeInsets.only(top: 0),
-              child: Wrap(
-                children: <Widget>[
-                  Text(
-                    "Docker",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 45,
-                    ),
-                  ),
-                  Text(
-                    "hub",
-                    style: TextStyle(
-                        color: Colors.lightBlue.shade200,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 45),
-                  ),
-                ],
-              )),
-          Container(
-            margin: EdgeInsets.only(left: 30, top: 15),
-            width: MediaQuery.of(context).size.width - 25,
-            child: Text(
-              "Dockerhub is the world's easiest way to manage",
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              softWrap: true,
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(left: 50),
-            width: MediaQuery.of(context).size.width - 30,
-            child: Text(
-              "deliver your team's container applications",
-              style:
-                  TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              softWrap: true,
-            ),
-          ),
-          SizedBox(height: 95),
-          Container(
-            width: 150,
-            child: FloatingActionButton(
-              elevation: 10,
-              backgroundColor: Colors.blueAccent.shade700,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(0)),
-              isExtended: true,
-              onPressed: HubLaunch,
-              child: Container(
-                child: Text("Explore!"),
-              ),
-            ),
-          )
-        ],
-      )),
-    );
-  }
-}

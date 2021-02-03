@@ -1,5 +1,7 @@
+import 'package:KubernetesMobile/Animation/Splash.dart';
 import 'package:KubernetesMobile/authentication.dart';
 import 'package:KubernetesMobile/FrontEnd.dart';
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:splashscreen/splashscreen.dart';
@@ -17,14 +19,21 @@ class KubernetesMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    FlutterStatusbarcolor.setStatusBarColor(Colors.white);
-    FlutterStatusbarcolor.setNavigationBarColor(Colors.white);
+    FlutterStatusbarcolor.setStatusBarColor(Colors.blueAccent.shade700);
+    FlutterStatusbarcolor.setNavigationBarColor(Colors.blueAccent.shade700);
     //RepoHub();
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: appTitle,
-        home: SplashScreen(
-            seconds: 5,
+        home: AnimatedSplashScreen(
+          splash: Splash(),
+          nextScreen: Dashboard(),
+          duration: 6000,
+          splashIconSize: double.infinity,
+        )
+
+        /*SplashScreen(
+            seconds: 50000,
             navigateAfterSeconds: Dashboard(), //Auth(),
             title: new Text(
               'KubernetesMobile',
@@ -41,6 +50,8 @@ class KubernetesMobile extends StatelessWidget {
               "Loading",
               style: TextStyle(color: Colors.grey),
             ),
-            loaderColor: Colors.blue.shade800));
+            loaderColor: Colors.blue.shade800)*/
+
+        );
   }
 }
