@@ -52,10 +52,10 @@ dependencies:
   splashscreen: ^1.2.0
   simple_animations: ^2.2.3
   cloud_firestore: ^0.14.0+2
-  loading: ^1.0.2
-  step_progress_indicator: ^0.2.5+8
-  indent: ^1.0.0+2
   flutter_animated_dialog: ^1.2.0
+  show_up_animation: ^1.0.2
+  loading_animations: "^2.1.0"
+  animated_splash_screen: ^1.0.1+2
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
