@@ -27,7 +27,7 @@ class KubernetesMobile extends StatelessWidget {
         title: appTitle,
         home: AnimatedSplashScreen(
           splash: Splash(),
-          nextScreen: Dashboard(),
+          nextScreen: Auth(),
           duration: 6000,
           splashIconSize: double.infinity,
         )

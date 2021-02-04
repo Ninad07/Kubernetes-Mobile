@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 import 'FrontEnd.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,6 +25,10 @@ class _AuthState extends State<Auth> {
   String pass;
   @override
   Widget build(BuildContext context) {
+    FlutterStatusbarcolor.setStatusBarColor(Colors.white);
+    FlutterStatusbarcolor.setNavigationBarColor(Colors.white);
+    FlutterStatusbarcolor.setNavigationBarWhiteForeground(false);
+    FlutterStatusbarcolor.setStatusBarWhiteForeground(false);
     var AuthBody = Center(
         child: Container(
       alignment: Alignment.topCenter,
@@ -40,7 +45,7 @@ class _AuthState extends State<Auth> {
                   "Login",
                   style: TextStyle(
                       color: Colors.blue.shade900,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: FontWeight.w800,
                       fontSize: 35),
                 ),
               ),
@@ -202,7 +207,7 @@ class _AuthState extends State<Auth> {
             ),
             Container(
                 child: Image.asset(
-              "images/login.png",
+              "images/gfg.jpg",
               height: 50,
               width: 120,
             )),
