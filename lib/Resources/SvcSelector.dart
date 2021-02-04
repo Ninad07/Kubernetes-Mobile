@@ -1,3 +1,4 @@
+import 'package:KubernetesMobile/Animation/animation.dart';
 import 'package:KubernetesMobile/Resources/Services/ExternalName.dart';
 import 'package:KubernetesMobile/Resources/Services/LoadBalancer.dart';
 import 'package:KubernetesMobile/Resources/Services/NodePort.dart';
@@ -32,83 +33,89 @@ class _ServiceSelectorState extends State<ServiceSelector> {
             SizedBox(
               height: 30,
             ),
-            Container(
-              margin: EdgeInsets.only(top: 0, bottom: 0, left: 0, right: 35),
-              alignment: Alignment.center,
-              height: 90,
-              width: MediaQuery.of(context).size.width,
-              child: Image.asset(
-                'images/kubernetes.png',
-                height: 190,
-                width: 290,
+            FadeAnimation(
+              1,
+              Container(
+                margin: EdgeInsets.only(top: 0, bottom: 0, left: 0, right: 35),
+                alignment: Alignment.center,
+                height: 90,
+                width: MediaQuery.of(context).size.width,
+                child: Image.asset(
+                  'images/kubernetes.png',
+                  height: 190,
+                  width: 290,
+                ),
               ),
             ),
             SizedBox(
               height: 30,
             ),
-            Card(
-              color: Colors.grey.shade100,
-              //margin: EdgeInsets.only(right: 20),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              elevation: 5,
-              child: Container(
-                height: 180,
-                width: 350,
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade100,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: FloatingActionButton(
-                  heroTag: "1",
-                  isExtended: true,
-                  backgroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return LoadBalancer();
-                    }));
-                  },
-                  child: Center(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Image.asset(
-                          "images/LB.png",
-                          height: 65,
-                          width: 65,
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Container(
-                          //Deployment//
-                          child: Text(
-                            "Load Balancer",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 19,
-                                fontWeight: FontWeight.w500),
+            FadeAnimation(
+              1.2,
+              Card(
+                color: Colors.grey.shade100,
+                //margin: EdgeInsets.only(right: 20),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+                elevation: 5,
+                child: Container(
+                  height: 180,
+                  width: 350,
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade100,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: FloatingActionButton(
+                    heroTag: "1",
+                    isExtended: true,
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return LoadBalancer();
+                      }));
+                    },
+                    child: Center(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 15,
                           ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Container(
-                          width: 270,
-                          child: Center(
+                          Image.asset(
+                            "images/LB.png",
+                            height: 65,
+                            width: 65,
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Container(
+                            //Deployment//
                             child: Text(
-                              "Creates LB service",
-                              softWrap: true,
-                              style: TextStyle(color: Colors.blueAccent),
+                              "Load Balancer",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.w500),
                             ),
                           ),
-                        )
-                      ],
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Container(
+                            width: 270,
+                            child: Center(
+                              child: Text(
+                                "Creates LB service",
+                                softWrap: true,
+                                style: TextStyle(color: Colors.blueAccent),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -117,69 +124,72 @@ class _ServiceSelectorState extends State<ServiceSelector> {
             SizedBox(
               height: 30,
             ),
-            Card(
-              color: Colors.grey.shade100,
-              //margin: EdgeInsets.only(right: 20),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              elevation: 5,
-              child: Container(
-                height: 180,
-                width: 350,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: FloatingActionButton(
-                  heroTag: "2",
-                  isExtended: true,
-                  backgroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return ClusterIP();
-                    }));
-                  },
-                  child: Center(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Image.asset(
-                          "images/exip.png",
-                          height: 65,
-                          width: 65,
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Container(
-                          //Deployment//
-                          child: Text(
-                            "Cluster IP",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 19,
-                                fontWeight: FontWeight.w500),
+            FadeAnimation(
+              1.4,
+              Card(
+                color: Colors.grey.shade100,
+                //margin: EdgeInsets.only(right: 20),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+                elevation: 5,
+                child: Container(
+                  height: 180,
+                  width: 350,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: FloatingActionButton(
+                    heroTag: "2",
+                    isExtended: true,
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return ClusterIP();
+                      }));
+                    },
+                    child: Center(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 15,
                           ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Container(
-                          width: 270,
-                          child: Center(
+                          Image.asset(
+                            "images/exip.png",
+                            height: 65,
+                            width: 65,
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Container(
+                            //Deployment//
                             child: Text(
-                              "Creates ClusterlIP service",
-                              softWrap: true,
-                              style: TextStyle(color: Colors.blueAccent),
+                              "Cluster IP",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.w500),
                             ),
                           ),
-                        )
-                      ],
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Container(
+                            width: 270,
+                            child: Center(
+                              child: Text(
+                                "Creates ClusterlIP service",
+                                softWrap: true,
+                                style: TextStyle(color: Colors.blueAccent),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -188,69 +198,72 @@ class _ServiceSelectorState extends State<ServiceSelector> {
             SizedBox(
               height: 30,
             ),
-            Card(
-              color: Colors.grey.shade100,
-              //margin: EdgeInsets.only(right: 20),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              elevation: 5,
-              child: Container(
-                height: 180,
-                width: 350,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: FloatingActionButton(
-                  heroTag: "3",
-                  isExtended: true,
-                  backgroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return NodePort();
-                    }));
-                  },
-                  child: Center(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Image.asset(
-                          "images/NP1.png",
-                          height: 65,
-                          width: 65,
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Container(
-                          //Deployment//
-                          child: Text(
-                            "Node Port",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 19,
-                                fontWeight: FontWeight.w500),
+            FadeAnimation(
+              1.6,
+              Card(
+                color: Colors.grey.shade100,
+                //margin: EdgeInsets.only(right: 20),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+                elevation: 5,
+                child: Container(
+                  height: 180,
+                  width: 350,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: FloatingActionButton(
+                    heroTag: "3",
+                    isExtended: true,
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return NodePort();
+                      }));
+                    },
+                    child: Center(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 15,
                           ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Container(
-                          width: 270,
-                          child: Center(
+                          Image.asset(
+                            "images/NP1.png",
+                            height: 65,
+                            width: 65,
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Container(
+                            //Deployment//
                             child: Text(
-                              "Creates NodePort service",
-                              softWrap: true,
-                              style: TextStyle(color: Colors.blueAccent),
+                              "Node Port",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.w500),
                             ),
                           ),
-                        )
-                      ],
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Container(
+                            width: 270,
+                            child: Center(
+                              child: Text(
+                                "Creates NodePort service",
+                                softWrap: true,
+                                style: TextStyle(color: Colors.blueAccent),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -259,69 +272,72 @@ class _ServiceSelectorState extends State<ServiceSelector> {
             SizedBox(
               height: 30,
             ),
-            Card(
-              color: Colors.grey.shade100,
-              //margin: EdgeInsets.only(right: 20),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15)),
-              elevation: 5,
-              child: Container(
-                height: 180,
-                width: 350,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: FloatingActionButton(
-                  heroTag: "4",
-                  isExtended: true,
-                  backgroundColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20)),
-                  onPressed: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) {
-                      return ExternalName();
-                    }));
-                  },
-                  child: Center(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Image.asset(
-                          "images/exip.png",
-                          height: 65,
-                          width: 65,
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Container(
-                          //Deployment//
-                          child: Text(
-                            "External Name",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 19,
-                                fontWeight: FontWeight.w500),
+            FadeAnimation(
+              1.8,
+              Card(
+                color: Colors.grey.shade100,
+                //margin: EdgeInsets.only(right: 20),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15)),
+                elevation: 5,
+                child: Container(
+                  height: 180,
+                  width: 350,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: FloatingActionButton(
+                    heroTag: "4",
+                    isExtended: true,
+                    backgroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return ExternalName();
+                      }));
+                    },
+                    child: Center(
+                      child: Column(
+                        children: [
+                          SizedBox(
+                            height: 15,
                           ),
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        Container(
-                          width: 270,
-                          child: Center(
+                          Image.asset(
+                            "images/exip.png",
+                            height: 65,
+                            width: 65,
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Container(
+                            //Deployment//
                             child: Text(
-                              "Creates ExternalName service",
-                              softWrap: true,
-                              style: TextStyle(color: Colors.blueAccent),
+                              "External Name",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 19,
+                                  fontWeight: FontWeight.w500),
                             ),
                           ),
-                        )
-                      ],
+                          SizedBox(
+                            height: 15,
+                          ),
+                          Container(
+                            width: 270,
+                            child: Center(
+                              child: Text(
+                                "Creates ExternalName service",
+                                softWrap: true,
+                                style: TextStyle(color: Colors.blueAccent),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),

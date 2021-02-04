@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:KubernetesMobile/Animation/animation.dart';
 import 'package:KubernetesMobile/Resources/RC.dart';
 import 'package:KubernetesMobile/Server/Network.dart';
 import 'package:KubernetesMobile/Server/Volumes.dart';
@@ -239,7 +240,6 @@ class _PersistentVolumeClaimState extends State<PersistentVolumeClaim> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Ret("active");
     Path();
     Commands.name = null;
     Commands.isDone = false;
@@ -305,54 +305,63 @@ class _PersistentVolumeClaimState extends State<PersistentVolumeClaim> {
                   width: MediaQuery.of(context).size.width / 1.3,
                   child: Column(
                     children: [
-                      Container(
-                          margin: EdgeInsets.only(
-                              top: 5, bottom: 0, left: 0, right: 120),
-                          alignment: Alignment.center,
-                          height: 40,
-                          width: MediaQuery.of(context).size.width,
-                          child: Text(
-                            "Persistent",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold),
-                          )),
-                      Container(
-                          margin: EdgeInsets.only(
-                              top: 0, bottom: 5, left: 0, right: 0),
-                          alignment: Alignment.center,
-                          height: 40,
-                          width: MediaQuery.of(context).size.width,
-                          child: Text(
-                            "Volume Claim",
-                            style: TextStyle(
-                                letterSpacing: 2,
-                                color: Colors.white,
-                                fontSize: 35,
-                                fontWeight: FontWeight.bold),
-                          )
+                      FadeAnimation(
+                        1,
+                        Container(
+                            margin: EdgeInsets.only(
+                                top: 5, bottom: 0, left: 0, right: 120),
+                            alignment: Alignment.center,
+                            height: 40,
+                            width: MediaQuery.of(context).size.width,
+                            child: Text(
+                              "Persistent",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold),
+                            )),
+                      ),
+                      FadeAnimation(
+                        1.2,
+                        Container(
+                            margin: EdgeInsets.only(
+                                top: 0, bottom: 5, left: 0, right: 0),
+                            alignment: Alignment.center,
+                            height: 40,
+                            width: MediaQuery.of(context).size.width,
+                            child: Text(
+                              "Volume Claim",
+                              style: TextStyle(
+                                  letterSpacing: 2,
+                                  color: Colors.white,
+                                  fontSize: 35,
+                                  fontWeight: FontWeight.bold),
+                            )
 
-                          /*Image.asset(
-                        'images/kubernetes.png',
-                        height: 190,
-                        width: 290,
-                      ),*/
-                          ),
+                            /*Image.asset(
+                          'images/kubernetes.png',
+                          height: 190,
+                          width: 290,
+                        ),*/
+                            ),
+                      ),
                     ],
                   ),
                 ),
-                Container(
-                  alignment: Alignment.topCenter,
-                  width: MediaQuery.of(context).size.width / 4.5,
-                  child: Center(
-                    child: Container(
-                      margin: EdgeInsets.only(top: 15, right: 15),
-                      alignment: Alignment.topRight,
-                      child: Image.asset(
-                        'images/kube1.png',
-                        height: 80,
-                        width: 80,
+                FadeAnimation(
+                  1,
+                  Container(
+                    alignment: Alignment.topCenter,
+                    width: MediaQuery.of(context).size.width / 4.5,
+                    child: Center(
+                      child: Container(
+                        margin: EdgeInsets.only(top: 15, right: 15),
+                        alignment: Alignment.topRight,
+                        child: Image.asset(
+                          'images/kube1.png',
+                          height: 80,
+                          width: 80,
+                        ),
                       ),
                     ),
                   ),
@@ -510,7 +519,7 @@ class _PersistentVolumeState extends State<PersistentVolume> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Ret("active");
+
     Path();
     Commands.name = null;
     Commands.isDone = false;
@@ -576,54 +585,63 @@ class _PersistentVolumeState extends State<PersistentVolume> {
                   width: MediaQuery.of(context).size.width / 1.5,
                   child: Column(
                     children: [
-                      Container(
-                          margin: EdgeInsets.only(
-                              top: 5, bottom: 0, left: 0, right: 80),
-                          alignment: Alignment.center,
-                          height: 40,
-                          width: MediaQuery.of(context).size.width,
-                          child: Text(
-                            "Persistent",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 25,
-                                fontWeight: FontWeight.bold),
-                          )),
-                      Container(
-                          margin: EdgeInsets.only(
-                              top: 0, bottom: 5, left: 0, right: 90),
-                          alignment: Alignment.center,
-                          height: 40,
-                          width: MediaQuery.of(context).size.width,
-                          child: Text(
-                            "Volume",
-                            style: TextStyle(
-                                letterSpacing: 2,
-                                color: Colors.white,
-                                fontSize: 38,
-                                fontWeight: FontWeight.bold),
-                          )
+                      FadeAnimation(
+                        1,
+                        Container(
+                            margin: EdgeInsets.only(
+                                top: 5, bottom: 0, left: 0, right: 80),
+                            alignment: Alignment.center,
+                            height: 40,
+                            width: MediaQuery.of(context).size.width,
+                            child: Text(
+                              "Persistent",
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 25,
+                                  fontWeight: FontWeight.bold),
+                            )),
+                      ),
+                      FadeAnimation(
+                        1.2,
+                        Container(
+                            margin: EdgeInsets.only(
+                                top: 0, bottom: 5, left: 0, right: 90),
+                            alignment: Alignment.center,
+                            height: 40,
+                            width: MediaQuery.of(context).size.width,
+                            child: Text(
+                              "Volume",
+                              style: TextStyle(
+                                  letterSpacing: 2,
+                                  color: Colors.white,
+                                  fontSize: 38,
+                                  fontWeight: FontWeight.bold),
+                            )
 
-                          /*Image.asset(
-                        'images/kubernetes.png',
-                        height: 190,
-                        width: 290,
-                      ),*/
-                          ),
+                            /*Image.asset(
+                          'images/kubernetes.png',
+                          height: 190,
+                          width: 290,
+                        ),*/
+                            ),
+                      ),
                     ],
                   ),
                 ),
-                Container(
-                  alignment: Alignment.topCenter,
-                  width: MediaQuery.of(context).size.width / 3.5,
-                  child: Center(
-                    child: Container(
-                      margin: EdgeInsets.only(top: 15, right: 30),
-                      alignment: Alignment.topRight,
-                      child: Image.asset(
-                        'images/kube1.png',
-                        height: 80,
-                        width: 80,
+                FadeAnimation(
+                  1,
+                  Container(
+                    alignment: Alignment.topCenter,
+                    width: MediaQuery.of(context).size.width / 3.5,
+                    child: Center(
+                      child: Container(
+                        margin: EdgeInsets.only(top: 15, right: 30),
+                        alignment: Alignment.topRight,
+                        child: Image.asset(
+                          'images/kube1.png',
+                          height: 80,
+                          width: 80,
+                        ),
                       ),
                     ),
                   ),

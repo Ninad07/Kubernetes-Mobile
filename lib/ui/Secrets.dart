@@ -1,3 +1,4 @@
+import 'package:KubernetesMobile/Animation/animation.dart';
 import 'package:KubernetesMobile/Server/Network.dart';
 import 'package:KubernetesMobile/Server/Volumes.dart';
 import 'package:bmnav/bmnav.dart';
@@ -63,15 +64,18 @@ class _SecretsState extends State<Secrets> {
             width: MediaQuery.of(context).size.width,
             color: Colors.blueAccent.shade700,
           ),
-          Container(
-            margin: EdgeInsets.only(top: 10, bottom: 25, left: 0, right: 0),
-            alignment: Alignment.center,
-            height: 100,
-            width: MediaQuery.of(context).size.width,
-            child: Image.asset(
-              'images/kubernetes.png',
-              height: 190,
-              width: 290,
+          FadeAnimation(
+            1,
+            Container(
+              margin: EdgeInsets.only(top: 10, bottom: 25, left: 0, right: 0),
+              alignment: Alignment.center,
+              height: 100,
+              width: MediaQuery.of(context).size.width,
+              child: Image.asset(
+                'images/kubernetes.png',
+                height: 190,
+                width: 290,
+              ),
             ),
           ),
           Container(
@@ -86,108 +90,120 @@ class _SecretsState extends State<Secrets> {
               padding: EdgeInsets.all(17),
               child: SingleChildScrollView(
                   child: Column(children: <Widget>[
-                Container(
-                  height: 40,
-                  width: 320,
-                  decoration: BoxDecoration(
-                      color: Colors.blueAccent.shade700,
-                      borderRadius: BorderRadius.circular(20)),
-                  margin:
-                      EdgeInsets.only(top: 15, left: 25, right: 0, bottom: 20),
-                  child: Center(
-                    child: Text(
-                      "Create Secrets",
-                      style: TextStyle(color: Colors.white),
+                FadeAnimation(
+                  1.2,
+                  Container(
+                    height: 40,
+                    width: 320,
+                    decoration: BoxDecoration(
+                        color: Colors.blueAccent.shade700,
+                        borderRadius: BorderRadius.circular(20)),
+                    margin: EdgeInsets.only(
+                        top: 15, left: 25, right: 0, bottom: 20),
+                    child: Center(
+                      child: Text(
+                        "Create Secrets",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
                   ),
                 ),
-                Container(
-                  height: 50,
-                  width: 350,
-                  margin: EdgeInsets.only(top: 20, left: 10),
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        width: 70,
-                        child: Text(
-                          "Name   : ",
-                          style: TextStyle(fontWeight: FontWeight.bold),
+                FadeAnimation(
+                  1.4,
+                  Container(
+                    height: 50,
+                    width: 350,
+                    margin: EdgeInsets.only(top: 20, left: 10),
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          width: 70,
+                          child: Text(
+                            "Name   : ",
+                            style: TextStyle(fontWeight: FontWeight.bold),
+                          ),
                         ),
-                      ),
-                      Container(
-                        height: 45,
-                        width: 250,
-                        decoration: BoxDecoration(
-                            color: Colors.lightBlue,
-                            borderRadius: BorderRadius.circular(10)),
-                        margin: EdgeInsets.only(left: 20, right: 10),
-                        child: TextField(
-                          autocorrect: false,
-                          style: TextStyle(color: Colors.black),
-                          decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.white,
-                              hintText: "name",
-                              hintStyle:
-                                  TextStyle(color: Colors.grey, fontSize: 13),
-                              border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)))),
-                          onChanged: (value) => {Commands.name = value},
+                        Container(
+                          height: 45,
+                          width: 250,
+                          decoration: BoxDecoration(
+                              color: Colors.lightBlue,
+                              borderRadius: BorderRadius.circular(10)),
+                          margin: EdgeInsets.only(left: 20, right: 10),
+                          child: TextField(
+                            autocorrect: false,
+                            style: TextStyle(color: Colors.black),
+                            decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                hintText: "name",
+                                hintStyle:
+                                    TextStyle(color: Colors.grey, fontSize: 13),
+                                border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)))),
+                            onChanged: (value) => {Commands.name = value},
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-                Container(
-                  height: 50,
-                  width: 350,
-                  margin: EdgeInsets.only(top: 20, left: 10),
-                  child: Row(
-                    children: <Widget>[
-                      Container(
-                        width: 70,
-                        child: Text("Literals  : ",
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                      ),
-                      Container(
-                        height: 45,
-                        width: 250,
-                        decoration: BoxDecoration(
-                            color: Colors.lightBlue,
-                            borderRadius: BorderRadius.circular(10)),
-                        margin: EdgeInsets.only(left: 20, right: 10),
-                        child: TextField(
-                          autocorrect: false,
-                          style: TextStyle(color: Colors.black),
-                          decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Colors.white,
-                              hintText: "for ex. p=password",
-                              hintStyle:
-                                  TextStyle(color: Colors.grey, fontSize: 13),
-                              border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)))),
-                          onChanged: (value) => {Commands.passwd = value},
+                FadeAnimation(
+                  1.6,
+                  Container(
+                    height: 50,
+                    width: 350,
+                    margin: EdgeInsets.only(top: 20, left: 10),
+                    child: Row(
+                      children: <Widget>[
+                        Container(
+                          width: 70,
+                          child: Text("Literals  : ",
+                              style: TextStyle(fontWeight: FontWeight.bold)),
                         ),
-                      )
-                    ],
+                        Container(
+                          height: 45,
+                          width: 250,
+                          decoration: BoxDecoration(
+                              color: Colors.lightBlue,
+                              borderRadius: BorderRadius.circular(10)),
+                          margin: EdgeInsets.only(left: 20, right: 10),
+                          child: TextField(
+                            autocorrect: false,
+                            style: TextStyle(color: Colors.black),
+                            decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Colors.white,
+                                hintText: "for ex. p=password",
+                                hintStyle:
+                                    TextStyle(color: Colors.grey, fontSize: 13),
+                                border: OutlineInputBorder(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(10)))),
+                            onChanged: (value) => {Commands.passwd = value},
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-                Card(
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50)),
-                  margin: EdgeInsets.all(25),
-                  child: Container(
-                    margin: EdgeInsets.all(0),
-                    height: 45,
-                    width: 180,
-                    child: FloatingActionButton(
-                      isExtended: true,
-                      backgroundColor: Colors.blueAccent.shade700,
-                      child: Text("Create"),
-                      onPressed: createSecret,
+                FadeAnimation(
+                  1.8,
+                  Card(
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50)),
+                    margin: EdgeInsets.all(25),
+                    child: Container(
+                      margin: EdgeInsets.all(0),
+                      height: 45,
+                      width: 180,
+                      child: FloatingActionButton(
+                        isExtended: true,
+                        backgroundColor: Colors.blueAccent.shade700,
+                        child: Text("Create"),
+                        onPressed: createSecret,
+                      ),
                     ),
                   ),
                 )

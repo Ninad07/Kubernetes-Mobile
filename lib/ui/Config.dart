@@ -1,3 +1,4 @@
+import 'package:KubernetesMobile/Animation/animation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -38,70 +39,79 @@ class _ConfigState extends State<Config> {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            Container(
-              margin: EdgeInsets.only(top: 0, bottom: 0, left: 0, right: 10),
-              alignment: Alignment.center,
-              height: 80,
-              width: MediaQuery.of(context).size.width,
-              child: Image.asset(
-                'images/kubernetes.png',
-                height: 190,
-                width: 290,
+            FadeAnimation(
+              1,
+              Container(
+                margin: EdgeInsets.only(top: 0, bottom: 0, left: 0, right: 10),
+                alignment: Alignment.center,
+                height: 80,
+                width: MediaQuery.of(context).size.width,
+                child: Image.asset(
+                  'images/kubernetes.png',
+                  height: 190,
+                  width: 290,
+                ),
               ),
             ),
-            Container(
-              child: Text(
-                "configuration",
-                style: TextStyle(
-                    color: Colors.grey.shade900,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
-                    letterSpacing: 2.9),
+            FadeAnimation(
+              1.2,
+              Container(
+                child: Text(
+                  "configuration",
+                  style: TextStyle(
+                      color: Colors.grey.shade900,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 25,
+                      letterSpacing: 2.9),
+                ),
               ),
             ),
             SizedBox(
               height: 50,
             ),
-            Container(
-              child: Row(
-                children: [
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Container(
-                    child: Text(
-                      "Current-Context",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16),
+            FadeAnimation(
+              1.4,
+              Container(
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 20,
                     ),
-                  ),
-                  SizedBox(
-                    width: 15,
-                  ),
-                  Container(
-                    child: Text(
-                      ":",
-                      style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16),
+                    Container(
+                      child: Text(
+                        "Current-Context",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16),
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Container(
-                    child: Text(
-                      "${Commands.context.split('\n')[0]}",
-                      style: TextStyle(
-                          color: Colors.blueAccent.shade700,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 16),
+                    SizedBox(
+                      width: 15,
                     ),
-                  ),
-                ],
+                    Container(
+                      child: Text(
+                        ":",
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Container(
+                      child: Text(
+                        "${Commands.context.split('\n')[0]}",
+                        style: TextStyle(
+                            color: Colors.blueAccent.shade700,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16),
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
             SizedBox(

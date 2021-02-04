@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:KubernetesMobile/Animation/animation.dart';
 import 'package:KubernetesMobile/ui/Pods.dart';
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
@@ -111,15 +112,19 @@ class _ExecuteState extends State<Execute> {
         SingleChildScrollView(
           child: Column(
             children: [
-              Container(
-                margin: EdgeInsets.only(top: 10, bottom: 5, left: 0, right: 35),
-                alignment: Alignment.center,
-                height: 100,
-                width: MediaQuery.of(context).size.width,
-                child: Image.asset(
-                  'images/kubernetes.png',
-                  height: 190,
-                  width: 290,
+              FadeAnimation(
+                1,
+                Container(
+                  margin:
+                      EdgeInsets.only(top: 10, bottom: 5, left: 0, right: 35),
+                  alignment: Alignment.center,
+                  height: 100,
+                  width: MediaQuery.of(context).size.width,
+                  child: Image.asset(
+                    'images/kubernetes.png',
+                    height: 190,
+                    width: 290,
+                  ),
                 ),
               ),
               SizedBox(
@@ -137,149 +142,160 @@ class _ExecuteState extends State<Execute> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      Container(
-                        height: 40,
-                        width: 350,
-                        decoration: BoxDecoration(
-                            color: Colors.blueAccent.shade400,
-                            borderRadius: BorderRadius.circular(20)),
-                        margin: EdgeInsets.only(top: 25),
-                        child: Center(
-                          child: Text(
-                            "Execute Command",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.w500),
+                      FadeAnimation(
+                        1.2,
+                        Container(
+                          height: 40,
+                          width: 350,
+                          decoration: BoxDecoration(
+                              color: Colors.blueAccent.shade400,
+                              borderRadius: BorderRadius.circular(20)),
+                          margin: EdgeInsets.only(top: 25),
+                          child: Center(
+                            child: Text(
+                              "Execute Command",
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w500),
+                            ),
                           ),
                         ),
                       ),
-                      Container(
-                        height: 40,
-                        width: 350,
-                        margin: EdgeInsets.only(top: 20, left: 15),
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              width: 85,
-                              child: Text(
-                                "Pod   : ",
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                      FadeAnimation(
+                        1.4,
+                        Container(
+                          height: 40,
+                          width: 350,
+                          margin: EdgeInsets.only(top: 20, left: 15),
+                          child: Row(
+                            children: <Widget>[
+                              Container(
+                                width: 85,
+                                child: Text(
+                                  "Pod   : ",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
                               ),
-                            ),
-                            Container(
-                              height: 45,
-                              width: 230,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(10)),
-                              margin: EdgeInsets.only(left: 20, right: 10),
-                              child: DropdownSearch(
-                                popupBackgroundColor: Colors.white,
-                                mode: Mode.MENU,
-                                //showSelectedItem: true,
-                                items: Commands.res,
-                                onChanged: (value) {
-                                  setState(() {
-                                    //dir = value;
-                                    Commands.name = value;
+                              Container(
+                                height: 45,
+                                width: 230,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(10)),
+                                margin: EdgeInsets.only(left: 20, right: 10),
+                                child: DropdownSearch(
+                                  popupBackgroundColor: Colors.white,
+                                  mode: Mode.MENU,
+                                  //showSelectedItem: true,
+                                  items: Commands.res,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      //dir = value;
+                                      Commands.name = value;
 
-                                    //print("ABCD = ${items}");
-                                  });
-                                },
-                                selectedItem: Commands.name,
+                                      //print("ABCD = ${items}");
+                                    });
+                                  },
+                                  selectedItem: Commands.name,
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       ),
-                      Container(
-                        height: 40,
-                        width: 350,
-                        margin: EdgeInsets.only(
-                          top: 20,
-                          left: 15,
+                      FadeAnimation(
+                        1.6,
+                        Container(
+                          height: 40,
+                          width: 350,
+                          margin: EdgeInsets.only(
+                            top: 20,
+                            left: 15,
+                          ),
+                          child: Row(
+                            children: <Widget>[
+                              Container(
+                                width: 85,
+                                child: Text(
+                                  "Command  : ",
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              Container(
+                                height: 45,
+                                width: 230,
+                                decoration: BoxDecoration(
+                                    color: Colors.lightBlue,
+                                    borderRadius: BorderRadius.circular(10)),
+                                margin: EdgeInsets.only(left: 20, right: 10),
+                                child: TextField(
+                                  style: TextStyle(color: Colors.black),
+                                  decoration: InputDecoration(
+                                      filled: true,
+                                      fillColor: Colors.white,
+                                      hintText: "command",
+                                      hintStyle: TextStyle(
+                                          color: Colors.grey, fontSize: 13),
+                                      border: OutlineInputBorder(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10)))),
+                                  onChanged: (value) =>
+                                      {Commands.command = value},
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        child: Row(
-                          children: <Widget>[
-                            Container(
-                              width: 85,
+                      ),
+                      FadeAnimation(
+                        1.8,
+                        Card(
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(50)),
+                          margin: EdgeInsets.all(25),
+                          child: Container(
+                            margin: EdgeInsets.all(0),
+                            height: 50,
+                            width: 180,
+                            child: FloatingActionButton(
+                              isExtended: true,
+                              backgroundColor: Colors.blueAccent,
                               child: Text(
-                                "Command  : ",
-                                style: TextStyle(fontWeight: FontWeight.bold),
+                                "Execute",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                ),
                               ),
+                              onPressed: kubeExec,
                             ),
-                            Container(
-                              height: 45,
-                              width: 230,
-                              decoration: BoxDecoration(
-                                  color: Colors.lightBlue,
-                                  borderRadius: BorderRadius.circular(10)),
-                              margin: EdgeInsets.only(left: 20, right: 10),
-                              child: TextField(
-                                style: TextStyle(color: Colors.black),
-                                decoration: InputDecoration(
-                                    filled: true,
-                                    fillColor: Colors.white,
-                                    hintText: "command",
-                                    hintStyle: TextStyle(
-                                        color: Colors.grey, fontSize: 13),
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.all(
-                                            Radius.circular(10)))),
-                                onChanged: (value) =>
-                                    {Commands.command = value},
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(50)),
-                        margin: EdgeInsets.all(25),
-                        child: Container(
-                          margin: EdgeInsets.all(0),
-                          height: 50,
-                          width: 180,
-                          child: FloatingActionButton(
-                            isExtended: true,
-                            backgroundColor: Colors.blueAccent,
-                            child: Text(
-                              "Execute",
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                            ),
-                            onPressed: kubeExec,
                           ),
                         ),
                       ),
                       SizedBox(
                         height: 25,
                       ),
-                      Center(
-                          child: Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)),
-                        elevation: 5,
-                        child: Container(
-                          height: 250,
-                          width: 350,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20),
-                              border: Border.all(
-                                  color: Colors.grey.shade700, width: 1)),
-                          child: SingleChildScrollView(
-                            child: Center(
-                                child: Container(
-                                    padding: EdgeInsets.all(20),
-                                    child: Commands.execop != null
-                                        ? Text("${Commands.execop}")
-                                        : Text(""))),
+                      FadeAnimation(
+                        2,
+                        Center(
+                          child: Container(
+                            height: 250,
+                            width: 350,
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                    color: Colors.grey.shade700, width: 1)),
+                            child: SingleChildScrollView(
+                              child: Center(
+                                  child: Container(
+                                      padding: EdgeInsets.all(20),
+                                      child: Commands.execop != null
+                                          ? Text("${Commands.execop}")
+                                          : Text(""))),
+                            ),
                           ),
                         ),
-                      )),
+                      ),
                     ],
                   ),
                 ),
