@@ -143,7 +143,7 @@ class _AuthState extends State<Auth> {
               margin: EdgeInsets.all(15),
               child: Container(
                 margin: EdgeInsets.only(top: 10),
-                height: 40,
+                height: 50,
                 width: 350,
                 child: FloatingActionButton(
                   shape: RoundedRectangleBorder(
@@ -429,7 +429,7 @@ class _AuthState extends State<Auth> {
                                     margin: EdgeInsets.all(15),
                                     child: Container(
                                       margin: EdgeInsets.only(top: 10),
-                                      height: 40,
+                                      height: 50,
                                       width: 350,
                                       child: FloatingActionButton(
                                         shape: RoundedRectangleBorder(

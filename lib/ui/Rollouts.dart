@@ -136,7 +136,7 @@ class _RolloutState extends State<Rollout> {
                   FadeAnimation(
                     1.4,
                     Container(
-                      height: 50,
+                      height: 48,
                       width: 350,
                       margin: EdgeInsets.only(
                         top: 25,
@@ -150,7 +150,7 @@ class _RolloutState extends State<Rollout> {
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                           ),
                           Container(
-                            height: 45,
+                            height: 48,
                             width: 250,
                             decoration: BoxDecoration(
                                 color: Colors.white,
@@ -193,7 +193,7 @@ class _RolloutState extends State<Rollout> {
                   FadeAnimation(
                     1.6,
                     Container(
-                      height: 50,
+                      height: 48,
                       width: 350,
                       margin: EdgeInsets.only(top: 20, left: 10),
                       child: Row(
@@ -206,7 +206,7 @@ class _RolloutState extends State<Rollout> {
                             ),
                           ),
                           Container(
-                            height: 45,
+                            height: 48,
                             width: 250,
                             decoration: BoxDecoration(
                                 color: Colors.lightBlue,
@@ -235,7 +235,7 @@ class _RolloutState extends State<Rollout> {
                   FadeAnimation(
                     1.8,
                     Container(
-                      height: 50,
+                      height: 48,
                       width: 350,
                       margin: EdgeInsets.only(top: 20, left: 10),
                       child: Row(
@@ -246,7 +246,7 @@ class _RolloutState extends State<Rollout> {
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                           ),
                           Container(
-                            height: 45,
+                            height: 48,
                             width: 250,
                             decoration: BoxDecoration(
                                 color: Colors.lightBlue,
@@ -275,7 +275,7 @@ class _RolloutState extends State<Rollout> {
                   FadeAnimation(
                     2,
                     Container(
-                      height: 50,
+                      height: 48,
                       width: 350,
                       margin: EdgeInsets.only(top: 20, left: 10),
                       child: Row(
@@ -286,7 +286,7 @@ class _RolloutState extends State<Rollout> {
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                           ),
                           Container(
-                            height: 45,
+                            height: 48,
                             width: 250,
                             decoration: BoxDecoration(
                                 color: Colors.lightBlue,
@@ -315,7 +315,7 @@ class _RolloutState extends State<Rollout> {
                   FadeAnimation(
                     2.2,
                     Container(
-                      height: 50,
+                      height: 48,
                       width: 350,
                       margin: EdgeInsets.only(
                         top: 25,
@@ -329,7 +329,7 @@ class _RolloutState extends State<Rollout> {
                                 style: TextStyle(fontWeight: FontWeight.bold)),
                           ),
                           Container(
-                            height: 45,
+                            height: 48,
                             width: 250,
                             decoration: BoxDecoration(
                                 color: Colors.white,

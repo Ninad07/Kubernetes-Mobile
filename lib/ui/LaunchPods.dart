@@ -14,11 +14,16 @@ class PodLaunch extends StatefulWidget {
 }
 
 bool launchLoading = false;
-TextEditingController _value;
 String environment = "";
 var i;
 
 class _PodLaunchState extends State<PodLaunch> {
+  TextEditingController nametxt = new TextEditingController();
+  TextEditingController imagetxt = new TextEditingController();
+
+  TextEditingController porttxt = new TextEditingController();
+  TextEditingController envtxt = new TextEditingController();
+
   @override
   void initState() {
     // TODO: implement initState
@@ -40,12 +45,6 @@ class _PodLaunchState extends State<PodLaunch> {
     //FlutterStatusbarcolor.setStatusBarColor(Colors.blue.shade600);
     //FlutterStatusbarcolor.setNavigationBarColor(Colors.blue);
     print("COMMANDS.ENV = ${Commands.env}");
-
-    TextEditingController nametxt = new TextEditingController();
-    TextEditingController imagetxt = new TextEditingController();
-
-    TextEditingController porttxt = new TextEditingController();
-    TextEditingController envtxt = new TextEditingController();
 
     LaunchPods() async {
       setState(() {
@@ -160,7 +159,7 @@ class _PodLaunchState extends State<PodLaunch> {
                     FadeAnimation(
                       1.4,
                       Container(
-                        height: 50,
+                        height: 48,
                         width: 350,
                         margin: EdgeInsets.only(top: 20, left: 10),
                         child: Row(
@@ -173,17 +172,20 @@ class _PodLaunchState extends State<PodLaunch> {
                               ),
                             ),
                             Container(
-                              height: 45,
+                              height: 48,
                               width: 250,
                               decoration: BoxDecoration(
                                   color: Colors.lightBlue,
                                   borderRadius: BorderRadius.circular(10)),
                               margin: EdgeInsets.only(left: 20, right: 10),
                               child: TextField(
+                                maxLines: 1,
+                                minLines: 1,
                                 controller: nametxt,
                                 autocorrect: false,
                                 style: TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
+                                    isDense: true,
                                     filled: true,
                                     fillColor: Colors.white,
                                     hintText: "name",
@@ -202,7 +204,7 @@ class _PodLaunchState extends State<PodLaunch> {
                     FadeAnimation(
                       1.6,
                       Container(
-                        height: 50,
+                        height: 48,
                         width: 350,
                         margin: EdgeInsets.only(top: 20, left: 10),
                         child: Row(
@@ -214,7 +216,7 @@ class _PodLaunchState extends State<PodLaunch> {
                                       TextStyle(fontWeight: FontWeight.bold)),
                             ),
                             Container(
-                              height: 45,
+                              height: 48,
                               width: 250,
                               decoration: BoxDecoration(
                                   color: Colors.lightBlue,
@@ -225,6 +227,7 @@ class _PodLaunchState extends State<PodLaunch> {
                                 autocorrect: false,
                                 style: TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
+                                    isDense: true,
                                     filled: true,
                                     fillColor: Colors.white,
                                     hintText: "image",
@@ -243,7 +246,7 @@ class _PodLaunchState extends State<PodLaunch> {
                     FadeAnimation(
                       1.8,
                       Container(
-                        height: 50,
+                        height: 48,
                         width: 350,
                         margin: EdgeInsets.only(top: 20, left: 10),
                         child: Row(
@@ -255,7 +258,7 @@ class _PodLaunchState extends State<PodLaunch> {
                                       TextStyle(fontWeight: FontWeight.bold)),
                             ),
                             Container(
-                              height: 45,
+                              height: 48,
                               width: 250,
                               decoration: BoxDecoration(
                                   color: Colors.lightBlue,
@@ -265,6 +268,7 @@ class _PodLaunchState extends State<PodLaunch> {
                                 controller: porttxt,
                                 style: TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
+                                    isDense: true,
                                     filled: true,
                                     fillColor: Colors.white,
                                     hintText: "Ports",
@@ -283,6 +287,7 @@ class _PodLaunchState extends State<PodLaunch> {
                     FadeAnimation(
                       2,
                       Container(
+                        height: 48,
                         alignment: Alignment.topLeft,
                         margin: EdgeInsets.only(top: 20, left: 10),
                         child: Row(
@@ -294,7 +299,7 @@ class _PodLaunchState extends State<PodLaunch> {
                                       TextStyle(fontWeight: FontWeight.bold)),
                             ),
                             Container(
-                              height: 45,
+                              height: 48,
                               width: 250,
                               decoration: BoxDecoration(
                                   color: Colors.lightBlue,
@@ -304,6 +309,7 @@ class _PodLaunchState extends State<PodLaunch> {
                                 controller: envtxt,
                                 style: TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
+                                    isDense: true,
                                     filled: true,
                                     fillColor: Colors.white,
                                     hintText:
@@ -407,9 +413,10 @@ class _PodLaunchState extends State<PodLaunch> {
                               isExtended: true,
                               backgroundColor: Colors.blueAccent.shade700,
                               child: launchLoading
-                                  ? CircularProgressIndicator(
-                                      backgroundColor: Colors.white,
-                                    )
+                                  ? Transform.scale(
+                                      scale: 0.6,
+                                      child: CircularProgressIndicator(
+                                          backgroundColor: Colors.white))
                                   : Text("Launch"),
                               onPressed: LaunchPods,
                             ),

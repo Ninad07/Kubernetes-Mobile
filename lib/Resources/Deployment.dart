@@ -139,7 +139,7 @@ class _DeploymentState extends State<Deployment> {
                     FadeAnimation(
                       1.4,
                       Container(
-                        height: 50,
+                        height: 48,
                         width: 350,
                         margin: EdgeInsets.only(top: 20, left: 10),
                         child: Row(
@@ -152,7 +152,7 @@ class _DeploymentState extends State<Deployment> {
                               ),
                             ),
                             Container(
-                              height: 45,
+                              height: 48,
                               width: 250,
                               decoration: BoxDecoration(
                                   color: Colors.lightBlue,
@@ -162,6 +162,7 @@ class _DeploymentState extends State<Deployment> {
                                 autocorrect: false,
                                 style: TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
+                                    isDense: true,
                                     filled: true,
                                     fillColor: Colors.white,
                                     hintText: "name",
@@ -180,7 +181,7 @@ class _DeploymentState extends State<Deployment> {
                     FadeAnimation(
                       1.6,
                       Container(
-                        height: 50,
+                        height: 48,
                         width: 350,
                         margin: EdgeInsets.only(top: 20, left: 10),
                         child: Row(
@@ -192,7 +193,7 @@ class _DeploymentState extends State<Deployment> {
                                       TextStyle(fontWeight: FontWeight.bold)),
                             ),
                             Container(
-                              height: 45,
+                              height: 48,
                               width: 250,
                               decoration: BoxDecoration(
                                   color: Colors.lightBlue,
@@ -202,6 +203,7 @@ class _DeploymentState extends State<Deployment> {
                                 autocorrect: false,
                                 style: TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
+                                    isDense: true,
                                     filled: true,
                                     fillColor: Colors.white,
                                     hintText: "image",
@@ -220,7 +222,7 @@ class _DeploymentState extends State<Deployment> {
                     FadeAnimation(
                       1.8,
                       Container(
-                        height: 50,
+                        height: 48,
                         width: 350,
                         margin: EdgeInsets.only(top: 20, left: 10),
                         child: Row(
@@ -232,7 +234,7 @@ class _DeploymentState extends State<Deployment> {
                                       TextStyle(fontWeight: FontWeight.bold)),
                             ),
                             Container(
-                              height: 45,
+                              height: 48,
                               width: 250,
                               decoration: BoxDecoration(
                                   color: Colors.lightBlue,
@@ -241,6 +243,7 @@ class _DeploymentState extends State<Deployment> {
                               child: TextField(
                                 style: TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
+                                    isDense: true,
                                     filled: true,
                                     fillColor: Colors.white,
                                     hintText: "port",
@@ -259,7 +262,7 @@ class _DeploymentState extends State<Deployment> {
                     FadeAnimation(
                       2,
                       Container(
-                        height: 50,
+                        height: 48,
                         width: 350,
                         margin: EdgeInsets.only(top: 20, left: 10),
                         child: Row(
@@ -271,7 +274,7 @@ class _DeploymentState extends State<Deployment> {
                                       TextStyle(fontWeight: FontWeight.bold)),
                             ),
                             Container(
-                              height: 45,
+                              height: 48,
                               width: 250,
                               decoration: BoxDecoration(
                                   color: Colors.lightBlue,
@@ -280,6 +283,7 @@ class _DeploymentState extends State<Deployment> {
                               child: TextField(
                                 style: TextStyle(color: Colors.black),
                                 decoration: InputDecoration(
+                                    isDense: true,
                                     filled: true,
                                     fillColor: Colors.white,
                                     hintText: "replicas",
