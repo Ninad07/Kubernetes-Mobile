@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "871659714035",
+    "project_id": "kubernetesmobile",
+    "storage_bucket": "kubernetesmobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:871659714035:android:2c5eff1e8818a788490e86",
+        "android_client_info": {
+          "package_name": "com.ninad.KubernetesMobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "871659714035-dqc6i7b7c1u5i66ip6pdemtfq2tbnbfg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEvr-giWnMKc8om3I-1YZ6-w6OoWWbnl4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "871659714035-dqc6i7b7c1u5i66ip6pdemtfq2tbnbfg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
